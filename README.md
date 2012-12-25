@@ -9,11 +9,11 @@ Included is a demo project showing how to use the control.
 
 To use in your own project, first import HMSegmentedControl.m and HMSegmentedControl.h into your project, then add QuartzCore to your linked libraries.
 
-`HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three"]];
-[segmentedControl setFrame:CGRectMake(10, 10, 300, 60)];
-[segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-[segmentedControl setTag:1];
-[self.view addSubview:segmentedControl];`
+    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three"]];
+    [segmentedControl setFrame:CGRectMake(10, 10, 300, 60)];
+    [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [segmentedControl setTag:1];
+    [self.view addSubview:segmentedControl];`
 
 License
 --------
