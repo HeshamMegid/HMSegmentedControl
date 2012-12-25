@@ -19,6 +19,8 @@ HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSecti
 [self.view addSubview:segmentedControl];
 ```
 
+![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
+
 License
 --------
 HMSegmentedControl is licensed under the terms of the MIT License. Please see the LICENSE file for full details.
