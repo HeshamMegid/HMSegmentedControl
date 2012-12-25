@@ -41,7 +41,7 @@
     [self.view addSubview:segmentedControl2];
     
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(10, 200, 300, 50)];
-    [segmentedControl3 setSectionTitles:@[@"wa7eed", @"etneen", @"talata"]];
+    [segmentedControl3 setSectionTitles:@[@"Worldwide", @"Local", @"Headlines"]];
     [segmentedControl3 setSelectedIndex:1];
     [segmentedControl3 setBackgroundColor:[UIColor lightGrayColor]];
     [segmentedControl3 setTextColor:[UIColor whiteColor]];
