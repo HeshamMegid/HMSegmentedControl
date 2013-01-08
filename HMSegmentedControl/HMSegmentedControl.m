@@ -91,11 +91,15 @@
     CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedIndex] sizeWithFont:self.font].width;
     
     if (self.selectionIndicatorMode == HMSelectionIndicatorResizesToStringWidth) {
-        CGFloat widthTillEndOfSelectedIndex = (self.segmentWidth * self.selectedIndex) + self.segmentWidth;
-        CGFloat widthTillBeforeSelectedIndex = (self.segmentWidth * self.selectedIndex);
-        
-        CGFloat x = ((widthTillEndOfSelectedIndex - widthTillBeforeSelectedIndex) / 2) + (widthTillBeforeSelectedIndex - stringWidth / 2);
-        return CGRectMake(x, 0.0, stringWidth, self.selectionIndicatorHeight);
+        if (stringWidth > self.segmentWidth) {
+            return CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.selectionIndicatorHeight);
+        } else {
+            CGFloat widthTillEndOfSelectedIndex = (self.segmentWidth * self.selectedIndex) + self.segmentWidth;
+            CGFloat widthTillBeforeSelectedIndex = (self.segmentWidth * self.selectedIndex);
+            
+            CGFloat x = ((widthTillEndOfSelectedIndex - widthTillBeforeSelectedIndex) / 2) + (widthTillBeforeSelectedIndex - stringWidth / 2);
+            return CGRectMake(x, 0.0, stringWidth, self.selectionIndicatorHeight);
+        }
     } else {
         return CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.selectionIndicatorHeight);
     }
