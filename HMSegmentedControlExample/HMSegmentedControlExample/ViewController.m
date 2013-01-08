@@ -19,8 +19,8 @@
 {
     [super viewDidLoad];
     
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Library", @"Trending", @"News"]];
-    [segmentedControl setSelectionIndicatorMode:HMSelectionIndicatorFillsSegment];
+    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Library", @"Trending and really really long", @"News and also verr long"]];
+    [segmentedControl setSelectionIndicatorMode:HMSelectionIndicatorResizesToStringWidth];
     [segmentedControl setFrame:CGRectMake(10, 10, 300, 60)];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [segmentedControl setTag:1];
