@@ -45,7 +45,7 @@
     self.backgroundColor = [UIColor whiteColor];
     self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
     
-    self.selectedIndex = 0;
+    self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.height = 32.0f;
     self.selectionIndicatorHeight = 5.0f;
@@ -80,23 +80,26 @@
                       alignment:NSTextAlignmentCenter];
 #endif
         
-        self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
         self.selectedSegmentLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-        [self.layer addSublayer:self.selectedSegmentLayer];
+        
+        if (self.selectedSegmentIndex != HMSegmentedControlNoSegment) {
+            self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
+            [self.layer addSublayer:self.selectedSegmentLayer];
+        }
     }];
 }
 
 - (CGRect)frameForSelectionIndicator {
-    CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedIndex] sizeWithFont:self.font].width;
+    CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
     
     if (self.selectionIndicatorMode == HMSelectionIndicatorResizesToStringWidth && stringWidth <= self.segmentWidth) {
-        CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedIndex) + self.segmentWidth;
-        CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedIndex);
+        CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
+        CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
         
         CGFloat x = ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) + (widthToStartOfSelectedIndex - stringWidth / 2);
         return CGRectMake(x, 0.0, stringWidth, self.selectionIndicatorHeight);
     } else {
-        return CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.selectionIndicatorHeight);
+        return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0.0, self.segmentWidth, self.selectionIndicatorHeight);
     }
 }
 
@@ -134,50 +137,64 @@
     if (CGRectContainsPoint(self.bounds, touchLocation)) {
         NSInteger segment = touchLocation.x / self.segmentWidth;
         
-        if (segment != self.selectedIndex) {
-            [self setSelectedIndex:segment animated:YES];
+        if (segment != self.selectedSegmentIndex) {
+            [self setSelectedSegmentIndex:segment animated:YES];
         }
     }
 }
 
 #pragma mark -
 
-- (void)setSelectedIndex:(NSInteger)index {
-    [self setSelectedIndex:index animated:NO];
+- (void)setSelectedSegmentIndex:(NSInteger)index {
+    [self setSelectedSegmentIndex:index animated:NO];
 }
 
-- (void)setSelectedIndex:(NSUInteger)index animated:(BOOL)animated {
-    _selectedIndex = index;
+- (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated {
+    _selectedSegmentIndex = index;
 
-    if (animated) {
-        // Restore CALayer animations
-        self.selectedSegmentLayer.actions = nil;
-        
-        [CATransaction begin];
-        [CATransaction setAnimationDuration:0.15f];
-        [CATransaction setCompletionBlock:^{
-            if (self.superview)
-                [self sendActionsForControlEvents:UIControlEventValueChanged];
-            
-            if (self.indexChangeBlock)
-                self.indexChangeBlock(index);
-        }];
-        self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
-        [CATransaction commit];
+    if (index == HMSegmentedControlNoSegment) {
+        [self.selectedSegmentLayer removeFromSuperlayer];
+        [self notifyForSegmentChangeToIndex:index];
     } else {
-        // Disable CALayer animations
-        NSMutableDictionary *newActions = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", nil];
-        self.selectedSegmentLayer.actions = newActions;
-        
-        self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
-        
-        if (self.superview)
-            [self sendActionsForControlEvents:UIControlEventValueChanged];
-        
-        if (self.indexChangeBlock)
-            self.indexChangeBlock(index);
+        if (animated) {
 
-    }    
+            // If the selected segment layer is not added to the super layer, that means no
+            // index is currently selected, so add the layer then move it to the new selected
+            // segment index without animating.
+            if ([self.selectedSegmentLayer superlayer] == nil) {
+                [self.layer addSublayer:self.selectedSegmentLayer];
+                [self setSelectedSegmentIndex:index animated:NO];
+                return;
+            }
+
+            // Restore CALayer animations
+            self.selectedSegmentLayer.actions = nil;
+            
+            // Animate to new position
+            [CATransaction begin];
+            [CATransaction setAnimationDuration:0.15f];
+            [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+            [CATransaction setCompletionBlock:^{
+                [self notifyForSegmentChangeToIndex:index];
+            }];
+            self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
+            [CATransaction commit];
+        } else {
+            // Disable CALayer animations
+            NSMutableDictionary *newActions = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", nil];
+            self.selectedSegmentLayer.actions = newActions;
+            self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
+            [self notifyForSegmentChangeToIndex:index];
+        }
+    }
+}
+
+- (void)notifyForSegmentChangeToIndex:(NSInteger)index {
+    if (self.superview)
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
+    
+    if (self.indexChangeBlock)
+        self.indexChangeBlock(index);
 }
 
 - (void)setFrame:(CGRect)frame {

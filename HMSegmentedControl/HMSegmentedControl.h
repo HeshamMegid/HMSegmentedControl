@@ -13,6 +13,10 @@ enum HMSelectionIndicatorMode {
     HMSelectionIndicatorFillsSegment = 1 // Indicator width will fill the whole segment
 };
 
+enum {
+    HMSegmentedControlNoSegment = -1   // segment index for no selected segment
+};
+
 @interface HMSegmentedControl : UIControl
 
 @property (nonatomic, strong) NSArray *sectionTitles;
@@ -24,12 +28,12 @@ enum HMSelectionIndicatorMode {
 @property (nonatomic, strong) UIColor *selectionIndicatorColor; // default is 52, 181, 229
 @property (nonatomic, assign) enum HMSelectionIndicatorMode selectionIndicatorMode; // Default is HMSelectionIndicatorResizesToStringWidth
 
-@property (nonatomic, assign) NSInteger selectedIndex;
+@property (nonatomic, assign) NSInteger selectedSegmentIndex;
 @property (nonatomic, readwrite) CGFloat height; // default is 32.0
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight; // default is 5.0
 @property (nonatomic, readwrite) UIEdgeInsets segmentEdgeInset; // default is UIEdgeInsetsMake(0, 5, 0, 5)
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
-- (void)setSelectedIndex:(NSUInteger)index animated:(BOOL)animated;
+- (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 
 @end

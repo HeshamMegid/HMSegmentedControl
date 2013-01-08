@@ -19,13 +19,14 @@
 {
     [super viewDidLoad];
     
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Library", @"Trending and really really long", @"News and also verr long"]];
+    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Library", @"Trending", @"News"]];
     [segmentedControl setSelectionIndicatorMode:HMSelectionIndicatorResizesToStringWidth];
     [segmentedControl setFrame:CGRectMake(10, 10, 300, 60)];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [segmentedControl setTag:1];
+    [segmentedControl setSelectedSegmentIndex:HMSegmentedControlNoSegment];
     [self.view addSubview:segmentedControl];
-    
+
     HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
     [segmentedControl2 setIndexChangeBlock:^(NSUInteger index) {
         NSLog(@"Selected index %i (via block)", index);
@@ -43,7 +44,7 @@
     
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(10, 200, 300, 50)];
     [segmentedControl3 setSectionTitles:@[@"Worldwide", @"Local", @"Headlines"]];
-    [segmentedControl3 setSelectedIndex:1];
+    [segmentedControl3 setSelectedSegmentIndex:1];
     [segmentedControl3 setBackgroundColor:[UIColor lightGrayColor]];
     [segmentedControl3 setTextColor:[UIColor whiteColor]];
     [segmentedControl3 setSelectionIndicatorColor:[UIColor blackColor]];
@@ -52,7 +53,7 @@
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %i (via UIControlEventValueChanged)", segmentedControl.selectedIndex);
+	NSLog(@"Selected index %i (via UIControlEventValueChanged)", segmentedControl.selectedSegmentIndex);
 }
 
 @end
