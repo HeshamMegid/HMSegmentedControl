@@ -58,6 +58,15 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    CALayer *selectedSegmentFillerLayer = [[CALayer alloc] init];
+    selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.frame.size.height);
+    selectedSegmentFillerLayer.opacity = 0.2;
+    selectedSegmentFillerLayer.borderWidth = 1.0f;
+    selectedSegmentFillerLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
+    selectedSegmentFillerLayer.borderColor = self.selectionIndicatorColor.CGColor;
+    [self.layer addSublayer:selectedSegmentFillerLayer];
+
+    
     [self.backgroundColor set];
     UIRectFill([self bounds]);
     
@@ -83,7 +92,6 @@
         self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
         self.selectedSegmentLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
         [self.layer addSublayer:self.selectedSegmentLayer];
-
     }];
 }
 
@@ -91,13 +99,14 @@
     CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedIndex] sizeWithFont:self.font].width;
     
     if (self.selectionIndicatorMode == HMSelectionIndicatorResizesToStringWidth) {
-        CGFloat widthTillEndOfSelectedIndex = (self.segmentWidth * self.selectedIndex) + self.segmentWidth;
-        CGFloat widthTillBeforeSelectedIndex = (self.segmentWidth * self.selectedIndex);
+        CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedIndex) + self.segmentWidth;
+        CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedIndex);
         
-        CGFloat x = ((widthTillEndOfSelectedIndex - widthTillBeforeSelectedIndex) / 2) + (widthTillBeforeSelectedIndex - stringWidth / 2);
+        CGFloat x = ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) + (widthToStartOfSelectedIndex - stringWidth / 2);
         return CGRectMake(x, 0.0, stringWidth, self.selectionIndicatorHeight);
     } else {
         return CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.selectionIndicatorHeight);
+//        return CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.frame.size.height);
     }
 }
 
