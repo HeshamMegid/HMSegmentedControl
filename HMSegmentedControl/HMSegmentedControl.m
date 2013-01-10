@@ -57,8 +57,18 @@
 #pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect
-{    
-    [self.backgroundColor set];
+{
+// Below is a work in progress for a new style for the selected segment
+//    CALayer *selectedSegmentFillerLayer = [[CALayer alloc] init];
+//    selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.frame.size.height);
+//    selectedSegmentFillerLayer.opacity = 0.2;
+//    selectedSegmentFillerLayer.borderWidth = 1.0f;
+//    selectedSegmentFillerLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
+//    selectedSegmentFillerLayer.borderColor = self.selectionIndicatorColor.CGColor;
+//    [self.layer addSublayer:selectedSegmentFillerLayer];
+    
+//    [self.layer setBackgroundColor:[UIColor clearColor].CGColor];
+    [self.backgroundColor setFill];
     UIRectFill([self bounds]);
     
     [self.textColor set];
@@ -154,7 +164,6 @@
 
     if (index == HMSegmentedControlNoSegment) {
         [self.selectedSegmentLayer removeFromSuperlayer];
-        [self notifyForSegmentChangeToIndex:index];
     } else {
         if (animated) {
 

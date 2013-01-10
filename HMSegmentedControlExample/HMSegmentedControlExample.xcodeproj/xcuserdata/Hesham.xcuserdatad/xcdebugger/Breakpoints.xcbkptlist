@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../HMSegmentedControl/HMSegmentedControl.m"
-         timestampString = "379334118.398347"
+         timestampString = "379506487.104265"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
+         startingLineNumber = "87"
+         endingLineNumber = "87"
          landmarkName = "-drawRect:"
          landmarkType = "5">
       </FileBreakpoint>

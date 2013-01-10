@@ -33,7 +33,7 @@
     }];
     
     [segmentedControl2 setSelectionIndicatorHeight:4.0f];
-    [segmentedControl2 setBackgroundColor:[UIColor blackColor]];
+    [segmentedControl2 setBackgroundColor:[UIColor clearColor]];
     [segmentedControl2 setTextColor:[UIColor whiteColor]];
     [segmentedControl2 setSelectionIndicatorColor:[UIColor redColor]];
     [segmentedControl2 setSelectionIndicatorMode:HMSelectionIndicatorFillsSegment];
@@ -49,11 +49,15 @@
     [segmentedControl3 setTextColor:[UIColor whiteColor]];
     [segmentedControl3 setSelectionIndicatorColor:[UIColor blackColor]];
     [segmentedControl3 setTag:3];
-    [self.view addSubview:segmentedControl3];
+    [self.view addSubview:segmentedControl3];    
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
 	NSLog(@"Selected index %i (via UIControlEventValueChanged)", segmentedControl.selectedSegmentIndex);
+}
+
+- (void)uisegmentedControlChangedValue:(UISegmentedControl *)segmentedControl {
+	NSLog(@"Selected index %i", segmentedControl.selectedSegmentIndex);
 }
 
 @end
