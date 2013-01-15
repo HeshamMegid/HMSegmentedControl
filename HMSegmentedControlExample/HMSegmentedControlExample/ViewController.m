@@ -33,7 +33,7 @@
     }];
     
     [segmentedControl2 setSelectionIndicatorHeight:4.0f];
-    [segmentedControl2 setBackgroundColor:[UIColor clearColor]];
+    [segmentedControl2 setBackgroundColor:[UIColor blackColor]];
     [segmentedControl2 setTextColor:[UIColor whiteColor]];
     [segmentedControl2 setSelectionIndicatorColor:[UIColor redColor]];
     [segmentedControl2 setSelectionIndicatorMode:HMSelectionIndicatorFillsSegment];

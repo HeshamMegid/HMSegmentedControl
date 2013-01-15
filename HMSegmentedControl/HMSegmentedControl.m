@@ -43,6 +43,7 @@
     self.font = [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f];
     self.textColor = [UIColor blackColor];
     self.backgroundColor = [UIColor whiteColor];
+    self.opaque = NO;
     self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
     
     self.selectedSegmentIndex = 0;
@@ -67,7 +68,6 @@
 //    selectedSegmentFillerLayer.borderColor = self.selectionIndicatorColor.CGColor;
 //    [self.layer addSublayer:selectedSegmentFillerLayer];
     
-//    [self.layer setBackgroundColor:[UIColor clearColor].CGColor];
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
     
