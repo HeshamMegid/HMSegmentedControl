@@ -50,7 +50,7 @@
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.height = 32.0f;
     self.selectionIndicatorHeight = 5.0f;
-    self.selectionIndicatorMode = HMSelectionIndicatorResizesToStringWidth;
+    self.selectionIndicatorStyle = HMSelectionIndicatorResizesToStringWidth;
     
     self.selectedSegmentLayer = [CALayer layer];
 }
@@ -102,7 +102,7 @@
 - (CGRect)frameForSelectionIndicator {
     CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
     
-    if (self.selectionIndicatorMode == HMSelectionIndicatorResizesToStringWidth && stringWidth <= self.segmentWidth) {
+    if (self.selectionIndicatorStyle == HMSelectionIndicatorResizesToStringWidth && stringWidth <= self.segmentWidth) {
         CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
         CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
         
@@ -148,7 +148,7 @@
         NSInteger segment = touchLocation.x / self.segmentWidth;
         
         if (segment != self.selectedSegmentIndex) {
-            [self setSelectedSegmentIndex:segment animated:YES];
+            [self setSelectedSegmentIndex:segment animated:YES notify:YES];
         }
     }
 }
@@ -156,26 +156,30 @@
 #pragma mark -
 
 - (void)setSelectedSegmentIndex:(NSInteger)index {
-    [self setSelectedSegmentIndex:index animated:NO];
+    [self setSelectedSegmentIndex:index animated:NO notify:NO];
 }
 
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated {
-    _selectedSegmentIndex = index;
+    [self setSelectedSegmentIndex:index animated:animated notify:NO];
+}
 
+- (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated notify:(BOOL)notify {
+    _selectedSegmentIndex = index;
+    
     if (index == HMSegmentedControlNoSegment) {
         [self.selectedSegmentLayer removeFromSuperlayer];
     } else {
         if (animated) {
-
+            
             // If the selected segment layer is not added to the super layer, that means no
             // index is currently selected, so add the layer then move it to the new selected
             // segment index without animating.
             if ([self.selectedSegmentLayer superlayer] == nil) {
                 [self.layer addSublayer:self.selectedSegmentLayer];
-                [self setSelectedSegmentIndex:index animated:NO];
+                [self setSelectedSegmentIndex:index animated:NO notify:YES];
                 return;
             }
-
+            
             // Restore CALayer animations
             self.selectedSegmentLayer.actions = nil;
             
@@ -183,9 +187,13 @@
             [CATransaction begin];
             [CATransaction setAnimationDuration:0.15f];
             [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-            [CATransaction setCompletionBlock:^{
-                [self notifyForSegmentChangeToIndex:index];
-            }];
+
+            if (notify) {
+                [CATransaction setCompletionBlock:^{
+                    [self notifyForSegmentChangeToIndex:index];
+                }];
+            }
+            
             self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
             [CATransaction commit];
         } else {
@@ -193,7 +201,9 @@
             NSMutableDictionary *newActions = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", nil];
             self.selectedSegmentLayer.actions = newActions;
             self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
-            [self notifyForSegmentChangeToIndex:index];
+
+            if (notify)
+                [self notifyForSegmentChangeToIndex:index];
         }
     }
 }

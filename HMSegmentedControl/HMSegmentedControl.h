@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-enum HMSelectionIndicatorMode {
+typedef void (^IndexChangeBlock)(NSInteger index);
+
+enum HMSelectionIndicatorStyle {
     HMSelectionIndicatorResizesToStringWidth = 0, // Indicator width will only be as big as the text width
     HMSelectionIndicatorFillsSegment = 1 // Indicator width will fill the whole segment
 };
@@ -20,13 +22,13 @@ enum {
 @interface HMSegmentedControl : UIControl
 
 @property (nonatomic, strong) NSArray *sectionTitles;
-@property (nonatomic, copy) void (^indexChangeBlock)(NSUInteger index); // you can also use addTarget:action:forControlEvents:
+@property (nonatomic, copy) IndexChangeBlock indexChangeBlock; // you can also use addTarget:action:forControlEvents:
 
-@property (nonatomic, strong) UIFont *font; // default is [UIFont fontWithName:@"Avenir-Light" size:19.0f]
+@property (nonatomic, strong) UIFont *font; // default is [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]
 @property (nonatomic, strong) UIColor *textColor; // default is [UIColor blackColor]
 @property (nonatomic, strong) UIColor *backgroundColor; // default is [UIColor whiteColor]
-@property (nonatomic, strong) UIColor *selectionIndicatorColor; // default is 52, 181, 229
-@property (nonatomic, assign) enum HMSelectionIndicatorMode selectionIndicatorMode; // Default is HMSelectionIndicatorResizesToStringWidth
+@property (nonatomic, strong) UIColor *selectionIndicatorColor; // default is R:52, G:181, B:229
+@property (nonatomic, assign) enum HMSelectionIndicatorStyle selectionIndicatorStyle; // Default is HMSelectionIndicatorResizesToStringWidth
 
 @property (nonatomic, assign) NSInteger selectedSegmentIndex;
 @property (nonatomic, readwrite) CGFloat height; // default is 32.0
@@ -35,5 +37,6 @@ enum {
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
+- (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 
 @end
