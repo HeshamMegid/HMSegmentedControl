@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5483A70516AEE40A00129C1A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05AFB1689D3650064FCE1 /* QuartzCore.framework */; };
+		5483A70616AEE43800129C1A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05ADC1689D34A0064FCE1 /* CoreGraphics.framework */; };
 		54F05AD91689D34A0064FCE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05AD81689D34A0064FCE1 /* UIKit.framework */; };
 		54F05ADB1689D34A0064FCE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05ADA1689D34A0064FCE1 /* Foundation.framework */; };
-		54F05ADD1689D34A0064FCE1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05ADC1689D34A0064FCE1 /* CoreGraphics.framework */; };
 		54F05AE31689D34A0064FCE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AE11689D34A0064FCE1 /* InfoPlist.strings */; };
 		54F05AE51689D34A0064FCE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AE41689D34A0064FCE1 /* main.m */; };
 		54F05AE91689D34A0064FCE1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AE81689D34A0064FCE1 /* AppDelegate.m */; };
@@ -18,7 +19,6 @@
 		54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AEE1689D34A0064FCE1 /* Default-568h@2x.png */; };
 		54F05AF21689D34B0064FCE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AF11689D34B0064FCE1 /* ViewController.m */; };
 		54F05AF51689D34B0064FCE1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AF31689D34B0064FCE1 /* ViewController.xib */; };
-		54F05AFC1689D3650064FCE1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05AFB1689D3650064FCE1 /* QuartzCore.framework */; };
 		54F05B001689D38C0064FCE1 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */; };
 /* End PBXBuildFile section */
 
@@ -49,10 +49,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54F05AFC1689D3650064FCE1 /* QuartzCore.framework in Frameworks */,
+				5483A70616AEE43800129C1A /* CoreGraphics.framework in Frameworks */,
+				5483A70516AEE40A00129C1A /* QuartzCore.framework in Frameworks */,
 				54F05AD91689D34A0064FCE1 /* UIKit.framework in Frameworks */,
 				54F05ADB1689D34A0064FCE1 /* Foundation.framework in Frameworks */,
-				54F05ADD1689D34A0064FCE1 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +313,7 @@
 				54F05AFA1689D34B0064FCE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
