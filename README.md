@@ -15,7 +15,6 @@ The code below will create a segmented control with the default looks:
 HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three"]];
 [segmentedControl setFrame:CGRectMake(10, 10, 300, 60)];
 [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-[segmentedControl setTag:1];
 [self.view addSubview:segmentedControl];
 ```
 
