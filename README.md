@@ -3,11 +3,55 @@ HMSegmentedControl
 
 A drop-in replacement for UISegmentedControl mimicking the style of the segmented control used in Google Currents.
 
-Usage
------
-Included is a demo project showing how to use the control.
+# Installation
 
-To use in your own project, first import HMSegmentedControl.m and HMSegmentedControl.h into your project, then add QuartzCore to your linked libraries.
+The easiest way of installing HMSegmentedControl is via [CocoaPods](http://cocoapods.org/). 
+
+```
+pod 'HMSegmentedControl', '~> 1.0.0'
+```
+
+## Cocoa-whaa?
+
+If you haven't heard about [CocoaPods](http://cocoapods.org/) (seriously, where were you?!), it's a dependency manager for Xcode projects that provides very simple
+installation of libraries.
+
+Install CocoaPods if not already available:
+
+``` bash
+$ [sudo] gem install cocoapods
+$ pod setup
+```
+
+Change to the directory of your Xcode project, and Create and Edit your Podfile and add RestKit:
+
+``` bash
+$ cd /path/to/MyProject
+$ touch Podfile
+$ edit Podfile
+platform :ios, '5.0' 
+pod 'RestKit', '~> 1.0.0'
+```
+
+Install into your project:
+
+``` bash
+$ pod install
+```
+
+Open your project in Xcode from the .xcworkspace file (not the usual project file)
+
+``` bash
+$ open MyProject.xcworkspace
+```
+
+## Old-fashioned way
+
+- Add `HMSegmentedControl.h` and `HMSegmentedControl.m` to your project.
+- Link the `QuartzCore.framework`
+- `#import "HMSegmentedControl.h"` to use it in a class
+
+# Usage
 
 The code below will create a segmented control with the default looks:
 
@@ -18,10 +62,12 @@ HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSecti
 [self.view addSubview:segmentedControl];
 ```
 
+Included is a demo project showing how to fully customise the control.
+
 ![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
 
-License
---------
+# License
+
 HMSegmentedControl is licensed under the terms of the MIT License. Please see the LICENSE file for full details.
 
 If this code was helpful, I would love to hear from you.
