@@ -5,6 +5,7 @@ A drop-in replacement for UISegmentedControl mimicking the style of the segmente
 
 # Installation
 
+## CocoaPods
 The easiest way of installing HMSegmentedControl is via [CocoaPods](http://cocoapods.org/). 
 
 ```
@@ -14,7 +15,7 @@ pod 'HMSegmentedControl', '~> 1.0.0'
 ## Cocoa-whaa?
 
 If you haven't heard about [CocoaPods](http://cocoapods.org/) (seriously, where were you?!), it's a dependency manager for Xcode projects that provides very simple
-installation of libraries.
+installation of libraries. Here's how to get started.
 
 Install CocoaPods if not already available:
 
@@ -23,14 +24,14 @@ $ [sudo] gem install cocoapods
 $ pod setup
 ```
 
-Change to the directory of your Xcode project, and Create and Edit your Podfile and add RestKit:
+Change to the directory of your Xcode project, and Create and Edit your Podfile and add HMSegmentedControl:
 
 ``` bash
 $ cd /path/to/MyProject
 $ touch Podfile
 $ edit Podfile
 platform :ios, '5.0' 
-pod 'RestKit', '~> 1.0.0'
+pod 'HMSegmentedControl', '~> 1.0.0'
 ```
 
 Install into your project:
@@ -48,8 +49,8 @@ $ open MyProject.xcworkspace
 ## Old-fashioned way
 
 - Add `HMSegmentedControl.h` and `HMSegmentedControl.m` to your project.
-- Link the `QuartzCore.framework`
-- `#import "HMSegmentedControl.h"` to use it in a class
+- Add `QuartzCore.framework` to your linked frameworks.
+- `#import "HMSegmentedControl.h"` in the class that you are going to use it in.
 
 # Usage
 
