@@ -19,10 +19,20 @@
     [super viewDidLoad];
     
     // Minimum code required to use the segmented control with the default styling.
+    /*
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Library", @"Trending", @"News"]];
     [segmentedControl setFrame:CGRectMake(10, 10, 300, 60)];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
+     */
+    HMSegmentedControl *segmented = [[HMSegmentedControl alloc] initWithSectionIcons:@[[UIImage imageNamed:@"发送信息"], [UIImage imageNamed:@"发送图片"], [UIImage imageNamed:@"发送电话"], [UIImage imageNamed:@"发送链接"]] highlight:@[[UIImage imageNamed:@"发送信息按下"], [UIImage imageNamed:@"发送图片按下"], [UIImage imageNamed:@"发送电话按下"], [UIImage imageNamed:@"发送链接按下"]]];
+    [segmented setSelectionIndicatorHeight:3.0f];
+    [segmented setFrame:CGRectMake(0, 0, 320, 56)];
+    [segmented setSegmentEdgeInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [segmented addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [segmented setBackgroundColor:[UIColor clearColor]];
+    [segmented setSelectionIndicatorLocation:HMSelectionIndicatorLocationDown];
+    [self.view addSubview:segmented];
 
     HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
     [segmentedControl2 setIndexChangeBlock:^(NSInteger index) {
