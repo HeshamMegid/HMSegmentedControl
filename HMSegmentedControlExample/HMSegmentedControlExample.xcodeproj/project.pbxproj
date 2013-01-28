@@ -20,6 +20,22 @@
 		54F05AF21689D34B0064FCE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AF11689D34B0064FCE1 /* ViewController.m */; };
 		54F05AF51689D34B0064FCE1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AF31689D34B0064FCE1 /* ViewController.xib */; };
 		54F05B001689D38C0064FCE1 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */; };
+		A3A4633216B6190F00AE52BA /* 发送信息.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632216B6190F00AE52BA /* 发送信息.png */; };
+		A3A4633316B6190F00AE52BA /* 发送信息@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632316B6190F00AE52BA /* 发送信息@2x.png */; };
+		A3A4633416B6190F00AE52BA /* 发送信息按下.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632416B6190F00AE52BA /* 发送信息按下.png */; };
+		A3A4633516B6190F00AE52BA /* 发送信息按下@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632516B6190F00AE52BA /* 发送信息按下@2x.png */; };
+		A3A4633616B6190F00AE52BA /* 发送图片.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632616B6190F00AE52BA /* 发送图片.png */; };
+		A3A4633716B6190F00AE52BA /* 发送图片@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632716B6190F00AE52BA /* 发送图片@2x.png */; };
+		A3A4633816B6190F00AE52BA /* 发送图片按下.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632816B6190F00AE52BA /* 发送图片按下.png */; };
+		A3A4633916B6190F00AE52BA /* 发送图片按下@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632916B6190F00AE52BA /* 发送图片按下@2x.png */; };
+		A3A4633A16B6190F00AE52BA /* 发送电话.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632A16B6190F00AE52BA /* 发送电话.png */; };
+		A3A4633B16B6190F00AE52BA /* 发送电话@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632B16B6190F00AE52BA /* 发送电话@2x.png */; };
+		A3A4633C16B6190F00AE52BA /* 发送电话按下.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632C16B6190F00AE52BA /* 发送电话按下.png */; };
+		A3A4633D16B6190F00AE52BA /* 发送电话按下@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632D16B6190F00AE52BA /* 发送电话按下@2x.png */; };
+		A3A4633E16B6190F00AE52BA /* 发送链接.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632E16B6190F00AE52BA /* 发送链接.png */; };
+		A3A4633F16B6190F00AE52BA /* 发送链接@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632F16B6190F00AE52BA /* 发送链接@2x.png */; };
+		A3A4634016B6190F00AE52BA /* 发送链接按下.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4633016B6190F00AE52BA /* 发送链接按下.png */; };
+		A3A4634116B6190F00AE52BA /* 发送链接按下@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4633116B6190F00AE52BA /* 发送链接按下@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +58,22 @@
 		54F05AFB1689D3650064FCE1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
+		A3A4632216B6190F00AE52BA /* 发送信息.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送信息.png"; sourceTree = "<group>"; };
+		A3A4632316B6190F00AE52BA /* 发送信息@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送信息@2x.png"; sourceTree = "<group>"; };
+		A3A4632416B6190F00AE52BA /* 发送信息按下.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送信息按下.png"; sourceTree = "<group>"; };
+		A3A4632516B6190F00AE52BA /* 发送信息按下@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送信息按下@2x.png"; sourceTree = "<group>"; };
+		A3A4632616B6190F00AE52BA /* 发送图片.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送图片.png"; sourceTree = "<group>"; };
+		A3A4632716B6190F00AE52BA /* 发送图片@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送图片@2x.png"; sourceTree = "<group>"; };
+		A3A4632816B6190F00AE52BA /* 发送图片按下.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送图片按下.png"; sourceTree = "<group>"; };
+		A3A4632916B6190F00AE52BA /* 发送图片按下@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送图片按下@2x.png"; sourceTree = "<group>"; };
+		A3A4632A16B6190F00AE52BA /* 发送电话.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送电话.png"; sourceTree = "<group>"; };
+		A3A4632B16B6190F00AE52BA /* 发送电话@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送电话@2x.png"; sourceTree = "<group>"; };
+		A3A4632C16B6190F00AE52BA /* 发送电话按下.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送电话按下.png"; sourceTree = "<group>"; };
+		A3A4632D16B6190F00AE52BA /* 发送电话按下@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送电话按下@2x.png"; sourceTree = "<group>"; };
+		A3A4632E16B6190F00AE52BA /* 发送链接.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送链接.png"; sourceTree = "<group>"; };
+		A3A4632F16B6190F00AE52BA /* 发送链接@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送链接@2x.png"; sourceTree = "<group>"; };
+		A3A4633016B6190F00AE52BA /* 发送链接按下.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送链接按下.png"; sourceTree = "<group>"; };
+		A3A4633116B6190F00AE52BA /* 发送链接按下@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送链接按下@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +94,7 @@
 		54F05AC91689D34A0064FCE1 = {
 			isa = PBXGroup;
 			children = (
+				A3A4632116B6190F00AE52BA /* 发送页面按钮 */,
 				54F05ADE1689D34A0064FCE1 /* HMSegmentedControlExample */,
 				54F05AD71689D34A0064FCE1 /* Frameworks */,
 				54F05AD51689D34A0064FCE1 /* Products */,
@@ -125,6 +158,30 @@
 			path = ../../HMSegmentedControl;
 			sourceTree = "<group>";
 		};
+		A3A4632116B6190F00AE52BA /* 发送页面按钮 */ = {
+			isa = PBXGroup;
+			children = (
+				A3A4632216B6190F00AE52BA /* 发送信息.png */,
+				A3A4632316B6190F00AE52BA /* 发送信息@2x.png */,
+				A3A4632416B6190F00AE52BA /* 发送信息按下.png */,
+				A3A4632516B6190F00AE52BA /* 发送信息按下@2x.png */,
+				A3A4632616B6190F00AE52BA /* 发送图片.png */,
+				A3A4632716B6190F00AE52BA /* 发送图片@2x.png */,
+				A3A4632816B6190F00AE52BA /* 发送图片按下.png */,
+				A3A4632916B6190F00AE52BA /* 发送图片按下@2x.png */,
+				A3A4632A16B6190F00AE52BA /* 发送电话.png */,
+				A3A4632B16B6190F00AE52BA /* 发送电话@2x.png */,
+				A3A4632C16B6190F00AE52BA /* 发送电话按下.png */,
+				A3A4632D16B6190F00AE52BA /* 发送电话按下@2x.png */,
+				A3A4632E16B6190F00AE52BA /* 发送链接.png */,
+				A3A4632F16B6190F00AE52BA /* 发送链接@2x.png */,
+				A3A4633016B6190F00AE52BA /* 发送链接按下.png */,
+				A3A4633116B6190F00AE52BA /* 发送链接按下@2x.png */,
+			);
+			name = "发送页面按钮";
+			path = "HMSegmentedControlExample/发送页面按钮";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -181,6 +238,22 @@
 				54F05AED1689D34A0064FCE1 /* Default@2x.png in Resources */,
 				54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */,
 				54F05AF51689D34B0064FCE1 /* ViewController.xib in Resources */,
+				A3A4633216B6190F00AE52BA /* 发送信息.png in Resources */,
+				A3A4633316B6190F00AE52BA /* 发送信息@2x.png in Resources */,
+				A3A4633416B6190F00AE52BA /* 发送信息按下.png in Resources */,
+				A3A4633516B6190F00AE52BA /* 发送信息按下@2x.png in Resources */,
+				A3A4633616B6190F00AE52BA /* 发送图片.png in Resources */,
+				A3A4633716B6190F00AE52BA /* 发送图片@2x.png in Resources */,
+				A3A4633816B6190F00AE52BA /* 发送图片按下.png in Resources */,
+				A3A4633916B6190F00AE52BA /* 发送图片按下@2x.png in Resources */,
+				A3A4633A16B6190F00AE52BA /* 发送电话.png in Resources */,
+				A3A4633B16B6190F00AE52BA /* 发送电话@2x.png in Resources */,
+				A3A4633C16B6190F00AE52BA /* 发送电话按下.png in Resources */,
+				A3A4633D16B6190F00AE52BA /* 发送电话按下@2x.png in Resources */,
+				A3A4633E16B6190F00AE52BA /* 发送链接.png in Resources */,
+				A3A4633F16B6190F00AE52BA /* 发送链接@2x.png in Resources */,
+				A3A4634016B6190F00AE52BA /* 发送链接按下.png in Resources */,
+				A3A4634116B6190F00AE52BA /* 发送链接按下@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
