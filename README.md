@@ -3,6 +3,13 @@ HMSegmentedControl
 
 A drop-in replacement for UISegmentedControl mimicking the style of the segmented control used in Google Currents.
 
+# Features
+- Supports both text and images
+- Font and all colors are customizable
+- Supports selection indicator both on top and bottom
+- Supports blocks
+- Works with ARC and iOS >= 5
+
 # Installation
 
 ## CocoaPods
@@ -50,7 +57,7 @@ $ open MyProject.xcworkspace
 
 - Add `HMSegmentedControl.h` and `HMSegmentedControl.m` to your project.
 - Add `QuartzCore.framework` to your linked frameworks.
-- `#import "HMSegmentedControl.h"` in the class that you are going to use it in.
+- `#import "HMSegmentedControl.h"` where you want to add the control.
 
 # Usage
 
