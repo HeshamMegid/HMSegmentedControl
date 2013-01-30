@@ -9,6 +9,22 @@
 /* Begin PBXBuildFile section */
 		5483A70516AEE40A00129C1A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05AFB1689D3650064FCE1 /* QuartzCore.framework */; };
 		5483A70616AEE43800129C1A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05ADC1689D34A0064FCE1 /* CoreGraphics.framework */; };
+		54E531BE16B951AB005F17A1 /* 1-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531AE16B951AB005F17A1 /* 1-selected.png */; };
+		54E531BF16B951AB005F17A1 /* 1-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531AF16B951AB005F17A1 /* 1-selected@2x.png */; };
+		54E531C016B951AB005F17A1 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B016B951AB005F17A1 /* 1.png */; };
+		54E531C116B951AB005F17A1 /* 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B116B951AB005F17A1 /* 1@2x.png */; };
+		54E531C216B951AB005F17A1 /* 2-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B216B951AB005F17A1 /* 2-selected.png */; };
+		54E531C316B951AB005F17A1 /* 2-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B316B951AB005F17A1 /* 2-selected@2x.png */; };
+		54E531C416B951AB005F17A1 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B416B951AB005F17A1 /* 2.png */; };
+		54E531C516B951AB005F17A1 /* 2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B516B951AB005F17A1 /* 2@2x.png */; };
+		54E531C616B951AB005F17A1 /* 3-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B616B951AB005F17A1 /* 3-selected.png */; };
+		54E531C716B951AB005F17A1 /* 3-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B716B951AB005F17A1 /* 3-selected@2x.png */; };
+		54E531C816B951AB005F17A1 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B816B951AB005F17A1 /* 3.png */; };
+		54E531C916B951AB005F17A1 /* 3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531B916B951AB005F17A1 /* 3@2x.png */; };
+		54E531CA16B951AB005F17A1 /* 4-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531BA16B951AB005F17A1 /* 4-selected.png */; };
+		54E531CB16B951AB005F17A1 /* 4-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531BB16B951AB005F17A1 /* 4-selected@2x.png */; };
+		54E531CC16B951AB005F17A1 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531BC16B951AB005F17A1 /* 4.png */; };
+		54E531CD16B951AB005F17A1 /* 4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531BD16B951AB005F17A1 /* 4@2x.png */; };
 		54F05AD91689D34A0064FCE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05AD81689D34A0064FCE1 /* UIKit.framework */; };
 		54F05ADB1689D34A0064FCE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05ADA1689D34A0064FCE1 /* Foundation.framework */; };
 		54F05AE31689D34A0064FCE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AE11689D34A0064FCE1 /* InfoPlist.strings */; };
@@ -20,25 +36,25 @@
 		54F05AF21689D34B0064FCE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AF11689D34B0064FCE1 /* ViewController.m */; };
 		54F05AF51689D34B0064FCE1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AF31689D34B0064FCE1 /* ViewController.xib */; };
 		54F05B001689D38C0064FCE1 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */; };
-		A3A4633216B6190F00AE52BA /* 发送信息.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632216B6190F00AE52BA /* 发送信息.png */; };
-		A3A4633316B6190F00AE52BA /* 发送信息@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632316B6190F00AE52BA /* 发送信息@2x.png */; };
-		A3A4633416B6190F00AE52BA /* 发送信息按下.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632416B6190F00AE52BA /* 发送信息按下.png */; };
-		A3A4633516B6190F00AE52BA /* 发送信息按下@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632516B6190F00AE52BA /* 发送信息按下@2x.png */; };
-		A3A4633616B6190F00AE52BA /* 发送图片.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632616B6190F00AE52BA /* 发送图片.png */; };
-		A3A4633716B6190F00AE52BA /* 发送图片@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632716B6190F00AE52BA /* 发送图片@2x.png */; };
-		A3A4633816B6190F00AE52BA /* 发送图片按下.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632816B6190F00AE52BA /* 发送图片按下.png */; };
-		A3A4633916B6190F00AE52BA /* 发送图片按下@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632916B6190F00AE52BA /* 发送图片按下@2x.png */; };
-		A3A4633A16B6190F00AE52BA /* 发送电话.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632A16B6190F00AE52BA /* 发送电话.png */; };
-		A3A4633B16B6190F00AE52BA /* 发送电话@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632B16B6190F00AE52BA /* 发送电话@2x.png */; };
-		A3A4633C16B6190F00AE52BA /* 发送电话按下.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632C16B6190F00AE52BA /* 发送电话按下.png */; };
-		A3A4633D16B6190F00AE52BA /* 发送电话按下@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632D16B6190F00AE52BA /* 发送电话按下@2x.png */; };
-		A3A4633E16B6190F00AE52BA /* 发送链接.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632E16B6190F00AE52BA /* 发送链接.png */; };
-		A3A4633F16B6190F00AE52BA /* 发送链接@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4632F16B6190F00AE52BA /* 发送链接@2x.png */; };
-		A3A4634016B6190F00AE52BA /* 发送链接按下.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4633016B6190F00AE52BA /* 发送链接按下.png */; };
-		A3A4634116B6190F00AE52BA /* 发送链接按下@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A4633116B6190F00AE52BA /* 发送链接按下@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		54E531AE16B951AB005F17A1 /* 1-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1-selected.png"; path = "HMSegmentedControlExample/Images/1-selected.png"; sourceTree = SOURCE_ROOT; };
+		54E531AF16B951AB005F17A1 /* 1-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1-selected@2x.png"; path = "HMSegmentedControlExample/Images/1-selected@2x.png"; sourceTree = SOURCE_ROOT; };
+		54E531B016B951AB005F17A1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = HMSegmentedControlExample/Images/1.png; sourceTree = SOURCE_ROOT; };
+		54E531B116B951AB005F17A1 /* 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1@2x.png"; path = "HMSegmentedControlExample/Images/1@2x.png"; sourceTree = SOURCE_ROOT; };
+		54E531B216B951AB005F17A1 /* 2-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "2-selected.png"; path = "HMSegmentedControlExample/Images/2-selected.png"; sourceTree = SOURCE_ROOT; };
+		54E531B316B951AB005F17A1 /* 2-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "2-selected@2x.png"; path = "HMSegmentedControlExample/Images/2-selected@2x.png"; sourceTree = SOURCE_ROOT; };
+		54E531B416B951AB005F17A1 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2.png; path = HMSegmentedControlExample/Images/2.png; sourceTree = SOURCE_ROOT; };
+		54E531B516B951AB005F17A1 /* 2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "2@2x.png"; path = "HMSegmentedControlExample/Images/2@2x.png"; sourceTree = SOURCE_ROOT; };
+		54E531B616B951AB005F17A1 /* 3-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "3-selected.png"; path = "HMSegmentedControlExample/Images/3-selected.png"; sourceTree = SOURCE_ROOT; };
+		54E531B716B951AB005F17A1 /* 3-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "3-selected@2x.png"; path = "HMSegmentedControlExample/Images/3-selected@2x.png"; sourceTree = SOURCE_ROOT; };
+		54E531B816B951AB005F17A1 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 3.png; path = HMSegmentedControlExample/Images/3.png; sourceTree = SOURCE_ROOT; };
+		54E531B916B951AB005F17A1 /* 3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "3@2x.png"; path = "HMSegmentedControlExample/Images/3@2x.png"; sourceTree = SOURCE_ROOT; };
+		54E531BA16B951AB005F17A1 /* 4-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "4-selected.png"; path = "HMSegmentedControlExample/Images/4-selected.png"; sourceTree = SOURCE_ROOT; };
+		54E531BB16B951AB005F17A1 /* 4-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "4-selected@2x.png"; path = "HMSegmentedControlExample/Images/4-selected@2x.png"; sourceTree = SOURCE_ROOT; };
+		54E531BC16B951AB005F17A1 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4.png; path = HMSegmentedControlExample/Images/4.png; sourceTree = SOURCE_ROOT; };
+		54E531BD16B951AB005F17A1 /* 4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "4@2x.png"; path = "HMSegmentedControlExample/Images/4@2x.png"; sourceTree = SOURCE_ROOT; };
 		54F05AD41689D34A0064FCE1 /* HMSegmentedControlExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMSegmentedControlExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54F05AD81689D34A0064FCE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54F05ADA1689D34A0064FCE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,22 +74,6 @@
 		54F05AFB1689D3650064FCE1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
-		A3A4632216B6190F00AE52BA /* 发送信息.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送信息.png"; sourceTree = "<group>"; };
-		A3A4632316B6190F00AE52BA /* 发送信息@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送信息@2x.png"; sourceTree = "<group>"; };
-		A3A4632416B6190F00AE52BA /* 发送信息按下.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送信息按下.png"; sourceTree = "<group>"; };
-		A3A4632516B6190F00AE52BA /* 发送信息按下@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送信息按下@2x.png"; sourceTree = "<group>"; };
-		A3A4632616B6190F00AE52BA /* 发送图片.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送图片.png"; sourceTree = "<group>"; };
-		A3A4632716B6190F00AE52BA /* 发送图片@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送图片@2x.png"; sourceTree = "<group>"; };
-		A3A4632816B6190F00AE52BA /* 发送图片按下.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送图片按下.png"; sourceTree = "<group>"; };
-		A3A4632916B6190F00AE52BA /* 发送图片按下@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送图片按下@2x.png"; sourceTree = "<group>"; };
-		A3A4632A16B6190F00AE52BA /* 发送电话.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送电话.png"; sourceTree = "<group>"; };
-		A3A4632B16B6190F00AE52BA /* 发送电话@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送电话@2x.png"; sourceTree = "<group>"; };
-		A3A4632C16B6190F00AE52BA /* 发送电话按下.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送电话按下.png"; sourceTree = "<group>"; };
-		A3A4632D16B6190F00AE52BA /* 发送电话按下@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送电话按下@2x.png"; sourceTree = "<group>"; };
-		A3A4632E16B6190F00AE52BA /* 发送链接.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送链接.png"; sourceTree = "<group>"; };
-		A3A4632F16B6190F00AE52BA /* 发送链接@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送链接@2x.png"; sourceTree = "<group>"; };
-		A3A4633016B6190F00AE52BA /* 发送链接按下.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送链接按下.png"; sourceTree = "<group>"; };
-		A3A4633116B6190F00AE52BA /* 发送链接按下@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送链接按下@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +94,6 @@
 		54F05AC91689D34A0064FCE1 = {
 			isa = PBXGroup;
 			children = (
-				A3A4632116B6190F00AE52BA /* 发送页面按钮 */,
 				54F05ADE1689D34A0064FCE1 /* HMSegmentedControlExample */,
 				54F05AD71689D34A0064FCE1 /* Frameworks */,
 				54F05AD51689D34A0064FCE1 /* Products */,
@@ -129,6 +128,7 @@
 				54F05AF01689D34B0064FCE1 /* ViewController.h */,
 				54F05AF11689D34B0064FCE1 /* ViewController.m */,
 				54F05AF31689D34B0064FCE1 /* ViewController.xib */,
+				A3A4632116B6190F00AE52BA /* Images */,
 				54F05ADF1689D34A0064FCE1 /* Supporting Files */,
 			);
 			path = HMSegmentedControlExample;
@@ -158,28 +158,28 @@
 			path = ../../HMSegmentedControl;
 			sourceTree = "<group>";
 		};
-		A3A4632116B6190F00AE52BA /* 发送页面按钮 */ = {
+		A3A4632116B6190F00AE52BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				A3A4632216B6190F00AE52BA /* 发送信息.png */,
-				A3A4632316B6190F00AE52BA /* 发送信息@2x.png */,
-				A3A4632416B6190F00AE52BA /* 发送信息按下.png */,
-				A3A4632516B6190F00AE52BA /* 发送信息按下@2x.png */,
-				A3A4632616B6190F00AE52BA /* 发送图片.png */,
-				A3A4632716B6190F00AE52BA /* 发送图片@2x.png */,
-				A3A4632816B6190F00AE52BA /* 发送图片按下.png */,
-				A3A4632916B6190F00AE52BA /* 发送图片按下@2x.png */,
-				A3A4632A16B6190F00AE52BA /* 发送电话.png */,
-				A3A4632B16B6190F00AE52BA /* 发送电话@2x.png */,
-				A3A4632C16B6190F00AE52BA /* 发送电话按下.png */,
-				A3A4632D16B6190F00AE52BA /* 发送电话按下@2x.png */,
-				A3A4632E16B6190F00AE52BA /* 发送链接.png */,
-				A3A4632F16B6190F00AE52BA /* 发送链接@2x.png */,
-				A3A4633016B6190F00AE52BA /* 发送链接按下.png */,
-				A3A4633116B6190F00AE52BA /* 发送链接按下@2x.png */,
+				54E531B016B951AB005F17A1 /* 1.png */,
+				54E531B116B951AB005F17A1 /* 1@2x.png */,
+				54E531AE16B951AB005F17A1 /* 1-selected.png */,
+				54E531AF16B951AB005F17A1 /* 1-selected@2x.png */,
+				54E531B416B951AB005F17A1 /* 2.png */,
+				54E531B516B951AB005F17A1 /* 2@2x.png */,
+				54E531B216B951AB005F17A1 /* 2-selected.png */,
+				54E531B316B951AB005F17A1 /* 2-selected@2x.png */,
+				54E531B816B951AB005F17A1 /* 3.png */,
+				54E531B916B951AB005F17A1 /* 3@2x.png */,
+				54E531B616B951AB005F17A1 /* 3-selected.png */,
+				54E531B716B951AB005F17A1 /* 3-selected@2x.png */,
+				54E531BC16B951AB005F17A1 /* 4.png */,
+				54E531BD16B951AB005F17A1 /* 4@2x.png */,
+				54E531BA16B951AB005F17A1 /* 4-selected.png */,
+				54E531BB16B951AB005F17A1 /* 4-selected@2x.png */,
 			);
-			name = "发送页面按钮";
-			path = "HMSegmentedControlExample/发送页面按钮";
+			name = Images;
+			path = "发送页面按钮";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,22 +238,22 @@
 				54F05AED1689D34A0064FCE1 /* Default@2x.png in Resources */,
 				54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */,
 				54F05AF51689D34B0064FCE1 /* ViewController.xib in Resources */,
-				A3A4633216B6190F00AE52BA /* 发送信息.png in Resources */,
-				A3A4633316B6190F00AE52BA /* 发送信息@2x.png in Resources */,
-				A3A4633416B6190F00AE52BA /* 发送信息按下.png in Resources */,
-				A3A4633516B6190F00AE52BA /* 发送信息按下@2x.png in Resources */,
-				A3A4633616B6190F00AE52BA /* 发送图片.png in Resources */,
-				A3A4633716B6190F00AE52BA /* 发送图片@2x.png in Resources */,
-				A3A4633816B6190F00AE52BA /* 发送图片按下.png in Resources */,
-				A3A4633916B6190F00AE52BA /* 发送图片按下@2x.png in Resources */,
-				A3A4633A16B6190F00AE52BA /* 发送电话.png in Resources */,
-				A3A4633B16B6190F00AE52BA /* 发送电话@2x.png in Resources */,
-				A3A4633C16B6190F00AE52BA /* 发送电话按下.png in Resources */,
-				A3A4633D16B6190F00AE52BA /* 发送电话按下@2x.png in Resources */,
-				A3A4633E16B6190F00AE52BA /* 发送链接.png in Resources */,
-				A3A4633F16B6190F00AE52BA /* 发送链接@2x.png in Resources */,
-				A3A4634016B6190F00AE52BA /* 发送链接按下.png in Resources */,
-				A3A4634116B6190F00AE52BA /* 发送链接按下@2x.png in Resources */,
+				54E531BE16B951AB005F17A1 /* 1-selected.png in Resources */,
+				54E531BF16B951AB005F17A1 /* 1-selected@2x.png in Resources */,
+				54E531C016B951AB005F17A1 /* 1.png in Resources */,
+				54E531C116B951AB005F17A1 /* 1@2x.png in Resources */,
+				54E531C216B951AB005F17A1 /* 2-selected.png in Resources */,
+				54E531C316B951AB005F17A1 /* 2-selected@2x.png in Resources */,
+				54E531C416B951AB005F17A1 /* 2.png in Resources */,
+				54E531C516B951AB005F17A1 /* 2@2x.png in Resources */,
+				54E531C616B951AB005F17A1 /* 3-selected.png in Resources */,
+				54E531C716B951AB005F17A1 /* 3-selected@2x.png in Resources */,
+				54E531C816B951AB005F17A1 /* 3.png in Resources */,
+				54E531C916B951AB005F17A1 /* 3@2x.png in Resources */,
+				54E531CA16B951AB005F17A1 /* 4-selected.png in Resources */,
+				54E531CB16B951AB005F17A1 /* 4-selected@2x.png in Resources */,
+				54E531CC16B951AB005F17A1 /* 4.png in Resources */,
+				54E531CD16B951AB005F17A1 /* 4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

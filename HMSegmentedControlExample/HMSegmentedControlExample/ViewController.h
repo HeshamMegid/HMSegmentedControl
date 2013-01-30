@@ -12,6 +12,6 @@
 @interface ViewController : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) HMSegmentedControl *segmentedControl3;
+@property (nonatomic, strong) HMSegmentedControl *segmentedControl4;
 
 @end

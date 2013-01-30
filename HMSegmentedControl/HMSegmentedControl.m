@@ -267,9 +267,11 @@
     } else {
         if (animated) {
             
-            // If the selected segment layer is not added to the super layer, that means no
-            // index is currently selected, so add the layer then move it to the new selected
-            // segment index without animating.
+            /* 
+             If the selected segment layer is not added to the super layer, that means no
+             index is currently selected, so add the layer then move it to the new 
+             segment index without animating.
+             */
             if ([self.selectedSegmentLayer superlayer] == nil) {
                 [self.layer addSublayer:self.selectedSegmentLayer];
                 [self setSelectedSegmentIndex:index animated:NO notify:YES];

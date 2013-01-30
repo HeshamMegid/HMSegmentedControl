@@ -19,52 +19,52 @@
     [super viewDidLoad];
     
     // Minimum code required to use the segmented control with the default styling.
-    /*
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Library", @"Trending", @"News"]];
-    [segmentedControl setFrame:CGRectMake(10, 10, 300, 60)];
+    [segmentedControl setFrame:CGRectMake(0, 0, 320, 45)];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
-     */
-    HMSegmentedControl *segmented = [[HMSegmentedControl alloc] initWithSectionIcons:@[[UIImage imageNamed:@"发送信息"], [UIImage imageNamed:@"发送图片"], [UIImage imageNamed:@"发送电话"], [UIImage imageNamed:@"发送链接"]] highlight:@[[UIImage imageNamed:@"发送信息按下"], [UIImage imageNamed:@"发送图片按下"], [UIImage imageNamed:@"发送电话按下"], [UIImage imageNamed:@"发送链接按下"]]];
-    [segmented setSelectionIndicatorHeight:3.0f];
-    [segmented setFrame:CGRectMake(0, 0, 320, 56)];
-    [segmented setSegmentEdgeInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [segmented addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [segmented setBackgroundColor:[UIColor clearColor]];
-    [segmented setSelectionIndicatorLocation:HMSelectionIndicatorLocationDown];
-    [self.view addSubview:segmented];
+    
+    HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionIcons:@[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], [UIImage imageNamed:@"3"], [UIImage imageNamed:@"4"]] highlight:@[[UIImage imageNamed:@"1-selected"], [UIImage imageNamed:@"2-selected"], [UIImage imageNamed:@"3-selected"], [UIImage imageNamed:@"4-selected"]]];
+    [segmentedControl2 setSelectionIndicatorHeight:3.0f];
+    [segmentedControl2 setFrame:CGRectMake(0, 60, 320, 50)];
+    [segmentedControl2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [segmentedControl2 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [segmentedControl2 setBackgroundColor:[UIColor clearColor]];
+    [segmentedControl2 setSelectionIndicatorLocation:HMSelectionIndicatorLocationDown];
+    [self.view addSubview:segmentedControl2];
 
-    HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
-    [segmentedControl2 setIndexChangeBlock:^(NSInteger index) {
+    HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
+    [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
         NSLog(@"Selected index %i (via block)", index);
     }];
-    [segmentedControl2 setSelectionIndicatorHeight:4.0f];
-    [segmentedControl2 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
-    [segmentedControl2 setTextColor:[UIColor whiteColor]];
-    [segmentedControl2 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
-    [segmentedControl2 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
-    [segmentedControl2 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
-    [segmentedControl2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
-    [segmentedControl2 setCenter:CGPointMake(160, 120)];
-    [segmentedControl2 setTag:2];
-    [self.view addSubview:segmentedControl2];
+    [segmentedControl3 setSelectionIndicatorHeight:4.0f];
+    [segmentedControl3 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
+    [segmentedControl3 setTextColor:[UIColor whiteColor]];
+    [segmentedControl3 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
+    [segmentedControl3 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
+    [segmentedControl3 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
+    [segmentedControl3 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
+    [segmentedControl3 setCenter:CGPointMake(160, 160)];
+    [segmentedControl3 setTag:2];
+    [self.view addSubview:segmentedControl3];
     
-    self.segmentedControl3 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 200, 320, 50)];
-    [self.segmentedControl3 setSectionTitles:@[@"Worldwide", @"Local", @"Headlines"]];
-    [self.segmentedControl3 setSelectedSegmentIndex:1];
-    [self.segmentedControl3 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.2 blue:0.3 alpha:1]];
-    [self.segmentedControl3 setTextColor:[UIColor whiteColor]];
-    [self.segmentedControl3 setSelectionIndicatorColor:[UIColor redColor]];
-    [self.segmentedControl3 setTag:3];
-    [self.segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
+    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 200, 320, 50)];
+    [self.segmentedControl4 setSectionTitles:@[@"Worldwide", @"Local", @"Headlines"]];
+    [self.segmentedControl4 setSelectedSegmentIndex:1];
+    [self.segmentedControl4 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.2 blue:0.3 alpha:1]];
+    [self.segmentedControl4 setTextColor:[UIColor whiteColor]];
+    [self.segmentedControl4 setSelectionIndicatorColor:[UIColor redColor]];
+    [self.segmentedControl4 setTag:3];
+    [self.segmentedControl4 setIndexChangeBlock:^(NSInteger index) {
         [self.scrollView scrollRectToVisible:CGRectMake(320 * index, 0, 320, 200) animated:YES];
     }];
     
-    [self.view addSubview:self.segmentedControl3];
+    [self.view addSubview:self.segmentedControl4];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 250, 320, 200)];
     [self.scrollView setBackgroundColor:[UIColor colorWithRed:0.1 green:0.2 blue:0.34 alpha:1]];
     [self.scrollView setPagingEnabled:YES];
+    [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentSize:CGSizeMake(960, 200)];
     [self.scrollView scrollRectToVisible:CGRectMake(320, 0, 320, 200) animated:NO];
     [self.scrollView setDelegate:self];
@@ -107,7 +107,7 @@
     CGFloat pageWidth = scrollView.frame.size.width;
     NSInteger page = scrollView.contentOffset.x / pageWidth;
     
-    [self.segmentedControl3 setSelectedSegmentIndex:page animated:YES];
+    [self.segmentedControl4 setSelectedSegmentIndex:page animated:YES];
 }
 
 @end
