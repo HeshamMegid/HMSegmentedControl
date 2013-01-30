@@ -74,6 +74,11 @@ Included is a demo project showing how to fully customise the control.
 
 ![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
 
+# Change log
+- v1.1.0 (merged pull request from @jacksonpan)
+  - Added image support
+  - Support for changing selection indicator position
+
 # License
 
 HMSegmentedControl is licensed under the terms of the MIT License. Please see the LICENSE file for full details.
