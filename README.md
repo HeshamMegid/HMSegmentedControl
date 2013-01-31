@@ -81,7 +81,7 @@ Included is a demo project showing how to fully customise the control.
 
 # License
 
-HMSegmentedControl is licensed under the terms of the MIT License. Please see the LICENSE file for full details.
+HMSegmentedControl is licensed under the terms of the MIT License. Please see the [LICENSE](LICENSE.md) file for full details.
 
 If this code was helpful, I would love to hear from you.
 
