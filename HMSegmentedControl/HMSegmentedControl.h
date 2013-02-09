@@ -40,8 +40,10 @@ enum HMSelectionIndicatorSectionType{
 
 @property (nonatomic, strong) UIFont *font; // default is [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]
 @property (nonatomic, strong) UIColor *textColor; // default is [UIColor blackColor]
+@property (nonatomic, strong) UIColor *selectedTextColor; // default is [UIColor blackColor]
 @property (nonatomic, strong) UIColor *backgroundColor; // default is [UIColor whiteColor]
 @property (nonatomic, strong) UIColor *selectionIndicatorColor; // default is R:52, G:181, B:229
+@property (nonatomic, strong) UIColor *selectionLayerColor; // default is R:52, G:181, B:229
 @property (nonatomic, assign) enum HMSelectionIndicatorStyle selectionIndicatorStyle; // Default is HMSelectionIndicatorResizesToSectionWidth
 @property (nonatomic, assign) enum HMSelectionIndicatorLocation selectionIndicatorLocation; // Default is HMSelectionIndicatorLocationUpr
 @property (nonatomic, assign) enum HMSelectionIndicatorSectionType selectionIndicatorSectionType;
