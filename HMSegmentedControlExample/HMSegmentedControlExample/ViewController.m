@@ -40,7 +40,9 @@
     [segmentedControl3 setSelectionIndicatorHeight:4.0f];
     [segmentedControl3 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
     [segmentedControl3 setTextColor:[UIColor whiteColor]];
+    [segmentedControl3 setSelectedTextColor:[UIColor whiteColor]];
     [segmentedControl3 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
+    [segmentedControl3 setSelectionLayerColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:0.5]];
     [segmentedControl3 setSelectionIndicatorStyle:HMSelectionIndicatorFillsSegment];
     [segmentedControl3 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
     [segmentedControl3 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
@@ -53,7 +55,9 @@
     [self.segmentedControl4 setSelectedSegmentIndex:1];
     [self.segmentedControl4 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.2 blue:0.3 alpha:1]];
     [self.segmentedControl4 setTextColor:[UIColor whiteColor]];
+    [self.segmentedControl4 setSelectedTextColor:[UIColor redColor]];
     [self.segmentedControl4 setSelectionIndicatorColor:[UIColor redColor]];
+    [self.segmentedControl4 setSelectionLayerColor:[UIColor clearColor]];
     [self.segmentedControl4 setTag:3];
     [self.segmentedControl4 setIndexChangeBlock:^(NSInteger index) {
         [self.scrollView scrollRectToVisible:CGRectMake(320 * index, 0, 320, 200) animated:YES];
@@ -61,7 +65,7 @@
     
     [self.view addSubview:self.segmentedControl4];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 250, 320, 200)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 250, 320, 210)];
     [self.scrollView setBackgroundColor:[UIColor colorWithRed:0.1 green:0.2 blue:0.34 alpha:1]];
     [self.scrollView setPagingEnabled:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];

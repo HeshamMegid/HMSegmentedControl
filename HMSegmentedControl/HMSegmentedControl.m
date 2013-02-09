@@ -57,6 +57,7 @@
 - (void)setDefaults {
     self.font = [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f];
     self.textColor = [UIColor blackColor];
+    self.selectedTextColor = [UIColor blackColor];
     self.backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
     self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
@@ -70,25 +71,15 @@
     self.selectionIndicatorSectionType = HMSelectionIndicatorSectionTitles;
     
     self.selectedSegmentLayer = [CALayer layer];
+    self.selectionLayerColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
 }
 
 #pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect
 {
-    // Below is a work in progress for a new style for the selected segment
-    //    CALayer *selectedSegmentFillerLayer = [[CALayer alloc] init];
-    //    selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.frame.size.height);
-    //    selectedSegmentFillerLayer.opacity = 0.2;
-    //    selectedSegmentFillerLayer.borderWidth = 1.0f;
-    //    selectedSegmentFillerLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    //    selectedSegmentFillerLayer.borderColor = self.selectionIndicatorColor.CGColor;
-    //    [self.layer addSublayer:selectedSegmentFillerLayer];
-    
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
-    
-    [self.textColor set];
     
     if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
     {
@@ -97,6 +88,26 @@
             CGFloat y = ((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2);
             CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
             
+            if(self.selectedSegmentIndex == [self.sectionTitles indexOfObject: titleString])
+            {
+                [self.selectedTextColor set];
+
+                self.layer.sublayers = nil;
+
+                CALayer *selectedSegmentFillerLayer = [[CALayer alloc] init];
+                selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0.0, self.segmentWidth, self.frame.size.height);
+                selectedSegmentFillerLayer.opacity = 0.2;
+                selectedSegmentFillerLayer.borderWidth = 1.0f;
+                selectedSegmentFillerLayer.backgroundColor = self.selectionLayerColor.CGColor;
+                selectedSegmentFillerLayer.borderColor = self.selectionLayerColor.CGColor;
+                [self.layer addSublayer:selectedSegmentFillerLayer];
+
+            }
+            else
+            {
+                [self.textColor set];
+            }
+
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
             [titleString drawInRect:rect
                            withFont:self.font
