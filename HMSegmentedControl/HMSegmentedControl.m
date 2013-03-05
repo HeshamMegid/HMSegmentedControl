@@ -73,6 +73,12 @@
     
     self.selectedSegmentLayer = [CALayer layer];
     self.selectionLayerColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
+    
+    self.selectedSegmentFillerLayer = [[CALayer alloc] init];
+    self.selectedSegmentFillerLayer.opacity = 0.2;
+    self.selectedSegmentFillerLayer.borderWidth = 1.0f;
+    self.selectedSegmentFillerLayer.backgroundColor = self.selectionLayerColor.CGColor;
+    self.selectedSegmentFillerLayer.borderColor = self.selectionLayerColor.CGColor;
 }
 
 #pragma mark - Drawing
@@ -89,21 +95,21 @@
             CGFloat y = ((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2);
             CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
             
-            if (self.selectedSegmentIndex == [self.sectionTitles indexOfObject:titleString]) {
-                [self.selectedTextColor set];
+//            if (self.selectedSegmentIndex == [self.sectionTitles indexOfObject:titleString]) {
+//                [self.selectedTextColor set];
 
-                self.layer.sublayers = nil;
+//                self.layer.sublayers = nil;
 
-                self.selectedSegmentFillerLayer = [[CALayer alloc] init];
-                self.selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0.0, self.segmentWidth, self.frame.size.height);
-                self.selectedSegmentFillerLayer.opacity = 0.2;
-                self.selectedSegmentFillerLayer.borderWidth = 1.0f;
-                self.selectedSegmentFillerLayer.backgroundColor = self.selectionLayerColor.CGColor;
-                self.selectedSegmentFillerLayer.borderColor = self.selectionLayerColor.CGColor;
-                [self.layer addSublayer:self.selectedSegmentFillerLayer];
-            } else {
+//                self.selectedSegmentFillerLayer = [[CALayer alloc] init];
+//                self.selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0.0, self.segmentWidth, self.frame.size.height);
+//                self.selectedSegmentFillerLayer.opacity = 0.2;
+//                self.selectedSegmentFillerLayer.borderWidth = 1.0f;
+//                self.selectedSegmentFillerLayer.backgroundColor = self.selectionLayerColor.CGColor;
+//                self.selectedSegmentFillerLayer.borderColor = self.selectionLayerColor.CGColor;
+//                [self.layer addSublayer:self.selectedSegmentFillerLayer];
+//            } else {
                 [self.textColor set];
-            }
+//            }
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
             [titleString drawInRect:rect
@@ -122,6 +128,9 @@
             if (self.selectedSegmentIndex != HMSegmentedControlNoSegment) {
                 self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
                 [self.layer addSublayer:self.selectedSegmentLayer];
+                
+                self.selectedSegmentFillerLayer.frame = [self frameForFillerSelectionIndicator];
+                [self.layer addSublayer:self.selectedSegmentFillerLayer];
             }
         }];
     }
@@ -164,24 +173,20 @@
 
 - (CGRect)frameForSelectionIndicator {
     CGFloat indicatorOffY;
-    if(self.selectionIndicatorLocation == HMSelectionIndicatorLocationUp)
-    {
+   
+    if (self.selectionIndicatorLocation == HMSelectionIndicatorLocationUp) {
         indicatorOffY = 0.0;
-    }
-    else
-    {
+    } else {
         CGRect bounds = self.bounds;
         indicatorOffY = bounds.size.height - self.selectionIndicatorHeight;
     }
     
     CGFloat sectionWidth = 0.0f;
-    if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
-    {
+
+    if (self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles) {
         CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
         sectionWidth = stringWidth;
-    }
-    else if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
-    {
+    } else if (self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons) {
         UIImage* icon = [self.sectionIcons objectAtIndex:self.selectedSegmentIndex];
         CGFloat imageWidth = icon.size.width;
         sectionWidth = imageWidth;
@@ -196,6 +201,12 @@
     } else {
         return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, indicatorOffY, self.segmentWidth, self.selectionIndicatorHeight);
     }
+}
+
+- (CGRect)frameForFillerSelectionIndicator {
+    
+    return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0, self.segmentWidth, self.height);
+//    self.selectedSegmentFillerLayer
 }
 
 - (void)updateSegmentsRects {
@@ -301,6 +312,7 @@
             }
             
             self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
+            self.selectedSegmentFillerLayer.frame = [self frameForFillerSelectionIndicator];
             [CATransaction commit];
         } else {
             // Disable CALayer animations
