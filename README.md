@@ -1,7 +1,7 @@
 HMSegmentedControl
 ==================
 
-A drop-in replacement for UISegmentedControl mimicking the style of the segmented control used in Google Currents.
+A drop-in replacement for UISegmentedControl mimicking the style of the segmented control used in Google Currents and various other Google products.
 
 # Features
 - Supports both text and images

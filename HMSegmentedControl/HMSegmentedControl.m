@@ -12,6 +12,7 @@
 @interface HMSegmentedControl ()
 
 @property (nonatomic, strong) CALayer *selectedSegmentLayer;
+@property (nonatomic, strong) CALayer *selectedSegmentFillerLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 
 @end
@@ -81,30 +82,26 @@
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
     
-    if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
+    if (self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
     {
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
             CGFloat stringHeight = [titleString sizeWithFont:self.font].height;
             CGFloat y = ((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2);
             CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
             
-            if(self.selectedSegmentIndex == [self.sectionTitles indexOfObject: titleString])
-            {
+            if (self.selectedSegmentIndex == [self.sectionTitles indexOfObject:titleString]) {
                 [self.selectedTextColor set];
 
                 self.layer.sublayers = nil;
 
-                CALayer *selectedSegmentFillerLayer = [[CALayer alloc] init];
-                selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0.0, self.segmentWidth, self.frame.size.height);
-                selectedSegmentFillerLayer.opacity = 0.2;
-                selectedSegmentFillerLayer.borderWidth = 1.0f;
-                selectedSegmentFillerLayer.backgroundColor = self.selectionLayerColor.CGColor;
-                selectedSegmentFillerLayer.borderColor = self.selectionLayerColor.CGColor;
-                [self.layer addSublayer:selectedSegmentFillerLayer];
-
-            }
-            else
-            {
+                self.selectedSegmentFillerLayer = [[CALayer alloc] init];
+                self.selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0.0, self.segmentWidth, self.frame.size.height);
+                self.selectedSegmentFillerLayer.opacity = 0.2;
+                self.selectedSegmentFillerLayer.borderWidth = 1.0f;
+                self.selectedSegmentFillerLayer.backgroundColor = self.selectionLayerColor.CGColor;
+                self.selectedSegmentFillerLayer.borderColor = self.selectionLayerColor.CGColor;
+                [self.layer addSublayer:self.selectedSegmentFillerLayer];
+            } else {
                 [self.textColor set];
             }
 
@@ -128,7 +125,7 @@
             }
         }];
     }
-    else if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
+    else if (self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
     {
         [self.sectionIcons enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
             UIImage* icon = iconImage;

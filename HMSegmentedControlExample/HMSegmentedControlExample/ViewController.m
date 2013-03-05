@@ -59,6 +59,7 @@
     [self.segmentedControl4 setSelectionIndicatorColor:[UIColor redColor]];
     [self.segmentedControl4 setSelectionLayerColor:[UIColor clearColor]];
     [self.segmentedControl4 setTag:3];
+    
     [self.segmentedControl4 setIndexChangeBlock:^(NSInteger index) {
         [self.scrollView scrollRectToVisible:CGRectMake(320 * index, 0, 320, 200) animated:YES];
     }];
