@@ -107,8 +107,7 @@
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
         // Remove all sublayers to avoid drawing images over existing ones
-        for (int i = 0; i < self.layer.sublayers.count; i++)
-            [[self.layer.sublayers objectAtIndex:i] removeFromSuperlayer];
+        self.layer.sublayers = nil;
         
         [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
             UIImage *icon = iconImage;
@@ -151,14 +150,10 @@
 }
 
 - (CGRect)frameForSelectionIndicator {
-    CGFloat indicatorOffY;
-   
-    if (self.selectionLocation == HMSegmentedControlSelectionLocationUp) {
-        indicatorOffY = 0.0;
-    } else {
-        CGRect bounds = self.bounds;
-        indicatorOffY = bounds.size.height - self.selectionIndicatorHeight;
-    }
+    CGFloat indicatorYOffset;
+        
+    if (self.selectionLocation == HMSegmentedControlSelectionLocationDown)
+        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight;
     
     CGFloat sectionWidth = 0.0f;
 
@@ -166,8 +161,8 @@
         CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
         sectionWidth = stringWidth;
     } else if (self.type == HMSegmentedControlTypeImages) {
-        UIImage* icon = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
-        CGFloat imageWidth = icon.size.width;
+        UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
+        CGFloat imageWidth = sectionImage.size.width;
         sectionWidth = imageWidth;
     }
     
@@ -176,27 +171,14 @@
         CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
         
         CGFloat x = ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) + (widthToStartOfSelectedIndex - sectionWidth / 2);
-        return CGRectMake(x, indicatorOffY, sectionWidth, self.selectionIndicatorHeight);
+        return CGRectMake(x, indicatorYOffset, sectionWidth, self.selectionIndicatorHeight);
     } else {
-        return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, indicatorOffY, self.segmentWidth, self.selectionIndicatorHeight);
+        return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, indicatorYOffset, self.segmentWidth, self.selectionIndicatorHeight);
     }
 }
 
 - (CGRect)frameForFillerSelectionIndicator {
-    CGFloat sectionWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
-//    sectionWidth += 10;
-
-    if (self.selectionStyle == HMSegmentedControlSelectionStyleTextWidthStrip && sectionWidth <= self.segmentWidth) {
-        CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
-        CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
-        
-        CGFloat x = ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) + (widthToStartOfSelectedIndex - sectionWidth / 2);
-        return CGRectMake(x, 0, sectionWidth, self.height);
-
-    } else {
-        return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0, self.segmentWidth, self.height);
-    }
-//    self.selectedSegmentFillerLayer
+    return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0, self.segmentWidth, self.height);
 }
 
 - (void)updateSegmentsRects {
@@ -204,23 +186,23 @@
     if (CGRectIsEmpty(self.frame)) {
         self.segmentWidth = 0;
         
-        if(self.type == HMSegmentedControlTypeText) {
+        if (self.type == HMSegmentedControlTypeText) {
             for (NSString *titleString in self.sectionTitles) {
                 CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
                 self.segmentWidth = MAX(stringWidth, self.segmentWidth);
             }
             self.bounds = CGRectMake(0, 0, self.segmentWidth * self.sectionTitles.count, self.height);
-        } else if(self.type == HMSegmentedControlTypeImages) {
-            for (UIImage *iconImage in self.sectionImages) {
-                CGFloat imageWidth = iconImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+        } else if (self.type == HMSegmentedControlTypeImages) {
+            for (UIImage *sectionImage in self.sectionImages) {
+                CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
                 self.segmentWidth = MAX(imageWidth, self.segmentWidth);
             }
             self.bounds = CGRectMake(0, 0, self.segmentWidth * self.sectionImages.count, self.height);
         }
     } else {
-        if(self.type == HMSegmentedControlTypeText)
+        if (self.type == HMSegmentedControlTypeText)
             self.segmentWidth = self.frame.size.width / self.sectionTitles.count;
-        else if(self.type == HMSegmentedControlTypeImages)
+        else if (self.type == HMSegmentedControlTypeImages)
             self.segmentWidth = self.frame.size.width / self.sectionImages.count;
             
         self.height = self.frame.size.height;
@@ -325,16 +307,10 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    if(self.type == HMSegmentedControlTypeText)
-    {
-        if (self.sectionTitles)
-            [self updateSegmentsRects];
-    }
-    else if(self.type == HMSegmentedControlTypeImages)
-    {
-        if (self.sectionImages)
-            [self updateSegmentsRects];
-    }
+    if (self.type == HMSegmentedControlTypeText && self.sectionTitles)
+        [self updateSegmentsRects];
+    else if(self.type == HMSegmentedControlTypeImages && self.sectionImages)
+        [self updateSegmentsRects];
     
     [self setNeedsDisplay];
 }
@@ -342,16 +318,10 @@
 - (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
     
-    if(self.type == HMSegmentedControlTypeText)
-    {
-        if (self.sectionTitles)
-            [self updateSegmentsRects];
-    }
-    else if(self.type == HMSegmentedControlTypeImages)
-    {
-        if (self.sectionImages)
-            [self updateSegmentsRects];
-    }
+    if (self.type == HMSegmentedControlTypeText && self.sectionTitles)
+        [self updateSegmentsRects];
+    else if(self.type == HMSegmentedControlTypeImages && self.sectionImages)
+        [self updateSegmentsRects];
     
     [self setNeedsDisplay];
 }

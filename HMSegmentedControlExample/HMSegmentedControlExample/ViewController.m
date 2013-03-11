@@ -43,7 +43,6 @@
     [segmentedControl3 setTextColor:[UIColor whiteColor]];
     [segmentedControl3 setSelectedTextColor:[UIColor whiteColor]];
     [segmentedControl3 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
-//    [segmentedControl3 setSelectionLayerColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:0.5]];
     [segmentedControl3 setSelectionStyle:HMSegmentedControlSelectionStyleBox];
     [segmentedControl3 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
     [segmentedControl3 setSelectionLocation:HMSegmentedControlSelectionLocationDown];
@@ -59,13 +58,13 @@
     [self.segmentedControl4 setTextColor:[UIColor whiteColor]];
     [self.segmentedControl4 setSelectedTextColor:[UIColor redColor]];
     [self.segmentedControl4 setSelectionIndicatorColor:[UIColor redColor]];
-//    [self.segmentedControl4 setSelectionLayerColor:[UIColor redColor]];
     [self.segmentedControl4 setSelectionStyle:HMSegmentedControlSelectionStyleBox];
-    [self.segmentedControl4 setSelectionLocation:HMSegmentedControlSelectionLocationDown];
+    [self.segmentedControl4 setSelectionLocation:HMSegmentedControlSelectionLocationUp];
     [self.segmentedControl4 setTag:3];
     
+    __weak typeof(self) weakSelf = self;
     [self.segmentedControl4 setIndexChangeBlock:^(NSInteger index) {
-        [self.scrollView scrollRectToVisible:CGRectMake(320 * index, 0, 320, 200) animated:YES];
+        [weakSelf.scrollView scrollRectToVisible:CGRectMake(320 * index, 0, 320, 200) animated:YES];
     }];
     
     [self.view addSubview:self.segmentedControl4];
@@ -96,17 +95,11 @@
 }
 
 - (void)setApperanceForLabel:(UILabel *)label {
-    
     CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
     CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
     CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
     UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     [label setBackgroundColor:color];
-    
-//    [label setBackgroundColor:[UIColor colorWithRed:(float) random() / RAND_MAX
-//                                              green:(float) random() / RAND_MAX
-//                                               blue:(float) random() / RAND_MAX
-//                                              alpha:1]];
     [label setTextColor:[UIColor whiteColor]];
     [label setFont:[UIFont systemFontOfSize:21.0f]];
     [label setTextAlignment:NSTextAlignmentCenter];
