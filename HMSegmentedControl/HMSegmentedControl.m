@@ -11,8 +11,10 @@
 
 @interface HMSegmentedControl ()
 
-@property (nonatomic, strong) CALayer *selectedSegmentLayer;
+@property (nonatomic, strong) CALayer *selectionIndicatorStripLayer;
+@property (nonatomic, strong) CALayer *selectionIndicatorBoxLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
+@property (nonatomic, assign) BOOL addedSegmentsSublayers;
 
 @end
 
@@ -34,21 +36,21 @@
     if (self) {
         self.sectionTitles = sectiontitles;
         [self setDefaults];
-        self.selectionIndicatorSectionType = HMSelectionIndicatorSectionTitles;
+        self.type = HMSegmentedControlTypeText;
     }
     
     return self;
 }
 
-- (id)initWithSectionIcons:(NSArray*)sectionIcons highlight:(NSArray*)sectionHighlightIcons
+- (id)initWithSectionImages:(NSArray*)sectionImages sectionSelectedImages:(NSArray*)sectionSelectedImages
 {
     self = [super initWithFrame:CGRectZero];
     
     if (self) {
-        self.sectionIcons = sectionIcons;
-        self.sectionHighlightIcons = sectionHighlightIcons;
+        self.sectionImages = sectionImages;
+        self.sectionSelectedImages = sectionSelectedImages;
         [self setDefaults];
-        self.selectionIndicatorSectionType = HMSelectionIndicatorSectionIcons;
+        self.type = HMSegmentedControlTypeImages;
     }
     
     return self;
@@ -57,6 +59,7 @@
 - (void)setDefaults {
     self.font = [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f];
     self.textColor = [UIColor blackColor];
+    self.selectedTextColor = [UIColor blackColor];
     self.backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
     self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
@@ -65,129 +68,117 @@
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.height = 32.0f;
     self.selectionIndicatorHeight = 5.0f;
-    self.selectionIndicatorStyle = HMSelectionIndicatorResizesToSectionWidth;
-    self.selectionIndicatorLocation = HMSelectionIndicatorLocationUp;
-    self.selectionIndicatorSectionType = HMSelectionIndicatorSectionTitles;
+    self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStrip;
+    self.selectionLocation = HMSegmentedControlSelectionLocationUp;
+    self.type = HMSegmentedControlTypeText;
     
-    self.selectedSegmentLayer = [CALayer layer];
+    self.selectionIndicatorStripLayer = [CALayer layer];
+    
+    self.selectionIndicatorBoxLayer = [CALayer layer];
+    self.selectionIndicatorBoxLayer.opacity = 0.2;
+    self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
 }
 
 #pragma mark - Drawing
 
-- (void)drawRect:(CGRect)rect
-{
-    // Below is a work in progress for a new style for the selected segment
-    //    CALayer *selectedSegmentFillerLayer = [[CALayer alloc] init];
-    //    selectedSegmentFillerLayer.frame = CGRectMake(self.segmentWidth * self.selectedIndex, 0.0, self.segmentWidth, self.frame.size.height);
-    //    selectedSegmentFillerLayer.opacity = 0.2;
-    //    selectedSegmentFillerLayer.borderWidth = 1.0f;
-    //    selectedSegmentFillerLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    //    selectedSegmentFillerLayer.borderColor = self.selectionIndicatorColor.CGColor;
-    //    [self.layer addSublayer:selectedSegmentFillerLayer];
-    
+- (void)drawRect:(CGRect)rect {    
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
     
-    [self.textColor set];
+    self.selectionIndicatorStripLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
+    self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
+    self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
     
-    if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
-    {
-        [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
-            CGFloat stringHeight = [titleString sizeWithFont:self.font].height;
-            CGFloat y = ((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2);
-            CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
-            
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-            [titleString drawInRect:rect
-                           withFont:self.font
-                      lineBreakMode:UILineBreakModeClip
-                          alignment:UITextAlignmentCenter];
-#else
-            [titleString drawInRect:rect
-                           withFont:self.font
-                      lineBreakMode:NSLineBreakByClipping
-                          alignment:NSTextAlignmentCenter];
-#endif
-            
-            self.selectedSegmentLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-            
-            if (self.selectedSegmentIndex != HMSegmentedControlNoSegment) {
-                self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
-                [self.layer addSublayer:self.selectedSegmentLayer];
-            }
+    if (self.type == HMSegmentedControlTypeText && !self.addedSegmentsSublayers) {
+        [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {                        
+                CGFloat stringHeight = [titleString sizeWithFont:self.font].height;
+                CGFloat y = ((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2);
+                CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
+
+                CATextLayer *titleLayer = [CATextLayer layer];
+                titleLayer.frame = rect;
+                [titleLayer setFont:(__bridge CFTypeRef)(self.font.fontName)];
+                [titleLayer setFontSize:self.font.pointSize];
+                [titleLayer setAlignmentMode:kCAAlignmentCenter];
+                [titleLayer setString:titleString];
+                [titleLayer setForegroundColor:self.textColor.CGColor];
+                [titleLayer setContentsScale:[[UIScreen mainScreen] scale]];
+                [self.layer addSublayer:titleLayer];
         }];
-    }
-    else if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
-    {
-        [self.sectionIcons enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
-            UIImage* icon = iconImage;
+    } else if (self.type == HMSegmentedControlTypeImages) {
+        // Remove all sublayers to avoid drawing images over existing ones
+        self.layer.sublayers = nil;
+        
+        [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
+            UIImage *icon = iconImage;
             CGFloat imageWidth = icon.size.width;
             CGFloat imageHeight = icon.size.height;
             CGFloat y = ((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - imageHeight / 2);
             CGFloat x = self.segmentWidth * idx + (self.segmentWidth - imageWidth)/2.0f;
             CGRect rect = CGRectMake(x, y, imageWidth, imageHeight);
             
-            if(self.selectedSegmentIndex == idx)
-            {
-                if(self.sectionHighlightIcons)
-                {
-                    UIImage* highlightIcon = [self.sectionHighlightIcons objectAtIndex:idx];
-                    [highlightIcon drawInRect:rect];
+            CALayer *imageLayer = [CALayer layer];
+            [imageLayer setFrame:rect];
+                        
+            if (self.selectedSegmentIndex == idx) {
+                if (self.sectionSelectedImages) {
+                    UIImage *highlightIcon = [self.sectionSelectedImages objectAtIndex:idx];
+                    imageLayer.contents = (id)highlightIcon.CGImage;
+                } else {
+                    imageLayer.contents = (id)icon.CGImage;
                 }
-                else
-                {
-                    [icon drawInRect:rect];
-                }
-            }
-            else
-            {
-                [icon drawInRect:rect];
+            } else {
+                imageLayer.contents = (id)icon.CGImage;
             }
             
-            self.selectedSegmentLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-            
-            if (self.selectedSegmentIndex != HMSegmentedControlNoSegment) {
-                self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
-                [self.layer addSublayer:self.selectedSegmentLayer];
-            }
+            [self.layer addSublayer:imageLayer];
         }];
     }
+    
+    // Add the selection indicators
+    if (self.selectedSegmentIndex != HMSegmentedControlNoSegment && !self.selectionIndicatorStripLayer.superlayer) {
+        self.selectionIndicatorStripLayer.frame = [self frameForSelectionIndicator];
+        [self.layer addSublayer:self.selectionIndicatorStripLayer];
+        
+        if (self.selectionStyle == HMSegmentedControlSelectionStyleBox && !self.selectionIndicatorBoxLayer.superlayer) {
+            self.selectionIndicatorBoxLayer.frame = [self frameForFillerSelectionIndicator];
+            [self.layer insertSublayer:self.selectionIndicatorBoxLayer atIndex:0];
+        }
+    }
+    
+    self.addedSegmentsSublayers = YES;
 }
 
 - (CGRect)frameForSelectionIndicator {
-    CGFloat indicatorOffY;
-    if(self.selectionIndicatorLocation == HMSelectionIndicatorLocationUp)
-    {
-        indicatorOffY = 0.0;
-    }
-    else
-    {
-        CGRect bounds = self.bounds;
-        indicatorOffY = bounds.size.height - self.selectionIndicatorHeight;
-    }
+    CGFloat indicatorYOffset;
+        
+    if (self.selectionLocation == HMSegmentedControlSelectionLocationDown)
+        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight;
     
     CGFloat sectionWidth = 0.0f;
-    if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
-    {
+
+    if (self.type == HMSegmentedControlTypeText) {
         CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
         sectionWidth = stringWidth;
-    }
-    else if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
-    {
-        UIImage* icon = [self.sectionIcons objectAtIndex:self.selectedSegmentIndex];
-        CGFloat imageWidth = icon.size.width;
+    } else if (self.type == HMSegmentedControlTypeImages) {
+        UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
+        CGFloat imageWidth = sectionImage.size.width;
         sectionWidth = imageWidth;
     }
     
-    if (self.selectionIndicatorStyle == HMSelectionIndicatorResizesToSectionWidth && sectionWidth <= self.segmentWidth) {
+    if (self.selectionStyle == HMSegmentedControlSelectionStyleTextWidthStrip && sectionWidth <= self.segmentWidth) {
         CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
         CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
         
         CGFloat x = ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) + (widthToStartOfSelectedIndex - sectionWidth / 2);
-        return CGRectMake(x, indicatorOffY, sectionWidth, self.selectionIndicatorHeight);
+        return CGRectMake(x, indicatorYOffset, sectionWidth, self.selectionIndicatorHeight);
     } else {
-        return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, indicatorOffY, self.segmentWidth, self.selectionIndicatorHeight);
+        return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, indicatorYOffset, self.segmentWidth, self.selectionIndicatorHeight);
     }
+}
+
+- (CGRect)frameForFillerSelectionIndicator {
+    return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0, self.segmentWidth, self.height);
 }
 
 - (void)updateSegmentsRects {
@@ -195,32 +186,25 @@
     if (CGRectIsEmpty(self.frame)) {
         self.segmentWidth = 0;
         
-        if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
-        {
+        if (self.type == HMSegmentedControlTypeText) {
             for (NSString *titleString in self.sectionTitles) {
                 CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
                 self.segmentWidth = MAX(stringWidth, self.segmentWidth);
             }
             self.bounds = CGRectMake(0, 0, self.segmentWidth * self.sectionTitles.count, self.height);
-        }
-        else if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
-        {
-            for (UIImage *iconImage in self.sectionIcons) {
-                CGFloat imageWidth = iconImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+        } else if (self.type == HMSegmentedControlTypeImages) {
+            for (UIImage *sectionImage in self.sectionImages) {
+                CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
                 self.segmentWidth = MAX(imageWidth, self.segmentWidth);
             }
-            self.bounds = CGRectMake(0, 0, self.segmentWidth * self.sectionIcons.count, self.height);
+            self.bounds = CGRectMake(0, 0, self.segmentWidth * self.sectionImages.count, self.height);
         }
-        
     } else {
-        if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
-        {
+        if (self.type == HMSegmentedControlTypeText)
             self.segmentWidth = self.frame.size.width / self.sectionTitles.count;
-        }
-        else if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
-        {
-            self.segmentWidth = self.frame.size.width / self.sectionIcons.count;
-        }
+        else if (self.type == HMSegmentedControlTypeImages)
+            self.segmentWidth = self.frame.size.width / self.sectionImages.count;
+            
         self.height = self.frame.size.height;
     }
 }
@@ -263,7 +247,8 @@
     [self setNeedsDisplay];
     
     if (index == HMSegmentedControlNoSegment) {
-        [self.selectedSegmentLayer removeFromSuperlayer];
+        [self.selectionIndicatorStripLayer removeFromSuperlayer];
+        [self.selectionIndicatorBoxLayer removeFromSuperlayer];
     } else {
         if (animated) {
             
@@ -272,33 +257,38 @@
              index is currently selected, so add the layer then move it to the new 
              segment index without animating.
              */
-            if ([self.selectedSegmentLayer superlayer] == nil) {
-                [self.layer addSublayer:self.selectedSegmentLayer];
+            if ([self.selectionIndicatorStripLayer superlayer] == nil) {
+                [self.layer addSublayer:self.selectionIndicatorStripLayer];
+                
+                if (self.selectionStyle == HMSegmentedControlSelectionStyleBox && [self.selectionIndicatorBoxLayer superlayer] == nil)
+                    [self.layer insertSublayer:self.selectionIndicatorBoxLayer atIndex:0];
+                
                 [self setSelectedSegmentIndex:index animated:NO notify:YES];
                 return;
             }
             
+            if (notify)
+                [self notifyForSegmentChangeToIndex:index];
+            
             // Restore CALayer animations
-            self.selectedSegmentLayer.actions = nil;
+            self.selectionIndicatorStripLayer.actions = nil;
+            self.selectionIndicatorBoxLayer.actions = nil;
             
             // Animate to new position
             [CATransaction begin];
             [CATransaction setAnimationDuration:0.15f];
             [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-            
-            if (notify) {
-                [CATransaction setCompletionBlock:^{
-                    [self notifyForSegmentChangeToIndex:index];
-                }];
-            }
-            
-            self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
+            self.selectionIndicatorStripLayer.frame = [self frameForSelectionIndicator];
+            self.selectionIndicatorBoxLayer.frame = [self frameForFillerSelectionIndicator];
             [CATransaction commit];
         } else {
             // Disable CALayer animations
             NSMutableDictionary *newActions = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", nil];
-            self.selectedSegmentLayer.actions = newActions;
-            self.selectedSegmentLayer.frame = [self frameForSelectionIndicator];
+            self.selectionIndicatorStripLayer.actions = newActions;
+            self.selectionIndicatorStripLayer.frame = [self frameForSelectionIndicator];
+            
+            self.selectionIndicatorBoxLayer.actions = newActions;
+            self.selectionIndicatorBoxLayer.frame = [self frameForFillerSelectionIndicator];
             
             if (notify)
                 [self notifyForSegmentChangeToIndex:index];
@@ -317,16 +307,10 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
-    {
-        if (self.sectionTitles)
-            [self updateSegmentsRects];
-    }
-    else if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
-    {
-        if (self.sectionIcons)
-            [self updateSegmentsRects];
-    }
+    if (self.type == HMSegmentedControlTypeText && self.sectionTitles)
+        [self updateSegmentsRects];
+    else if(self.type == HMSegmentedControlTypeImages && self.sectionImages)
+        [self updateSegmentsRects];
     
     [self setNeedsDisplay];
 }
@@ -334,16 +318,10 @@
 - (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
     
-    if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionTitles)
-    {
-        if (self.sectionTitles)
-            [self updateSegmentsRects];
-    }
-    else if(self.selectionIndicatorSectionType == HMSelectionIndicatorSectionIcons)
-    {
-        if (self.sectionIcons)
-            [self updateSegmentsRects];
-    }
+    if (self.type == HMSegmentedControlTypeText && self.sectionTitles)
+        [self updateSegmentsRects];
+    else if(self.type == HMSegmentedControlTypeImages && self.sectionImages)
+        [self updateSegmentsRects];
     
     [self setNeedsDisplay];
 }
