@@ -1,5 +1,5 @@
 HMSegmentedControl
-==================
+===
 
 A drop-in replacement for UISegmentedControl mimicking the style of the segmented control used in Google Currents.
 
@@ -78,6 +78,11 @@ Included is a demo project showing how to fully customise the control.
 - v1.1.0 (merged pull request from [jacksonpan](https://github.com/jacksonpan))
   - Added image support
   - Support for changing selection indicator position
+  
+# Apps using HMSegmentedControl
+
+If you are using HMSegmentedControl in your app or know of an app that uses it, please add it to [this list](https://github.com/HeshamMegid/HMSegmentedControl/wiki/App-using-HMSegmentedControl).
+  
 
 # License
 
