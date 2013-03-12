@@ -90,20 +90,21 @@
     self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
     
     if (self.type == HMSegmentedControlTypeText && !self.addedSegmentsSublayers) {
-        [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {                        
-                CGFloat stringHeight = [titleString sizeWithFont:self.font].height;
-                CGFloat y = ((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2);
-                CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
+        [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
+            CGFloat stringHeight = roundf([titleString sizeWithFont:self.font].height);
+            CGFloat y = roundf(((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2));
+            CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
 
-                CATextLayer *titleLayer = [CATextLayer layer];
-                titleLayer.frame = rect;
-                [titleLayer setFont:(__bridge CFTypeRef)(self.font.fontName)];
-                [titleLayer setFontSize:self.font.pointSize];
-                [titleLayer setAlignmentMode:kCAAlignmentCenter];
-                [titleLayer setString:titleString];
-                [titleLayer setForegroundColor:self.textColor.CGColor];
-                [titleLayer setContentsScale:[[UIScreen mainScreen] scale]];
-                [self.layer addSublayer:titleLayer];
+            CATextLayer *titleLayer = [CATextLayer layer];
+            // Note: text inside the CATextLayer will appear blurry unless the rect values around rounded
+            titleLayer.frame = rect;
+            [titleLayer setFont:(__bridge CFTypeRef)(self.font.fontName)];
+            [titleLayer setFontSize:self.font.pointSize];
+            [titleLayer setAlignmentMode:kCAAlignmentCenter];
+            [titleLayer setString:titleString];
+            [titleLayer setForegroundColor:self.textColor.CGColor];
+            [titleLayer setContentsScale:[[UIScreen mainScreen] scale]];
+            [self.layer addSublayer:titleLayer];
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
         // Remove all sublayers to avoid drawing images over existing ones
@@ -204,7 +205,8 @@
             self.segmentWidth = self.frame.size.width / self.sectionTitles.count;
         else if (self.type == HMSegmentedControlTypeImages)
             self.segmentWidth = self.frame.size.width / self.sectionImages.count;
-            
+        
+        self.segmentWidth = roundf(self.segmentWidth);
         self.height = self.frame.size.height;
     }
 }
