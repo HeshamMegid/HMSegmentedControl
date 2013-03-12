@@ -54,10 +54,10 @@
     self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 200, 320, 50)];
     [self.segmentedControl4 setSectionTitles:@[@"Worldwide", @"Local", @"Headlines"]];
     [self.segmentedControl4 setSelectedSegmentIndex:1];
-    [self.segmentedControl4 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.2 blue:0.3 alpha:1]];
+    [self.segmentedControl4 setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1]];
     [self.segmentedControl4 setTextColor:[UIColor whiteColor]];
-    [self.segmentedControl4 setSelectedTextColor:[UIColor redColor]];
-    [self.segmentedControl4 setSelectionIndicatorColor:[UIColor redColor]];
+    [self.segmentedControl4 setSelectedTextColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1]];
+    [self.segmentedControl4 setSelectionIndicatorColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
     [self.segmentedControl4 setSelectionStyle:HMSegmentedControlSelectionStyleBox];
     [self.segmentedControl4 setSelectionLocation:HMSegmentedControlSelectionLocationUp];
     [self.segmentedControl4 setTag:3];
@@ -70,7 +70,7 @@
     [self.view addSubview:self.segmentedControl4];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 250, 320, 210)];
-    [self.scrollView setBackgroundColor:[UIColor colorWithRed:0.1 green:0.2 blue:0.34 alpha:1]];
+    [self.scrollView setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1]];
     [self.scrollView setPagingEnabled:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentSize:CGSizeMake(960, 200)];
