@@ -14,7 +14,6 @@
 @property (nonatomic, strong) CALayer *selectionIndicatorStripLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorBoxLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
-@property (nonatomic, assign) BOOL addedSegmentsSublayers;
 
 @end
 
@@ -89,7 +88,10 @@
     self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
     self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
     
-    if (self.type == HMSegmentedControlTypeText && !self.addedSegmentsSublayers) {
+    // Remove all sublayers to avoid drawing images over existing ones
+    self.layer.sublayers = nil;
+    
+    if (self.type == HMSegmentedControlTypeText) {
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
             CGFloat stringHeight = roundf([titleString sizeWithFont:self.font].height);
             CGFloat y = roundf(((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2));
@@ -102,14 +104,16 @@
             [titleLayer setFontSize:self.font.pointSize];
             [titleLayer setAlignmentMode:kCAAlignmentCenter];
             [titleLayer setString:titleString];
-            [titleLayer setForegroundColor:self.textColor.CGColor];
+            
+            if (self.selectedSegmentIndex == idx)
+                [titleLayer setForegroundColor:self.selectedTextColor.CGColor];
+            else
+                [titleLayer setForegroundColor:self.textColor.CGColor];
+            
             [titleLayer setContentsScale:[[UIScreen mainScreen] scale]];
             [self.layer addSublayer:titleLayer];
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
-        // Remove all sublayers to avoid drawing images over existing ones
-        self.layer.sublayers = nil;
-        
         [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
             UIImage *icon = iconImage;
             CGFloat imageWidth = icon.size.width;
@@ -146,8 +150,6 @@
             [self.layer insertSublayer:self.selectionIndicatorBoxLayer atIndex:0];
         }
     }
-    
-    self.addedSegmentsSublayers = YES;
 }
 
 - (CGRect)frameForSelectionIndicator {
