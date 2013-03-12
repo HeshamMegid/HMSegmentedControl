@@ -38,7 +38,7 @@ $ cd /path/to/MyProject
 $ touch Podfile
 $ edit Podfile
 platform :ios, '5.0' 
-pod 'HMSegmentedControl', '~> 1.0.0'
+pod 'HMSegmentedControl', '~> 1.2.0'
 ```
 
 Install into your project:
@@ -85,7 +85,7 @@ Included is a demo project showing how to fully customise the control.
   * Added image support
   * Support for changing selection indicator position
 * v1.0.0
-	* Initial release.
+	* Initial release
   
 # Apps using HMSegmentedControl
 
