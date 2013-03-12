@@ -75,9 +75,17 @@ Included is a demo project showing how to fully customise the control.
 ![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
 
 # Change log
-- v1.1.0 (merged pull request from [jacksonpan](https://github.com/jacksonpan))
-  - Added image support
-  - Support for changing selection indicator position
+* v1.2.0
+	* Added new selection indicator style: HMSelectionIndicatorBox
+	* Added ability to set text colour for selected segment (thanks to [@jmkr](https://github.com/jmkr))
+	* Segment titles are now added in a separate CATextLayer, and images are drawn in a separate CALayer
+	* Calls to index change block/selector now happen before the animation starts
+	* Lots of code refactoring and clean up
+* v1.1.0 (merged pull request from [@jacksonpan](https://github.com/jacksonpan))
+  * Added image support
+  * Support for changing selection indicator position
+* v1.0.0
+	* Initial release.
   
 # Apps using HMSegmentedControl
 
