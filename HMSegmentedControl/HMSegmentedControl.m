@@ -153,7 +153,7 @@
 }
 
 - (CGRect)frameForSelectionIndicator {
-    CGFloat indicatorYOffset;
+    CGFloat indicatorYOffset = 0.0f;
         
     if (self.selectionLocation == HMSegmentedControlSelectionLocationDown)
         indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight;
