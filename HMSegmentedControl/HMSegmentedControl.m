@@ -224,7 +224,7 @@
 #pragma mark - Touch
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [[event allTouches] anyObject];
+    UITouch *touch = [touches anyObject];
     CGPoint touchLocation = [touch locationInView:self];
     
     if (CGRectContainsPoint(self.bounds, touchLocation)) {
