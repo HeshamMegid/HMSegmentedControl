@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "HMSegmentedControlContainerView.h"
 
-@interface ViewController ()
+@interface ViewController () {
+    HMSegmentedControlContainerView *containerView;
+}
 
 @end
 
@@ -19,10 +22,14 @@
     [super viewDidLoad];
     
     // Minimum code required to use the segmented control with the default styling.
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Trending", @"News", @"Library"]];
+    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Scrollable>", @"Trending", @"News", @"Library"]];
     [segmentedControl setFrame:CGRectMake(0, 0, 320, 45)];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:segmentedControl];
+    //[self.view addSubview:segmentedControl];
+
+    // *** Add segmentedControl to our container view to automatically enable juicy scrolling ***
+    containerView = [[HMSegmentedControlContainerView alloc] initWithHMSegmentedControl:segmentedControl];
+    [self.view addSubview:containerView];
     
     HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:@[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], [UIImage imageNamed:@"3"], [UIImage imageNamed:@"4"]] sectionSelectedImages:@[[UIImage imageNamed:@"1-selected"], [UIImage imageNamed:@"2-selected"], [UIImage imageNamed:@"3-selected"], [UIImage imageNamed:@"4-selected"]]];
     [segmentedControl2 setSelectionIndicatorHeight:4.0f];
