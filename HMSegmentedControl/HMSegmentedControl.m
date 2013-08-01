@@ -65,6 +65,24 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self setDefaults];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+
+    if (self)
+    {
+        [self setDefaults];
+    }
+
+    return self;
+}
+
 - (void)setDefaults {
     self.font = [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f];
     self.textColor = [UIColor blackColor];
