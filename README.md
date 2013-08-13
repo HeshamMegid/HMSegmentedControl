@@ -89,7 +89,7 @@ Included is a demo project showing how to fully customise the control.
   
 # Apps using HMSegmentedControl
 
-If you are using HMSegmentedControl in your app or know of an app that uses it, please add it to [this list](https://github.com/HeshamMegid/HMSegmentedControl/wiki/App-using-HMSegmentedControl).
+If you are using HMSegmentedControl in your app or know of an app that uses it, please add it to [this list](https://github.com/HeshamMegid/HMSegmentedControl/wiki/Apps-using-HMSegmentedControl).
   
 
 # License
