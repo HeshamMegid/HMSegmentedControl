@@ -76,6 +76,7 @@
     self.textColor = [UIColor blackColor];
     self.selectedTextColor = [UIColor blackColor];
     self.backgroundColor = [UIColor whiteColor];
+    self.selectedBackgroundColor = [UIColor whiteColor];
     self.opaque = NO;
     self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
     
@@ -112,6 +113,18 @@
             CGFloat stringHeight = roundf([titleString sizeWithFont:self.font].height);
             CGFloat y = roundf(((self.height - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2));
             CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
+            
+            //add support for selected segment background color
+            if (self.selectedSegmentIndex == idx) {
+                CGRect segRect = self.bounds;
+                segRect.origin.x = self.segmentWidth * idx;
+                segRect.size.width = self.segmentWidth;
+                
+                CALayer *bgndLayer = [CALayer layer];
+                bgndLayer.frame = segRect;
+                bgndLayer.backgroundColor = [self.selectedBackgroundColor CGColor];
+                [self.layer addSublayer:bgndLayer];
+            }
 
             CATextLayer *titleLayer = [CATextLayer layer];
             // Note: text inside the CATextLayer will appear blurry unless the rect values around rounded
