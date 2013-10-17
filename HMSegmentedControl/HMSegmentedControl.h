@@ -42,6 +42,7 @@ enum {
 @property (nonatomic, strong) UIColor *textColor; // default is [UIColor blackColor]
 @property (nonatomic, strong) UIColor *selectedTextColor; // default is [UIColor blackColor]
 @property (nonatomic, strong) UIColor *backgroundColor; // default is [UIColor whiteColor]
+@property (nonatomic, strong) UIColor *selectedBackgroundColor; // default is [UIColor whiteColor]
 @property (nonatomic, strong) UIColor *selectionIndicatorColor; // default is R:52, G:181, B:229
 @property (nonatomic, assign) HMSegmentedControlSelectionStyle selectionStyle; // Default is HMSegmentedControlSelectionStyleTextWidthStrip
 @property (nonatomic, assign) HMSegmentedControlSelectionLocation selectionLocation; // Default is HMSegmentedControlSelectionLocationUp
