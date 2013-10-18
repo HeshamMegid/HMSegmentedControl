@@ -17,13 +17,20 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    
+    CGFloat yDelta;
+    
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
+        yDelta = 20.0f;
+    } else {
+        yDelta = 0.0f;
+    }
     
     // Minimum code required to use the segmented control with the default styling.
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Scrollable>", @"Trending", @"News", @"Library"]];
-    [segmentedControl setFrame:CGRectMake(0, 0, 320, 45)];
+    [segmentedControl setFrame:CGRectMake(0, 0 + yDelta, 320, 45)];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     //[self.view addSubview:segmentedControl];
 
@@ -33,7 +40,7 @@
     
     HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:@[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], [UIImage imageNamed:@"3"], [UIImage imageNamed:@"4"]] sectionSelectedImages:@[[UIImage imageNamed:@"1-selected"], [UIImage imageNamed:@"2-selected"], [UIImage imageNamed:@"3-selected"], [UIImage imageNamed:@"4-selected"]]];
     [segmentedControl2 setSelectionIndicatorHeight:4.0f];
-    [segmentedControl2 setFrame:CGRectMake(0, 60, 320, 50)];
+    [segmentedControl2 setFrame:CGRectMake(0, 60 + yDelta, 320, 50)];
     [segmentedControl2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     [segmentedControl2 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [segmentedControl2 setBackgroundColor:[UIColor clearColor]];
@@ -54,11 +61,11 @@
     [segmentedControl3 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
     [segmentedControl3 setSelectionLocation:HMSegmentedControlSelectionLocationDown];
     [segmentedControl3 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
-    [segmentedControl3 setCenter:CGPointMake(160, 160)];
+    [segmentedControl3 setCenter:CGPointMake(160, 160 + yDelta)];
     [segmentedControl3 setTag:2];
     [self.view addSubview:segmentedControl3];
     
-    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 200, 320, 50)];
+    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 200 + yDelta, 320, 50)];
     [self.segmentedControl4 setSectionTitles:@[@"Worldwide", @"Local", @"Headlines"]];
     [self.segmentedControl4 setSelectedSegmentIndex:1];
     [self.segmentedControl4 setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1]];
@@ -76,7 +83,7 @@
     
     [self.view addSubview:self.segmentedControl4];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 250, 320, 210)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 250 + yDelta, 320, 210)];
     [self.scrollView setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1]];
     [self.scrollView setPagingEnabled:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
