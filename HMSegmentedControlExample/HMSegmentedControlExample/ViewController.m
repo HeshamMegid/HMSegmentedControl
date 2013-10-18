@@ -7,13 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "HMSegmentedControlContainerView.h"
-
-@interface ViewController () {
-    HMSegmentedControlContainerView *containerView;
-}
-
-@end
 
 @implementation ViewController
 
@@ -29,25 +22,35 @@
     }
     
     // Minimum code required to use the segmented control with the default styling.
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Scrollable>", @"Trending", @"News", @"Library"]];
-    [segmentedControl setFrame:CGRectMake(0, 0 + yDelta, 320, 45)];
+    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Trending", @"News", @"Library"]];
+    segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    [segmentedControl setFrame:CGRectMake(0, 0 + yDelta, 320, 40)];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    //[self.view addSubview:segmentedControl];
-
-    // *** Add segmentedControl to our container view to automatically enable juicy scrolling ***
-    containerView = [[HMSegmentedControlContainerView alloc] initWithHMSegmentedControl:segmentedControl];
-    [self.view addSubview:containerView];
+    [self.view addSubview:segmentedControl];
     
+    
+    // Segmented control with scrolling
+    HMSegmentedControl *segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
+    segmentedControl1.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    segmentedControl1.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentedControl1.scrollEnabled = YES;
+    [segmentedControl1 setFrame:CGRectMake(0, 40 + yDelta, 320, 40)];
+    [segmentedControl1 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:segmentedControl1];
+    
+    // Segmented control with images
     HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:@[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], [UIImage imageNamed:@"3"], [UIImage imageNamed:@"4"]] sectionSelectedImages:@[[UIImage imageNamed:@"1-selected"], [UIImage imageNamed:@"2-selected"], [UIImage imageNamed:@"3-selected"], [UIImage imageNamed:@"4-selected"]]];
     [segmentedControl2 setSelectionIndicatorHeight:4.0f];
-    [segmentedControl2 setFrame:CGRectMake(0, 60 + yDelta, 320, 50)];
-    [segmentedControl2 setSegmentEdgeInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [segmentedControl2 setFrame:CGRectMake(0, 100 + yDelta, 320, 50)];
     [segmentedControl2 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [segmentedControl2 setBackgroundColor:[UIColor clearColor]];
-    [segmentedControl2 setSelectionLocation:HMSegmentedControlSelectionLocationDown];
-    [segmentedControl2 setSelectionStyle:HMSegmentedControlSelectionStyleTextWidthStrip];
+    [segmentedControl2 setSelectionIndicatorLocation:HMSegmentedControlSelectionIndicatorLocationDown];
+    [segmentedControl2 setSelectionStyle:HMSegmentedControlSelectionStyleTextWidthStripe];
     [self.view addSubview:segmentedControl2];
 
+    
+    // Segmented control with more customization and indexChangeBlock
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
     [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
         NSLog(@"Selected index %i (via block)", index);
@@ -59,13 +62,14 @@
     [segmentedControl3 setSelectionIndicatorColor:[UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1]];
     [segmentedControl3 setSelectionStyle:HMSegmentedControlSelectionStyleBox];
     [segmentedControl3 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
-    [segmentedControl3 setSelectionLocation:HMSegmentedControlSelectionLocationDown];
-    [segmentedControl3 setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
-    [segmentedControl3 setCenter:CGPointMake(160, 160 + yDelta)];
+    [segmentedControl3 setSelectionIndicatorLocation:HMSegmentedControlSelectionIndicatorLocationDown];
+    [segmentedControl3 setFrame:CGRectMake(0, 160 + yDelta, 320, 50)];
     [segmentedControl3 setTag:2];
     [self.view addSubview:segmentedControl3];
     
-    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 200 + yDelta, 320, 50)];
+    
+    // Tying up the segmented control to a scroll view
+    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 240 + yDelta, 320, 50)];
     [self.segmentedControl4 setSectionTitles:@[@"Worldwide", @"Local", @"Headlines"]];
     [self.segmentedControl4 setSelectedSegmentIndex:1];
     [self.segmentedControl4 setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1]];
@@ -73,7 +77,7 @@
     [self.segmentedControl4 setSelectedTextColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1]];
     [self.segmentedControl4 setSelectionIndicatorColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
     [self.segmentedControl4 setSelectionStyle:HMSegmentedControlSelectionStyleBox];
-    [self.segmentedControl4 setSelectionLocation:HMSegmentedControlSelectionLocationUp];
+    [self.segmentedControl4 setSelectionIndicatorLocation:HMSegmentedControlSelectionIndicatorLocationUp];
     [self.segmentedControl4 setTag:3];
     
     __weak typeof(self) weakSelf = self;
@@ -83,7 +87,7 @@
     
     [self.view addSubview:self.segmentedControl4];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 250 + yDelta, 320, 210)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 290 + yDelta, 320, 210)];
     [self.scrollView setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1]];
     [self.scrollView setPagingEnabled:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
