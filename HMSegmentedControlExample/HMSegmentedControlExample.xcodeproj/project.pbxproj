@@ -34,7 +34,6 @@
 		54F05AED1689D34A0064FCE1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AEC1689D34A0064FCE1 /* Default@2x.png */; };
 		54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AEE1689D34A0064FCE1 /* Default-568h@2x.png */; };
 		54F05AF21689D34B0064FCE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AF11689D34B0064FCE1 /* ViewController.m */; };
-		54F05AF51689D34B0064FCE1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AF31689D34B0064FCE1 /* ViewController.xib */; };
 		54F05B001689D38C0064FCE1 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */; };
 		E096FFBD17215122002EC421 /* HMSegmentedControlContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E096FFBC17215122002EC421 /* HMSegmentedControlContainerView.m */; };
 /* End PBXBuildFile section */
@@ -71,7 +70,6 @@
 		54F05AEE1689D34A0064FCE1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		54F05AF01689D34B0064FCE1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		54F05AF11689D34B0064FCE1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		54F05AF41689D34B0064FCE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		54F05AFB1689D3650064FCE1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 				54F05AE81689D34A0064FCE1 /* AppDelegate.m */,
 				54F05AF01689D34B0064FCE1 /* ViewController.h */,
 				54F05AF11689D34B0064FCE1 /* ViewController.m */,
-				54F05AF31689D34B0064FCE1 /* ViewController.xib */,
 				A3A4632116B6190F00AE52BA /* Images */,
 				54F05ADF1689D34A0064FCE1 /* Supporting Files */,
 			);
@@ -250,7 +247,6 @@
 				54F05AEB1689D34A0064FCE1 /* Default.png in Resources */,
 				54F05AED1689D34A0064FCE1 /* Default@2x.png in Resources */,
 				54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */,
-				54F05AF51689D34B0064FCE1 /* ViewController.xib in Resources */,
 				54E531BE16B951AB005F17A1 /* 1-selected.png in Resources */,
 				54E531BF16B951AB005F17A1 /* 1-selected@2x.png in Resources */,
 				54E531C016B951AB005F17A1 /* 1.png in Resources */,
@@ -294,14 +290,6 @@
 				54F05AE21689D34A0064FCE1 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		54F05AF31689D34B0064FCE1 /* ViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				54F05AF41689D34B0064FCE1 /* en */,
-			);
-			name = ViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
