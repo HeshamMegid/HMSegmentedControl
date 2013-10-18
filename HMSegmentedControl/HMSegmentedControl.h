@@ -16,15 +16,15 @@ typedef enum {
 } HMSegmentedControlType;
 
 typedef enum {
-    HMSegmentedControlSelectionStyleTextWidthStrip, // Indicator width will only be as big as the text width
-    HMSegmentedControlSelectionStyleFullWidthStrip, // Indicator width will fill the whole segment
+    HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
+    HMSegmentedControlSelectionStyleFullWidthStripe, // Indicator width will fill the whole segment
     HMSegmentedControlSelectionStyleBox
 } HMSegmentedControlSelectionStyle;
 
 typedef enum {
-    HMSegmentedControlSelectionLocationUp,
-    HMSegmentedControlSelectionLocationDown
-} HMSegmentedControlSelectionLocation;
+    HMSegmentedControlSelectionIndicatorLocationUp,
+    HMSegmentedControlSelectionIndicatorLocationDown
+} HMSegmentedControlSelectionIndicatorLocation;
 
 enum {
     HMSegmentedControlNoSegment = -1   // segment index for no selected segment
@@ -43,12 +43,31 @@ enum {
 @property (nonatomic, strong) UIColor *selectedTextColor; // default is [UIColor blackColor]
 @property (nonatomic, strong) UIColor *backgroundColor; // default is [UIColor whiteColor]
 @property (nonatomic, strong) UIColor *selectionIndicatorColor; // default is R:52, G:181, B:229
-@property (nonatomic, assign) HMSegmentedControlSelectionStyle selectionStyle; // Default is HMSegmentedControlSelectionStyleTextWidthStrip
-@property (nonatomic, assign) HMSegmentedControlSelectionLocation selectionLocation; // Default is HMSegmentedControlSelectionLocationUp
+
+/*
+ Specifies the style of the selection indicator.
+ 
+ Default is `HMSegmentedControlSelectionStyleTextWidthStripe`
+ */
+@property (nonatomic, assign) HMSegmentedControlSelectionStyle selectionStyle;
+
+/*
+ Specifies the location of the selection indicator.
+ 
+ Default is `HMSegmentedControlSelectionIndicatorLocationUp`
+ */
+@property (nonatomic, assign) HMSegmentedControlSelectionIndicatorLocation selectionIndicatorLocation;
 @property (nonatomic, assign) HMSegmentedControlType type;
 
+/*
+ Default is NO. Set to YES to allow for adding more tabs than the screen width could fit.
+ 
+ When set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
+ otherwise it will be equal to the width of the control's frame divided by the number of segments.
+ */
+@property(nonatomic, getter = isScrollEnabled) BOOL scrollEnabled;
+
 @property (nonatomic, assign) NSInteger selectedSegmentIndex;
-@property (nonatomic, readwrite) CGFloat height; // default is 32.0
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight; // default is 5.0
 @property (nonatomic, readwrite) UIEdgeInsets segmentEdgeInset; // default is UIEdgeInsetsMake(0, 5, 0, 5)
 

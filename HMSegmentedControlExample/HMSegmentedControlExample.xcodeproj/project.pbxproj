@@ -35,7 +35,6 @@
 		54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AEE1689D34A0064FCE1 /* Default-568h@2x.png */; };
 		54F05AF21689D34B0064FCE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AF11689D34B0064FCE1 /* ViewController.m */; };
 		54F05B001689D38C0064FCE1 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */; };
-		E096FFBD17215122002EC421 /* HMSegmentedControlContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E096FFBC17215122002EC421 /* HMSegmentedControlContainerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,8 +72,6 @@
 		54F05AFB1689D3650064FCE1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
-		E096FFBB17215122002EC421 /* HMSegmentedControlContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControlContainerView.h; sourceTree = "<group>"; };
-		E096FFBC17215122002EC421 /* HMSegmentedControlContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControlContainerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +121,6 @@
 			isa = PBXGroup;
 			children = (
 				54F05AFD1689D38C0064FCE1 /* HMSegmentedControl */,
-				E096FFBA17215122002EC421 /* HMSegmentedControlContainerView */,
 				54F05AE71689D34A0064FCE1 /* AppDelegate.h */,
 				54F05AE81689D34A0064FCE1 /* AppDelegate.m */,
 				54F05AF01689D34B0064FCE1 /* ViewController.h */,
@@ -181,15 +177,6 @@
 			);
 			name = Images;
 			path = "发送页面按钮";
-			sourceTree = "<group>";
-		};
-		E096FFBA17215122002EC421 /* HMSegmentedControlContainerView */ = {
-			isa = PBXGroup;
-			children = (
-				E096FFBB17215122002EC421 /* HMSegmentedControlContainerView.h */,
-				E096FFBC17215122002EC421 /* HMSegmentedControlContainerView.m */,
-			);
-			path = HMSegmentedControlContainerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,7 +264,6 @@
 				54F05AE91689D34A0064FCE1 /* AppDelegate.m in Sources */,
 				54F05AF21689D34B0064FCE1 /* ViewController.m in Sources */,
 				54F05B001689D38C0064FCE1 /* HMSegmentedControl.m in Sources */,
-				E096FFBD17215122002EC421 /* HMSegmentedControlContainerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
