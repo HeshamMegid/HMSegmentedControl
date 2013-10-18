@@ -13,55 +13,50 @@
 @interface HMScrollView : UIScrollView
 @end
 
+typedef enum {
+    HMSegmentedControlTypeText,
+    HMSegmentedControlTypeImages
+} HMSegmentedControlType;
+
 @interface HMSegmentedControl ()
 
+@property (nonatomic, assign) HMSegmentedControlType type;
 @property (nonatomic, strong) CALayer *selectionIndicatorStripLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorBoxLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, strong) HMScrollView *scrollView;
 
-// Duplicate?
-//@property (nonatomic, readwrite) CGFloat minimumSegmentWidth; // default is 32.0
-
 @end
 
 @implementation HMScrollView
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-    // If not dragging, send event to next responder
-    if (!self.dragging){
-        [self.nextResponder touchesBegan: touches withEvent:event];
-    }
-    else{
-        [super touchesBegan: touches withEvent: event];
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (!self.dragging) {
+        [self.nextResponder touchesBegan:touches withEvent:event];
+    } else {
+        [super touchesBegan:touches withEvent:event];
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-    // If not dragging, send event to next responder
-    if (!self.dragging){
-        [self.nextResponder touchesMoved: touches withEvent:event];
-    }
-    else{
-        [super touchesMoved: touches withEvent: event];
+    if (!self.dragging) {
+        [self.nextResponder touchesMoved:touches withEvent:event];
+    } else{
+        [super touchesMoved:touches withEvent:event];
     }
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    if (!self.dragging){
-        [self.nextResponder touchesEnded: touches withEvent:event];
-    }
-    else{
-        [super touchesEnded: touches withEvent: event];
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (!self.dragging) {
+        [self.nextResponder touchesEnded:touches withEvent:event];
+    } else {
+        [super touchesEnded:touches withEvent:event];
     }
 }
 
 @end
 
 @implementation HMSegmentedControl
-
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];

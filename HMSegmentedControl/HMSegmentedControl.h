@@ -11,11 +11,6 @@
 typedef void (^IndexChangeBlock)(NSInteger index);
 
 typedef enum {
-    HMSegmentedControlTypeText,
-    HMSegmentedControlTypeImages
-} HMSegmentedControlType;
-
-typedef enum {
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
     HMSegmentedControlSelectionStyleFullWidthStripe, // Indicator width will fill the whole segment
     HMSegmentedControlSelectionStyleBox
@@ -36,13 +31,47 @@ enum {
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
 
-@property (nonatomic, copy) IndexChangeBlock indexChangeBlock; // you can also use addTarget:action:forControlEvents:
+/*
+ Provide a block to be executed when selected index is changed.
+ 
+ Alternativly, you could use `addTarget:action:forControlEvents:`
+ */
+@property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
 
-@property (nonatomic, strong) UIFont *font; // default is [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]
-@property (nonatomic, strong) UIColor *textColor; // default is [UIColor blackColor]
-@property (nonatomic, strong) UIColor *selectedTextColor; // default is [UIColor blackColor]
-@property (nonatomic, strong) UIColor *backgroundColor; // default is [UIColor whiteColor]
-@property (nonatomic, strong) UIColor *selectionIndicatorColor; // default is R:52, G:181, B:229
+/*
+ Font for segments names when segmented control type is `HMSegmentedControlTypeText`
+ 
+ Default is [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]
+ */
+@property (nonatomic, strong) UIFont *font;
+
+/*
+ Text color for segments names when segmented control type is `HMSegmentedControlTypeText`
+ 
+ Default is [UIColor blackColor]
+ */
+@property (nonatomic, strong) UIColor *textColor;
+
+/* 
+ Text color for selected segment name when segmented control type is `HMSegmentedControlTypeText`
+ 
+ Default is [UIColor blackColor]
+ */
+@property (nonatomic, strong) UIColor *selectedTextColor;
+
+/*
+ Segmented control background color.
+ 
+ Default is [UIColor whiteColor]
+ */
+@property (nonatomic, strong) UIColor *backgroundColor;
+
+/*
+ Color for the selection indicator stripe/box
+ 
+ Default is R:52, G:181, B:229
+ */
+@property (nonatomic, strong) UIColor *selectionIndicatorColor;
 
 /*
  Specifies the style of the selection indicator.
@@ -57,7 +86,6 @@ enum {
  Default is `HMSegmentedControlSelectionIndicatorLocationUp`
  */
 @property (nonatomic, assign) HMSegmentedControlSelectionIndicatorLocation selectionIndicatorLocation;
-@property (nonatomic, assign) HMSegmentedControlType type;
 
 /*
  Default is NO. Set to YES to allow for adding more tabs than the screen width could fit.
@@ -67,9 +95,24 @@ enum {
  */
 @property(nonatomic, getter = isScrollEnabled) BOOL scrollEnabled;
 
+/*
+ Index of the currently selected segment.
+ */
 @property (nonatomic, assign) NSInteger selectedSegmentIndex;
-@property (nonatomic, readwrite) CGFloat selectionIndicatorHeight; // default is 5.0
-@property (nonatomic, readwrite) UIEdgeInsets segmentEdgeInset; // default is UIEdgeInsetsMake(0, 5, 0, 5)
+
+/*
+ Height of the selection indicator. Only effective when `HMSegmentedControlSelectionStyle` is either `HMSegmentedControlSelectionStyleTextWidthStripe` or `HMSegmentedControlSelectionStyleFullWidthStripe`.
+ 
+ Default is 5.0
+ */
+@property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
+
+/*
+ Inset left and right edges of segments. Only effective when `scrollEnabled` is set to YES.
+ 
+ Default is UIEdgeInsetsMake(0, 5, 0, 5)
+ */
+@property (nonatomic, readwrite) UIEdgeInsets segmentEdgeInset;
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
