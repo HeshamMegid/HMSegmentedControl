@@ -5,6 +5,7 @@ A drop-in replacement for UISegmentedControl mimicking the style of the segmente
 
 # Features
 - Supports both text and images
+- Support horizontal scrolling
 - Font and all colors are customizable
 - Supports selection indicator both on top and bottom
 - Supports blocks
@@ -12,48 +13,14 @@ A drop-in replacement for UISegmentedControl mimicking the style of the segmente
 
 # Installation
 
-## CocoaPods
+### CocoaPods
 The easiest way of installing HMSegmentedControl is via [CocoaPods](http://cocoapods.org/). 
 
 ```
-pod 'HMSegmentedControl', '~> 1.2.0'
+pod 'HMSegmentedControl', '~> 1.3.0'
 ```
 
-## Cocoa-whaa?
-
-If you haven't heard about [CocoaPods](http://cocoapods.org/) (seriously, where were you?!), it's a dependency manager for Xcode projects that provides very simple
-installation of libraries. Here's how to get started.
-
-Install CocoaPods if not already available:
-
-``` bash
-$ [sudo] gem install cocoapods
-$ pod setup
-```
-
-Change to the directory of your Xcode project, and Create and Edit your Podfile and add HMSegmentedControl:
-
-``` bash
-$ cd /path/to/MyProject
-$ touch Podfile
-$ edit Podfile
-platform :ios, '5.0' 
-pod 'HMSegmentedControl', '~> 1.2.0'
-```
-
-Install into your project:
-
-``` bash
-$ pod install
-```
-
-Open your project in Xcode from the .xcworkspace file (not the usual project file)
-
-``` bash
-$ open MyProject.xcworkspace
-```
-
-## Old-fashioned way
+### Old-fashioned way
 
 - Add `HMSegmentedControl.h` and `HMSegmentedControl.m` to your project.
 - Add `QuartzCore.framework` to your linked frameworks.
@@ -65,7 +32,7 @@ The code below will create a segmented control with the default looks:
 
 ```  objective-c
 HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three"]];
-[segmentedControl setFrame:CGRectMake(10, 10, 300, 60)];
+segmentedControl.frame = CGRectMake(10, 10, 300, 60);
 [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
 [self.view addSubview:segmentedControl];
 ```
@@ -75,6 +42,12 @@ Included is a demo project showing how to fully customise the control.
 ![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
 
 # Change log
+* v1.3.0
+	* Introducing horizontal scrolling via `scrollEnabled` property. Check example project
+	* Adds XIB/Storyboard support
+	* Fixes deprecations when building with iOS 7 SDK
+	* Updates example project to support iOS 7
+	* Code refactoring and cleanup
 * v1.2.0
 	* Added new selection indicator style: HMSelectionIndicatorBox
 	* Added ability to set text colour for selected segment (thanks to [@jmkr](https://github.com/jmkr))
