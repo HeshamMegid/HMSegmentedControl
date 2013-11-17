@@ -108,8 +108,6 @@ typedef enum {
 }
 
 - (void)commonInit {
-//    self.sectionTitles = nil;
-//    self.sectionImages = nil;
     self.scrollView = [[HMScrollView alloc] init];
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -169,18 +167,19 @@ typedef enum {
             CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
-            [titleLayer setFont:(__bridge CFTypeRef)(self.font.fontName)];
-            [titleLayer setFontSize:self.font.pointSize];
-            [titleLayer setAlignmentMode:kCAAlignmentCenter];
-            [titleLayer setString:titleString];
+            titleLayer.font = (__bridge CFTypeRef)(self.font.fontName);
+            titleLayer.fontSize = self.font.pointSize;
+            titleLayer.alignmentMode = kCAAlignmentCenter;
+            titleLayer.string = titleString;
             titleLayer.truncationMode = kCATruncationEnd;
             
-            if (self.selectedSegmentIndex == idx)
-                [titleLayer setForegroundColor:self.selectedTextColor.CGColor];
-            else
-                [titleLayer setForegroundColor:self.textColor.CGColor];
+            if (self.selectedSegmentIndex == idx) {
+                titleLayer.foregroundColor = self.selectedTextColor.CGColor;
+            } else {
+                titleLayer.foregroundColor = self.textColor.CGColor;
+            }
             
-            [titleLayer setContentsScale:[[UIScreen mainScreen] scale]];
+            titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             [self.scrollView.layer addSublayer:titleLayer];
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
@@ -193,7 +192,7 @@ typedef enum {
             CGRect rect = CGRectMake(x, y, imageWidth, imageHeight);
             
             CALayer *imageLayer = [CALayer layer];
-            [imageLayer setFrame:rect];
+            imageLayer.frame = rect;
                         
             if (self.selectedSegmentIndex == idx) {
                 if (self.sectionSelectedImages) {
@@ -345,7 +344,7 @@ typedef enum {
     [self.scrollView scrollRectToVisible:rectToScrollTo animated:YES];
 }
 
-#pragma mark -
+#pragma mark - Index change
 
 - (void)setSelectedSegmentIndex:(NSInteger)index {
     [self setSelectedSegmentIndex:index animated:NO notify:NO];
