@@ -268,7 +268,7 @@ typedef enum {
     if (self.isScrollEnabled) {
         if (self.type == HMSegmentedControlTypeText) {
             for (NSString *titleString in self.sectionTitles) {
-#ifdef __IPHONE_7_0
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_7_0
                 CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
 #else
                 CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
