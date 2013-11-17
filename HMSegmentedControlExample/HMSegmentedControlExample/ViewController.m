@@ -26,6 +26,7 @@
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     [segmentedControl setFrame:CGRectMake(0, 0 + yDelta, 320, 40)];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:segmentedControl];
     
     
@@ -35,6 +36,7 @@
     segmentedControl1.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl1.scrollEnabled = YES;
+    segmentedControl1.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     [segmentedControl1 setFrame:CGRectMake(0, 40 + yDelta, 320, 40)];
     [segmentedControl1 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl1];
