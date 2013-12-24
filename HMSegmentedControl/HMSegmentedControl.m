@@ -146,6 +146,18 @@ typedef enum {
     [self setNeedsDisplay];
 }
 
+- (void)setSectionTitles:(NSArray *)sectionTitles {
+    _sectionTitles = sectionTitles;
+    
+    [self updateSegmentsRects];
+}
+
+- (void)setSectionImages:(NSArray *)sectionImages {
+    _sectionImages = sectionImages;
+    
+    [self updateSegmentsRects];
+}
+
 #pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect {    
@@ -296,7 +308,9 @@ typedef enum {
     if (newSuperview == nil)
         return;
     
-    [self updateSegmentsRects];
+    if (self.sectionTitles || self.sectionImages) {
+        [self updateSegmentsRects];
+    }
 }
 
 #pragma mark - Touch
