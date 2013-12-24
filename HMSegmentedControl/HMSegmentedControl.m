@@ -259,9 +259,9 @@ typedef enum {
     // When `scrollEnabled` is set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
     // otherwise it will be equal to the width of the control's frame divided by the number of segments.
     if (self.type == HMSegmentedControlTypeText) {
-        self.segmentWidth = floorf(self.frame.size.width / self.sectionTitles.count);
+        self.segmentWidth = self.frame.size.width / self.sectionTitles.count;
     } else if (self.type == HMSegmentedControlTypeImages) {
-        self.segmentWidth = floorf(self.frame.size.width / self.sectionImages.count);
+        self.segmentWidth = self.frame.size.width / self.sectionImages.count;
     }
     
     if (self.isScrollEnabled) {
