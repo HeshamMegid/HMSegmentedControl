@@ -132,6 +132,8 @@ typedef enum {
     self.selectionIndicatorBoxLayer = [CALayer layer];
     self.selectionIndicatorBoxLayer.opacity = 0.2;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
+    
+    self.contentMode = UIViewContentModeRedraw;
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -142,8 +144,6 @@ typedef enum {
     } else if(self.type == HMSegmentedControlTypeImages && self.sectionImages) {
         [self updateSegmentsRects];
     }
-    
-    [self setNeedsDisplay];
 }
 
 - (void)setSectionTitles:(NSArray *)sectionTitles {
