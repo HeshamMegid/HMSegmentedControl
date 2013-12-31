@@ -132,35 +132,37 @@ typedef enum {
     self.selectionIndicatorBoxLayer = [CALayer layer];
     self.selectionIndicatorBoxLayer.opacity = 0.2;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
+    
+    self.contentMode = UIViewContentModeRedraw;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    [self updateSegmentsRects];
 }
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    if (self.type == HMSegmentedControlTypeText && self.sectionTitles) {
-        [self updateSegmentsRects];
-    } else if(self.type == HMSegmentedControlTypeImages && self.sectionImages) {
-        [self updateSegmentsRects];
-    }
-    
-    [self setNeedsDisplay];
+    [self updateSegmentsRects];
 }
 
 - (void)setSectionTitles:(NSArray *)sectionTitles {
     _sectionTitles = sectionTitles;
     
-    [self updateSegmentsRects];
+    [self setNeedsLayout];
 }
 
 - (void)setSectionImages:(NSArray *)sectionImages {
     _sectionImages = sectionImages;
     
-    [self updateSegmentsRects];
+    [self setNeedsLayout];
 }
 
 #pragma mark - Drawing
 
-- (void)drawRect:(CGRect)rect {    
+- (void)drawRect:(CGRect)rect {
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
 
@@ -270,10 +272,8 @@ typedef enum {
 
     // When `scrollEnabled` is set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
     // otherwise it will be equal to the width of the control's frame divided by the number of segments.
-    if (self.type == HMSegmentedControlTypeText) {
-        self.segmentWidth = self.frame.size.width / self.sectionTitles.count;
-    } else if (self.type == HMSegmentedControlTypeImages) {
-        self.segmentWidth = self.frame.size.width / self.sectionImages.count;
+    if ([self sectionCount] > 0) {
+        self.segmentWidth = self.frame.size.width / [self sectionCount];
     }
     
     if (self.isScrollEnabled) {
@@ -301,6 +301,16 @@ typedef enum {
 		self.scrollView.scrollEnabled = NO;
         self.scrollView.contentSize = self.frame.size;
 	}
+}
+
+- (NSUInteger)sectionCount {
+    if (self.type == HMSegmentedControlTypeText) {
+        return self.sectionTitles.count;
+    } else if (self.type == HMSegmentedControlTypeImages) {
+        return self.sectionImages.count;
+    }
+    
+    return 0;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
@@ -338,11 +348,7 @@ typedef enum {
 }
 
 - (CGFloat)totalSegmentedControlWidth {
-    if (self.type == HMSegmentedControlTypeText) {
-        return self.sectionTitles.count * self.segmentWidth;
-    } else {
-        return self.sectionImages.count * self.segmentWidth;
-    }
+    return [self sectionCount] * self.segmentWidth;
 }
 
 - (void)scrollToSelectedSegmentIndex {
