@@ -139,11 +139,7 @@ typedef enum {
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    if (self.type == HMSegmentedControlTypeText && self.sectionTitles) {
-        [self updateSegmentsRects];
-    } else if(self.type == HMSegmentedControlTypeImages && self.sectionImages) {
-        [self updateSegmentsRects];
-    }
+    [self updateSegmentsRects];
 }
 
 - (void)setSectionTitles:(NSArray *)sectionTitles {
@@ -270,10 +266,8 @@ typedef enum {
 
     // When `scrollEnabled` is set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
     // otherwise it will be equal to the width of the control's frame divided by the number of segments.
-    if (self.type == HMSegmentedControlTypeText) {
-        self.segmentWidth = self.frame.size.width / self.sectionTitles.count;
-    } else if (self.type == HMSegmentedControlTypeImages) {
-        self.segmentWidth = self.frame.size.width / self.sectionImages.count;
+    if ([self sectionCount] > 0) {
+        self.segmentWidth = self.frame.size.width / [self sectionCount];
     }
     
     if (self.isScrollEnabled) {
@@ -301,6 +295,16 @@ typedef enum {
 		self.scrollView.scrollEnabled = NO;
         self.scrollView.contentSize = self.frame.size;
 	}
+}
+
+- (NSUInteger)sectionCount {
+    if (self.type == HMSegmentedControlTypeText) {
+        return self.sectionTitles.count;
+    } else if (self.type == HMSegmentedControlTypeImages) {
+        return self.sectionImages.count;
+    }
+    
+    return 0;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
@@ -338,11 +342,7 @@ typedef enum {
 }
 
 - (CGFloat)totalSegmentedControlWidth {
-    if (self.type == HMSegmentedControlTypeText) {
-        return self.sectionTitles.count * self.segmentWidth;
-    } else {
-        return self.sectionImages.count * self.segmentWidth;
-    }
+    return [self sectionCount] * self.segmentWidth;
 }
 
 - (void)scrollToSelectedSegmentIndex {
