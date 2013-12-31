@@ -136,6 +136,12 @@ typedef enum {
     self.contentMode = UIViewContentModeRedraw;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    [self updateSegmentsRects];
+}
+
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
@@ -145,18 +151,18 @@ typedef enum {
 - (void)setSectionTitles:(NSArray *)sectionTitles {
     _sectionTitles = sectionTitles;
     
-    [self updateSegmentsRects];
+    [self setNeedsLayout];
 }
 
 - (void)setSectionImages:(NSArray *)sectionImages {
     _sectionImages = sectionImages;
     
-    [self updateSegmentsRects];
+    [self setNeedsLayout];
 }
 
 #pragma mark - Drawing
 
-- (void)drawRect:(CGRect)rect {    
+- (void)drawRect:(CGRect)rect {
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
 
