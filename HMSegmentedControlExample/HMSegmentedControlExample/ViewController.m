@@ -53,10 +53,14 @@
 
     
     // Segmented control with more customization and indexChangeBlock
-    HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
+    //HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
+	HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionImages:@[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], [UIImage imageNamed:@"3"], [UIImage imageNamed:@"4"]]
+																		sectionSelectedImages:@[[UIImage imageNamed:@"1-selected"], [UIImage imageNamed:@"2-selected"], [UIImage imageNamed:@"3-selected"], [UIImage imageNamed:@"4-selected"]] titlesForSections:@[@"Red", @"Two", @"Three", @"4"]];
+
     [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
         NSLog(@"Selected index %i (via block)", index);
     }];
+	[segmentedControl3 setFont:[UIFont fontWithName:@"STHeitiTC-Light" size:10.0f]];
     [segmentedControl3 setSelectionIndicatorHeight:4.0f];
     [segmentedControl3 setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1]];
     [segmentedControl3 setTextColor:[UIColor whiteColor]];
@@ -65,7 +69,7 @@
     [segmentedControl3 setSelectionStyle:HMSegmentedControlSelectionStyleBox];
     [segmentedControl3 setSelectedSegmentIndex:HMSegmentedControlNoSegment];
     [segmentedControl3 setSelectionIndicatorLocation:HMSegmentedControlSelectionIndicatorLocationDown];
-    [segmentedControl3 setFrame:CGRectMake(0, 160 + yDelta, 320, 50)];
+    [segmentedControl3 setFrame:CGRectMake(0, 160 + yDelta, 320, 60)];
     [segmentedControl3 setTag:2];
     [self.view addSubview:segmentedControl3];
     
