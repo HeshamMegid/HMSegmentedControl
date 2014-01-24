@@ -18,12 +18,24 @@ typedef enum {
 
 typedef enum {
     HMSegmentedControlSelectionIndicatorLocationUp,
-    HMSegmentedControlSelectionIndicatorLocationDown
+    HMSegmentedControlSelectionIndicatorLocationDown,
+	HMSegmentedControlSelectionIndicatorLocationNONE
 } HMSegmentedControlSelectionIndicatorLocation;
+
+typedef enum {
+    HMSegmentedControlSegmentWidthStyleFixed, // Segment width is fixed
+    HMSegmentedControlSegmentWidthStyleDynamic, // Segment width will only be as big as the text width (including inset)
+} HMSegmentedControlSegmentWidthStyle;
 
 enum {
     HMSegmentedControlNoSegment = -1   // segment index for no selected segment
 };
+
+typedef enum {
+    HMSegmentedControlTypeText,
+    HMSegmentedControlTypeImages,
+	HMSegmentedControlTypeTextImages
+} HMSegmentedControlType;
 
 @interface HMSegmentedControl : UIControl
 
@@ -74,11 +86,25 @@ enum {
 @property (nonatomic, strong) UIColor *selectionIndicatorColor;
 
 /*
+ Specifies the style of the control
+ 
+ Default is `HMSegmentedControlTypeText`
+ */
+@property (nonatomic, assign) HMSegmentedControlType type;
+
+/*
  Specifies the style of the selection indicator.
  
  Default is `HMSegmentedControlSelectionStyleTextWidthStripe`
  */
 @property (nonatomic, assign) HMSegmentedControlSelectionStyle selectionStyle;
+
+/*
+ Specifies the style of the segment's width.
+ 
+ Default is `HMSegmentedControlSegmentWidthStyleFixed`
+ */
+@property (nonatomic, assign) HMSegmentedControlSegmentWidthStyle segmentWidthStyle;
 
 /*
  Specifies the location of the selection indicator.
@@ -94,6 +120,17 @@ enum {
  otherwise it will be equal to the width of the control's frame divided by the number of segments.
  */
 @property(nonatomic, getter = isScrollEnabled) BOOL scrollEnabled;
+
+/*
+ Default is YES. Set to NO to deny scrolling by dragging the scrollView by the user.
+ */
+@property(nonatomic, getter = isUserDraggable) BOOL userDraggable;
+
+/*
+ Default is YES. Set to NO to deny any touch events by the user.
+ */
+@property(nonatomic, getter = isTouchEnabled) BOOL touchEnabled;
+
 
 /*
  Index of the currently selected segment.
@@ -116,6 +153,7 @@ enum {
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
+- (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 
