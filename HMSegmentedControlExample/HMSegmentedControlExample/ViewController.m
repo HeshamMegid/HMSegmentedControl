@@ -31,10 +31,11 @@
     
     
     // Segmented control with scrolling
-    HMSegmentedControl *segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
+    HMSegmentedControl *segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"One Thousand"]];
     segmentedControl1.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
     segmentedControl1.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+	segmentedControl1.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic;
     segmentedControl1.scrollEnabled = YES;
     segmentedControl1.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     [segmentedControl1 setFrame:CGRectMake(0, 40 + yDelta, 320, 40)];
