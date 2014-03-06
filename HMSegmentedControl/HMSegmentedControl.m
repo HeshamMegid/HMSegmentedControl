@@ -190,7 +190,7 @@
 	
 	_selectionIndicatorLocation = selectionIndicatorLocation;
 	
-	if (selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationNONE) {
+	if (selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationNone) {
 		self.selectionIndicatorHeight = 0.0f;
 	}
 }
