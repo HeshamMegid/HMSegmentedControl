@@ -405,9 +405,11 @@
         
         NSInteger i = 0;
         for (NSNumber *width in self.segmentWidthsArray) {
-            selectedSegmentOffset = selectedSegmentOffset + [width floatValue];
-            if (self.selectedSegmentIndex == i)
+            if (self.selectedSegmentIndex == i) {
                 break;
+            }
+            selectedSegmentOffset = selectedSegmentOffset + [width floatValue];
+
             i++;
         }
         
