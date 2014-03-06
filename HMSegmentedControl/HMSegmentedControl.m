@@ -124,6 +124,7 @@
 
 - (void)commonInit {
     self.scrollView = [[HMScrollView alloc] init];
+    self.scrollView.scrollsToTop = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     [self addSubview:self.scrollView];
