@@ -347,13 +347,13 @@
 	}
 
     // Add the selection indicators
-    if(self.selectedSegmentIndex != HMSegmentedControlNoSegment) {
-        if(self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
+    if (self.selectedSegmentIndex != HMSegmentedControlNoSegment) {
+        if (self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
             if (!self.selectionIndicatorArrowLayer.superlayer) {
                 [self setArrowFrame];
                 [self.scrollView.layer addSublayer:self.selectionIndicatorArrowLayer];
             }
-        }else {
+        } else {
             if (!self.selectionIndicatorStripLayer.superlayer) {
                 self.selectionIndicatorStripLayer.frame = [self frameForSelectionIndicator];
                 [self.scrollView.layer addSublayer:self.selectionIndicatorStripLayer];
@@ -367,7 +367,7 @@
     }
 }
 
--(void)setArrowFrame {
+- (void)setArrowFrame {
     self.selectionIndicatorArrowLayer.frame = [self frameForSelectionIndicator];
     
     self.selectionIndicatorArrowLayer.mask = nil;
@@ -378,13 +378,13 @@
     CGPoint p2;
     CGPoint p3;
     
-    if(self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
         p1 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width / 2, 0);
         p2 = CGPointMake(0, self.selectionIndicatorArrowLayer.bounds.size.height);
         p3 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width, self.selectionIndicatorArrowLayer.bounds.size.height);
     }
     
-    if(self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) {
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) {
         p1 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width / 2, self.selectionIndicatorArrowLayer.bounds.size.height);
         p2 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width, 0);
         p3 = CGPointMake(0, 0);
@@ -426,13 +426,13 @@
             sectionWidth = imageWidth + segmentImageTextPadding + stringWidth;
 	}
     
-    if(self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
+    if (self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
         CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
         CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
         
         CGFloat x = widthToStartOfSelectedIndex + ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) - (self.selectionIndicatorHeight/2);
         return CGRectMake(x, indicatorYOffset, self.selectionIndicatorHeight, self.selectionIndicatorHeight);
-    }else {
+    } else {
         if (self.selectionStyle == HMSegmentedControlSelectionStyleTextWidthStripe && sectionWidth <= self.segmentWidth) {
             CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
             CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
