@@ -146,6 +146,13 @@ typedef enum {
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
 
 /*
+ Y position offset of the selection indicatior.
+ 
+ Default is 0.0
+ */
+@property (nonatomic, readwrite) CGFloat selectionIndicatorYOffset;
+
+/*
  Inset left and right edges of segments. Only effective when `scrollEnabled` is set to YES.
  
  Default is UIEdgeInsetsMake(0, 5, 0, 5)

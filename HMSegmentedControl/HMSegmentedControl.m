@@ -140,6 +140,7 @@
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.selectionIndicatorHeight = 5.0f;
+    self.selectionIndicatorYOffset = 0.0f;
     self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     self.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
@@ -405,7 +406,7 @@
     CGFloat indicatorYOffset = 0.0f;
         
     if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown)
-        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight;
+        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight + self.selectionIndicatorYOffset;
     
     CGFloat sectionWidth = 0.0f;
 
