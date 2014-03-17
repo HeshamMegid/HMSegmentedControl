@@ -140,6 +140,7 @@
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.selectionIndicatorHeight = 5.0f;
+    self.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
     self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     self.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
@@ -204,7 +205,7 @@
 - (void)drawRect:(CGRect)rect {
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
-
+    
     self.selectionIndicatorArrowLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
     
     self.selectionIndicatorStripLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
@@ -268,7 +269,7 @@
             
             CALayer *imageLayer = [CALayer layer];
             imageLayer.frame = rect;
-                        
+            
             if (self.selectedSegmentIndex == idx) {
                 if (self.sectionSelectedImages) {
                     UIImage *highlightIcon = [self.sectionSelectedImages objectAtIndex:idx];
@@ -291,7 +292,7 @@
             CGFloat imageHeight = icon.size.height;
 			
 			CGFloat stringHeight = roundf([self.sectionTitles[idx] sizeWithFont:self.font].height);
-						
+            
 			CGFloat yOffset = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) - (stringHeight / 2));
             
             CGFloat imageXOffset = self.segmentEdgeInset.left; // Start with edge inset
@@ -345,7 +346,7 @@
 			
         }];
 	}
-
+    
     // Add the selection indicators
     if (self.selectedSegmentIndex != HMSegmentedControlNoSegment) {
         if (self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
@@ -403,12 +404,16 @@
 
 - (CGRect)frameForSelectionIndicator {
     CGFloat indicatorYOffset = 0.0f;
-        
-    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown)
-        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight;
+    
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
+        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.bottom;
+    }
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) {
+        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.top;
+    }
     
     CGFloat sectionWidth = 0.0f;
-
+    
     if (self.type == HMSegmentedControlTypeText) {
         CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
         sectionWidth = stringWidth;
@@ -438,7 +443,7 @@
             CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
             
             CGFloat x = ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) + (widthToStartOfSelectedIndex - sectionWidth / 2);
-            return CGRectMake(x, indicatorYOffset, sectionWidth, self.selectionIndicatorHeight);
+            return CGRectMake(x + self.selectionIndicatorEdgeInsets.left, indicatorYOffset, sectionWidth - self.selectionIndicatorEdgeInsets.right, self.selectionIndicatorHeight);
         } else {
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 CGFloat selectedSegmentOffset = 0.0f;
@@ -450,11 +455,10 @@
                     selectedSegmentOffset = selectedSegmentOffset + [width floatValue];
                     i++;
                 }
-                
-                return CGRectMake(selectedSegmentOffset, indicatorYOffset, [[self.segmentWidthsArray objectAtIndex:self.selectedSegmentIndex] floatValue], self.selectionIndicatorHeight);
+                return CGRectMake(selectedSegmentOffset + self.selectionIndicatorEdgeInsets.left, indicatorYOffset, [[self.segmentWidthsArray objectAtIndex:self.selectedSegmentIndex] floatValue] - self.selectionIndicatorEdgeInsets.right, self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.bottom);
             }
             
-            return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, indicatorYOffset, self.segmentWidth, self.selectionIndicatorHeight);
+            return CGRectMake((self.segmentWidth + self.selectionIndicatorEdgeInsets.left) * self.selectedSegmentIndex, indicatorYOffset, self.segmentWidth - self.selectionIndicatorEdgeInsets.right, self.selectionIndicatorHeight);
         }
     }
 }
@@ -469,7 +473,7 @@
                 break;
             }
             selectedSegmentOffset = selectedSegmentOffset + [width floatValue];
-
+            
             i++;
         }
         
@@ -480,7 +484,7 @@
 
 - (void)updateSegmentsRects {
     self.scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
-
+    
     // When `scrollEnabled` is set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
     // otherwise it will be equal to the width of the control's frame divided by the number of segments.
     if ([self sectionCount] > 0) {
@@ -637,9 +641,9 @@
     CGFloat selectedSegmentOffset = 0;
     if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
         rectForSelectedIndex = CGRectMake(self.segmentWidth * self.selectedSegmentIndex,
-                                                 0,
-                                                 self.segmentWidth,
-                                                 self.frame.size.height);
+                                          0,
+                                          self.segmentWidth,
+                                          self.frame.size.height);
         
         selectedSegmentOffset = (CGRectGetWidth(self.frame) / 2) - (self.segmentWidth / 2);
     } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {

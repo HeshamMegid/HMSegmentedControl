@@ -146,6 +146,21 @@ typedef enum {
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
 
 /*
+ Edge insets for the selection indicator.
+ NOTE: This does not affect the bounding box of HMSegmentedControlSelectionStyleBox
+ 
+ When HMSegmentedControlSelectionIndicatorLocationUp is selected, bottom edge insets are not used
+ 
+ When HMSegmentedControlSelectionIndicatorLocationDown is selected, top edge insets are not used
+ 
+ Defaults are top: 0.0f
+             left: 0.0f
+           bottom: 0.0f
+            right: 0.0f
+ */
+@property (nonatomic, readwrite) UIEdgeInsets selectionIndicatorEdgeInsets;
+
+/*
  Inset left and right edges of segments. Only effective when `scrollEnabled` is set to YES.
  
  Default is UIEdgeInsetsMake(0, 5, 0, 5)
