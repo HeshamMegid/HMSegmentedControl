@@ -492,22 +492,24 @@
     if (self.isScrollEnabled) {
         if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
             for (NSString *titleString in self.sectionTitles) {
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-                CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#else
-                CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#endif
+                CGFloat stringWidth;
+                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+                    stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+                }else {
+                    stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+                }
                 self.segmentWidth = MAX(stringWidth, self.segmentWidth);
             }
         } else if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
             NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
             
             for (NSString *titleString in self.sectionTitles) {
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-                CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#else
-                CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#endif
+                CGFloat stringWidth;
+                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+                    stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+                }else {
+                    stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+                }
                 [mutableSegmentWidths addObject:[NSNumber numberWithFloat:stringWidth]];
             }
             self.segmentWidthsArray = [mutableSegmentWidths copy];
@@ -519,11 +521,12 @@
         } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleFixed){
 			//lets just use the title.. we will assume it is wider then images...
             for (NSString *titleString in self.sectionTitles) {
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-                CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#else
-                CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#endif
+                CGFloat stringWidth;
+                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+                    stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+                }else {
+                    stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+                }
                 self.segmentWidth = MAX(stringWidth, self.segmentWidth);
             }
 		} else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleDynamic) {
@@ -531,11 +534,12 @@
             
             int i = 0;
             for (NSString *titleString in self.sectionTitles) {
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-                CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.right;
-#else
-                CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.right;
-#endif
+                CGFloat stringWidth;
+                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+                    stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.right;
+                }else {
+                    stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.right;
+                }
                 UIImage *sectionImage = [self.sectionImages objectAtIndex:i];
                 CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left;
                 
