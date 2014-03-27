@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     CGFloat yDelta;
     
     if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
@@ -63,7 +65,7 @@
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
     [segmentedControl3 setFrame:CGRectMake(0, 160 + yDelta, 320, 50)];
     [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
-        NSLog(@"Selected index %i (via block)", index);
+        NSLog(@"Selected index %ld (via block)", index);
     }];
     segmentedControl3.selectionIndicatorHeight = 4.0f;
     segmentedControl3.backgroundColor = [UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1];
@@ -133,11 +135,11 @@
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %i (via UIControlEventValueChanged)", segmentedControl.selectedSegmentIndex);
+	NSLog(@"Selected index %ld (via UIControlEventValueChanged)", segmentedControl.selectedSegmentIndex);
 }
 
 - (void)uisegmentedControlChangedValue:(UISegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %i", segmentedControl.selectedSegmentIndex);
+	NSLog(@"Selected index %ld", segmentedControl.selectedSegmentIndex);
 }
 
 #pragma mark - UIScrollViewDelegate
