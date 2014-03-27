@@ -105,8 +105,9 @@
     if (self) {
         [self commonInit];
 		
-		if (sectionImages.count != sectiontitles.count)
-			[NSException raise:NSRangeException format:@"***%s: Images bounds (%d) Dont match Title bounds (%d)", sel_getName(_cmd), sectionImages.count, sectiontitles.count];
+		if (sectionImages.count != sectiontitles.count) {
+			[NSException raise:NSRangeException format:@"***%s: Images bounds (%ld) Dont match Title bounds (%ld)", sel_getName(_cmd), sectionImages.count, sectiontitles.count];
+        }
 		
         self.sectionImages = sectionImages;
         self.sectionSelectedImages = sectionSelectedImages;
@@ -120,6 +121,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    self.segmentWidth = 0.0f;
     [self commonInit];
 }
 
