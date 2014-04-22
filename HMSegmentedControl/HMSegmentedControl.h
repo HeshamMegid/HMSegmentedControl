@@ -18,6 +18,11 @@ typedef enum {
 } HMSegmentedControlSelectionStyle;
 
 typedef enum {
+    HMSegmentedControlLockedStyleTextGray, // Default value, it changes the color of the font to gray, if you want to use a different color use setLockedSegmentedTextColor
+    HMSegmentedControlLockedStyleTextNone // It does not change the color of the font
+} HMSegmentedControlLockedStyle;
+
+typedef enum {
     HMSegmentedControlSelectionIndicatorLocationUp,
     HMSegmentedControlSelectionIndicatorLocationDown,
 	HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
@@ -43,6 +48,7 @@ typedef enum {
 @property (nonatomic, strong) NSArray *sectionTitles;
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
+
 
 /*
  Provide a block to be executed when selected index is changed.
@@ -152,10 +158,23 @@ typedef enum {
  */
 @property (nonatomic, readwrite) UIEdgeInsets segmentEdgeInset;
 
+/*
+ Default is @[]. Set to @[@0, @1] to deny any touch events by the user on the segment index 0 and 1.
+ */
+@property (nonatomic, strong) NSArray *lockedSegmentedAtIndexes;
+
+/*
+ Specifies the style of the locked indicator.
+ 
+ Default is `HMSegmentedControlLockedStyleTextGray`
+ */
+@property (nonatomic, assign) HMSegmentedControlLockedStyle lockedStyle;
+
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
 - (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
+- (void)setLockedSegmentedTextColor:(UIColor *)color;
 
 @end

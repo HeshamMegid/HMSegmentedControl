@@ -23,6 +23,7 @@
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
+@property (nonatomic, strong) UIColor *lockedSegmentedTextColor;
 
 @end
 
@@ -147,6 +148,8 @@
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
     self.userDraggable = YES;
     self.touchEnabled = YES;
+    self.lockedSegmentedAtIndexes = @[];
+    self.lockedSegmentedTextColor = [UIColor grayColor];
     self.type = HMSegmentedControlTypeText;
     
     self.selectionIndicatorArrowLayer = [CALayer layer];
@@ -201,6 +204,13 @@
 	}
 }
 
+- (void)setLockedSegmentedTextColor:(UIColor *)color
+{
+    _lockedSegmentedTextColor = color;
+    
+    [self setNeedsLayout];
+}
+
 #pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect {
@@ -242,6 +252,8 @@
                 rect = CGRectMake(xOffset, y, [[self.segmentWidthsArray objectAtIndex:idx] floatValue], stringHeight);
             }
             
+            
+            
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
             titleLayer.font = (__bridge CFTypeRef)(self.font.fontName);
@@ -255,6 +267,8 @@
             } else {
                 titleLayer.foregroundColor = self.textColor.CGColor;
             }
+
+            [self changeTitleLayerColor:titleLayer atIndex:idx];
             
             titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             [self.scrollView.layer addSublayer:titleLayer];
@@ -341,6 +355,8 @@
 				titleLayer.foregroundColor = self.textColor.CGColor;
             }
             
+            [self changeTitleLayerColor:titleLayer atIndex:idx];
+            
             [self.scrollView.layer addSublayer:imageLayer];
 			titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             [self.scrollView.layer addSublayer:titleLayer];
@@ -366,6 +382,13 @@
                 }
             }
         }
+    }
+}
+
+- (void)changeTitleLayerColor:(CATextLayer*)titleLayer atIndex:(NSUInteger)idx
+{
+    if ([self.lockedSegmentedAtIndexes containsObject:@(idx)] && self.lockedStyle != HMSegmentedControlLockedStyleTextNone) {
+        titleLayer.foregroundColor = self.lockedSegmentedTextColor.CGColor;
     }
 }
 
@@ -605,7 +628,7 @@
         
         if (segment != self.selectedSegmentIndex) {
             // Check if we have to do anything with the touch event
-            if (self.isTouchEnabled)
+            if (self.isTouchEnabled && ![self.lockedSegmentedAtIndexes containsObject:@(segment)])
                 [self setSelectedSegmentIndex:segment animated:YES notify:YES];
         }
     }

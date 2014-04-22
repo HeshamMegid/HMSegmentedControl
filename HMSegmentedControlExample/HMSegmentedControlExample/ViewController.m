@@ -34,6 +34,9 @@
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Trending", @"News", @"Library"]];
     segmentedControl.frame = CGRectMake(0, 0 + yDelta, 320, 40);
     segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    segmentedControl.lockedSegmentedAtIndexes = @[@0, @1];
+//    [segmentedControl setLockedSegmentedTextColor:[UIColor redColor]];
+//    segmentedControl.lockedStyle = HMSegmentedControlLockedStyleTextNone;
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
     
