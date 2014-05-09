@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F91646A0-3C83-4554-ABBD-88C8055BE4F7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HMSegmentedControlExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>28FD990E-C49F-460F-8E8B-6BF02B93E845</key>
+		<string>https://github.com/yangshengchaoios/HMSegmentedControl.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>HMSegmentedControlExample/HMSegmentedControlExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>28FD990E-C49F-460F-8E8B-6BF02B93E845</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/yangshengchaoios/HMSegmentedControl.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>28FD990E-C49F-460F-8E8B-6BF02B93E845</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>28FD990E-C49F-460F-8E8B-6BF02B93E845</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HMSegmentedControl</string>
+		</dict>
+	</array>
+</dict>
+</plist>
