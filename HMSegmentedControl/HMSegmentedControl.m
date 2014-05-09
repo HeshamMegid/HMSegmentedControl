@@ -605,8 +605,14 @@
         
         if (segment != self.selectedSegmentIndex) {
             // Check if we have to do anything with the touch event
-            if (self.isTouchEnabled)
+            if (self.isTouchEnabled) {
                 [self setSelectedSegmentIndex:segment animated:YES notify:YES];
+            }
+        }
+        else {//--added by ysc
+            if (self.isTouchEnabled && self.indexNotChaneBlock) {
+                self.indexNotChaneBlock(segment);
+            }
         }
     }
 }

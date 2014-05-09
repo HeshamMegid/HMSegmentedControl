@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^IndexChangeBlock)(NSInteger index);
+typedef void (^IndexNotChangeBlock)(NSInteger index);
 
 typedef enum {
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
@@ -50,6 +51,12 @@ typedef enum {
  Alternativly, you could use `addTarget:action:forControlEvents:`
  */
 @property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
+
+/*
+ Provide a block to be executed when selected index is not changed.
+ --added by ysc
+ */
+@property (nonatomic, copy) IndexNotChangeBlock indexNotChaneBlock;
 
 /*
  Font for segments names when segmented control type is `HMSegmentedControlTypeText`
@@ -157,5 +164,6 @@ typedef enum {
 - (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
+- (void)setIndexNotChaneBlock:(IndexNotChangeBlock)indexNotChaneBlock;//--added by ysc
 
 @end
