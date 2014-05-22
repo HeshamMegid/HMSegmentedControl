@@ -603,7 +603,7 @@
             }
         }
         
-        if (segment != self.selectedSegmentIndex) {
+        if (segment != self.selectedSegmentIndex && segment < [self.sectionTitles count]) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:YES notify:YES];
