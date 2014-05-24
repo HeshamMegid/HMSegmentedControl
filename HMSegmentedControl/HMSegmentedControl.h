@@ -152,6 +152,11 @@ typedef enum {
  */
 @property (nonatomic, readwrite) UIEdgeInsets segmentEdgeInset;
 
+/*
+ Default is YES. Set to NO to disable animation during user selection.
+ */
+@property (nonatomic) BOOL shouldAnimateUserSelection;
+
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
 - (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;

@@ -149,6 +149,8 @@
     self.touchEnabled = YES;
     self.type = HMSegmentedControlTypeText;
     
+    self.shouldAnimateUserSelection = YES;
+    
     self.selectionIndicatorArrowLayer = [CALayer layer];
     
     self.selectionIndicatorStripLayer = [CALayer layer];
@@ -606,7 +608,7 @@
         if (segment != self.selectedSegmentIndex) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
-                [self setSelectedSegmentIndex:segment animated:YES notify:YES];
+                [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
         }
     }
 }
