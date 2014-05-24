@@ -106,7 +106,7 @@
         [self commonInit];
 		
 		if (sectionImages.count != sectiontitles.count) {
-			[NSException raise:NSRangeException format:@"***%s: Images bounds (%ld) Dont match Title bounds (%ld)", sel_getName(_cmd), sectionImages.count, sectiontitles.count];
+			[NSException raise:NSRangeException format:@"***%s: Images bounds (%ld) Dont match Title bounds (%ld)", sel_getName(_cmd), (unsigned long)sectionImages.count, (unsigned long)sectiontitles.count];
         }
 		
         self.sectionImages = sectionImages;
@@ -148,6 +148,8 @@
     self.userDraggable = YES;
     self.touchEnabled = YES;
     self.type = HMSegmentedControlTypeText;
+    
+    self.shouldAnimateUserSelection = YES;
     
     self.selectionIndicatorArrowLayer = [CALayer layer];
     
@@ -606,7 +608,7 @@
         if (segment != self.selectedSegmentIndex) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
-                [self setSelectedSegmentIndex:segment animated:YES notify:YES];
+                [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
         }
     }
 }
