@@ -75,6 +75,7 @@
     segmentedControl3.selectionStyle = HMSegmentedControlSelectionStyleBox;
     segmentedControl3.selectedSegmentIndex = HMSegmentedControlNoSegment;
     segmentedControl3.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentedControl3.shouldAnimateUserSelection = NO;
     segmentedControl3.tag = 2;
     [self.view addSubview:segmentedControl3];
     
