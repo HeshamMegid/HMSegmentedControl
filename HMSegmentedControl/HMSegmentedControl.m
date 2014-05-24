@@ -369,9 +369,9 @@
     
     UIBezierPath *arrowPath = [UIBezierPath bezierPath];
     
-    CGPoint p1;
-    CGPoint p2;
-    CGPoint p3;
+    CGPoint p1 = CGPointZero;
+    CGPoint p2 = CGPointZero;
+    CGPoint p3 = CGPointZero;
     
     if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
         p1 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width / 2, 0);
