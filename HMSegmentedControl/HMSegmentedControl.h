@@ -119,8 +119,10 @@ typedef enum {
  
  When set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
  otherwise it will be equal to the width of the control's frame divided by the number of segments.
+ 
+ As of v 1.4 this is no longer needed. The control will manage scrolling automatically based on tabs sizes.
  */
-@property(nonatomic, getter = isScrollEnabled) BOOL scrollEnabled;
+@property(nonatomic, getter = isScrollEnabled) BOOL scrollEnabled DEPRECATED_ATTRIBUTE;
 
 /*
  Default is YES. Set to NO to deny scrolling by dragging the scrollView by the user.

@@ -171,14 +171,6 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    if (self.type == HMSegmentedControlTypeText && self.sectionTitles) {
-        [self updateSegmentsRects];
-    } else if(self.type == HMSegmentedControlTypeImages && self.sectionImages) {
-        [self updateSegmentsRects];
-    } else if (self.type == HMSegmentedControlTypeTextImages && self.sectionImages && self.sectionTitles){
-		[self updateSegmentsRects];
-	}
-    
     [self updateSegmentsRects];
 }
 
@@ -195,7 +187,6 @@
 }
 
 - (void)setSelectionIndicatorLocation:(HMSegmentedControlSelectionIndicatorLocation)selectionIndicatorLocation {
-	
 	_selectionIndicatorLocation = selectionIndicatorLocation;
 	
 	if (selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationNone) {
@@ -228,9 +219,9 @@
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             
             CGRect rect;
-            if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed)
+            if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
                 rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2, y, stringWidth, stringHeight);
-            else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
+            } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
                 NSInteger i = 0;
@@ -408,8 +399,9 @@
 - (CGRect)frameForSelectionIndicator {
     CGFloat indicatorYOffset = 0.0f;
         
-    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown)
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
         indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight;
+    }
     
     CGFloat sectionWidth = 0.0f;
 
@@ -420,14 +412,15 @@
         UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
         CGFloat imageWidth = sectionImage.size.width;
         sectionWidth = imageWidth;
-    } else if (self.type == HMSegmentedControlTypeTextImages){
+    } else if (self.type == HMSegmentedControlTypeTextImages) {
 		CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
 		UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
 		CGFloat imageWidth = sectionImage.size.width;
-        if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed)
+        if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
             sectionWidth = MAX(stringWidth, imageWidth);
-        else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic)
+        } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
             sectionWidth = imageWidth + segmentImageTextPadding + stringWidth;
+        }
 	}
     
     if (self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
@@ -484,80 +477,73 @@
 
 - (void)updateSegmentsRects {
     self.scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
-
+    
     // When `scrollEnabled` is set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
     // otherwise it will be equal to the width of the control's frame divided by the number of segments.
     if ([self sectionCount] > 0) {
         self.segmentWidth = self.frame.size.width / [self sectionCount];
     }
     
-    if (self.isScrollEnabled) {
-        if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-            for (NSString *titleString in self.sectionTitles) {
+    if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
+        for (NSString *titleString in self.sectionTitles) {
 #if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-                CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+            CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
 #else
-                CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+            CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
 #endif
-                self.segmentWidth = MAX(stringWidth, self.segmentWidth);
-            }
-        } else if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
-            NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
-            
-            for (NSString *titleString in self.sectionTitles) {
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-                CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#else
-                CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#endif
-                [mutableSegmentWidths addObject:[NSNumber numberWithFloat:stringWidth]];
-            }
-            self.segmentWidthsArray = [mutableSegmentWidths copy];
-        } else if (self.type == HMSegmentedControlTypeImages) {
-            for (UIImage *sectionImage in self.sectionImages) {
-                CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-                self.segmentWidth = MAX(imageWidth, self.segmentWidth);
-            }
-        } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleFixed){
-			//lets just use the title.. we will assume it is wider then images...
-            for (NSString *titleString in self.sectionTitles) {
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-                CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#else
-                CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
-#endif
-                self.segmentWidth = MAX(stringWidth, self.segmentWidth);
-            }
-		} else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleDynamic) {
-            NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
-            
-            int i = 0;
-            for (NSString *titleString in self.sectionTitles) {
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-                CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.right;
-#else
-                CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.right;
-#endif
-                UIImage *sectionImage = [self.sectionImages objectAtIndex:i];
-                CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left;
-                
-                CGFloat combinedWidth = imageWidth + segmentImageTextPadding + stringWidth;
-                
-                [mutableSegmentWidths addObject:[NSNumber numberWithFloat:combinedWidth]];
-                
-                i++;
-            }
-            self.segmentWidthsArray = [mutableSegmentWidths copy];
+            self.segmentWidth = MAX(stringWidth, self.segmentWidth);
         }
+    } else if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
+        NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
+        
+        for (NSString *titleString in self.sectionTitles) {
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+            CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+#else
+            CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+#endif
+            [mutableSegmentWidths addObject:[NSNumber numberWithFloat:stringWidth]];
+        }
+        self.segmentWidthsArray = [mutableSegmentWidths copy];
+    } else if (self.type == HMSegmentedControlTypeImages) {
+        for (UIImage *sectionImage in self.sectionImages) {
+            CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+            self.segmentWidth = MAX(imageWidth, self.segmentWidth);
+        }
+    } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleFixed){
+        //lets just use the title.. we will assume it is wider then images...
+        for (NSString *titleString in self.sectionTitles) {
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+            CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+#else
+            CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+#endif
+            self.segmentWidth = MAX(stringWidth, self.segmentWidth);
+        }
+    } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleDynamic) {
+        NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
+        
+        int i = 0;
+        for (NSString *titleString in self.sectionTitles) {
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+            CGFloat stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width + self.segmentEdgeInset.right;
+#else
+            CGFloat stringWidth = [titleString sizeWithFont:self.font].width + self.segmentEdgeInset.right;
+#endif
+            UIImage *sectionImage = [self.sectionImages objectAtIndex:i];
+            CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left;
+            
+            CGFloat combinedWidth = imageWidth + segmentImageTextPadding + stringWidth;
+            
+            [mutableSegmentWidths addObject:[NSNumber numberWithFloat:combinedWidth]];
+            
+            i++;
+        }
+        self.segmentWidthsArray = [mutableSegmentWidths copy];
     }
-    
-    if ([self segmentedControlNeedsScrolling]) {
-        self.scrollView.scrollEnabled = self.isUserDraggable;
-        self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
-    } else {
-		self.scrollView.scrollEnabled = NO;
-        self.scrollView.contentSize = self.frame.size;
-	}
+
+    self.scrollView.scrollEnabled = self.isUserDraggable;
+    self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
 }
 
 - (NSUInteger)sectionCount {
@@ -615,22 +601,11 @@
 
 #pragma mark - Scrolling
 
-- (BOOL)segmentedControlNeedsScrolling {
-    if ([self totalSegmentedControlWidth] > self.frame.size.width && self.isScrollEnabled) {
-        return YES;
-    }
-    return NO;
-}
-
 - (CGFloat)totalSegmentedControlWidth {
     if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
         return self.sectionTitles.count * self.segmentWidth;
     } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
-        CGFloat totalWidth;
-        for (NSNumber *width in self.segmentWidthsArray) {
-            totalWidth = totalWidth + [width floatValue];
-        }
-        return totalWidth;
+        return [[self.segmentWidthsArray valueForKeyPath:@"@sum.self"] floatValue];
     } else {
         return self.sectionImages.count * self.segmentWidth;
     }
