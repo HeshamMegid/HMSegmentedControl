@@ -221,8 +221,17 @@
     
     if (self.type == HMSegmentedControlTypeText) {
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
-            CGFloat stringHeight = roundf([titleString sizeWithFont:self.font].height);
-            CGFloat stringWidth = roundf([titleString sizeWithFont:self.font].width);
+
+            CGFloat stringWidth = 0;
+            CGFloat stringHeight = 0;
+            if([titleString respondsToSelector:@selector(sizeWithAttributes:)]) {
+                stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width;
+                stringHeight = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].height;
+            }
+            else {
+                stringWidth = roundf([titleString sizeWithFont:self.font].width);
+                stringHeight = roundf([titleString sizeWithFont:self.font].height);
+            }
             
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
