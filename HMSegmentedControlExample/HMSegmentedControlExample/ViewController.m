@@ -70,10 +70,11 @@
     segmentedControl3.backgroundColor = [UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1];
     segmentedControl3.textColor = [UIColor whiteColor];
     segmentedControl3.selectedTextColor = [UIColor whiteColor];
-    segmentedControl3.selectionIndicatorColor = [UIColor colorWithRed:0.5 green:0.8 blue:1 alpha:1];
+    segmentedControl3.selectionIndicatorColor = [UIColor blackColor];
+    segmentedControl3.selectionIndicatorBoxOpacity = 1.0;
     segmentedControl3.selectionStyle = HMSegmentedControlSelectionStyleBox;
     segmentedControl3.selectedSegmentIndex = HMSegmentedControlNoSegment;
-    segmentedControl3.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentedControl3.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationNone;
     segmentedControl3.shouldAnimateUserSelection = NO;
     segmentedControl3.tag = 2;
     [self.view addSubview:segmentedControl3];

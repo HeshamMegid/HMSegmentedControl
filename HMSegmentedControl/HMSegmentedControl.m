@@ -155,8 +155,10 @@
     
     self.selectionIndicatorStripLayer = [CALayer layer];
     
+    self.selectionIndicatorBoxOpacity = 0.2;
+    
     self.selectionIndicatorBoxLayer = [CALayer layer];
-    self.selectionIndicatorBoxLayer.opacity = 0.2;
+    self.selectionIndicatorBoxLayer.opacity = self.selectionIndicatorBoxOpacity;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
     
     self.contentMode = UIViewContentModeRedraw;
@@ -192,6 +194,13 @@
 	if (selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationNone) {
 		self.selectionIndicatorHeight = 0.0f;
 	}
+}
+
+- (void)setSelectionIndicatorBoxOpacity:(CGFloat)selectionIndicatorBoxOpacity
+{
+    _selectionIndicatorBoxOpacity = selectionIndicatorBoxOpacity;
+    
+    self.selectionIndicatorBoxLayer.opacity = _selectionIndicatorBoxOpacity;
 }
 
 #pragma mark - Drawing

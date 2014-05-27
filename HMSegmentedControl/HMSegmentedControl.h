@@ -87,6 +87,13 @@ typedef enum {
 @property (nonatomic, strong) UIColor *selectionIndicatorColor;
 
 /*
+ Opacity for the seletion inficator box.
+ 
+ Default is 0.2
+ */
+@property (nonatomic) CGFloat selectionIndicatorBoxOpacity;
+
+/*
  Specifies the style of the control
  
  Default is `HMSegmentedControlTypeText`
