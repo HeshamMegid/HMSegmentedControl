@@ -158,6 +158,10 @@ typedef enum {
  Default is YES. Set to NO to disable animation during user selection.
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
+/*
+Default is NO. Set to YES to allow notify index change for tapping selected index
+*/
+@property (nonatomic) BOOL allowTapSelectedIndex;
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;

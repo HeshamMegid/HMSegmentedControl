@@ -76,6 +76,7 @@
     segmentedControl3.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl3.shouldAnimateUserSelection = NO;
     segmentedControl3.tag = 2;
+    segmentedControl3.allowTapSelectedIndex = YES;
     [self.view addSubview:segmentedControl3];
     
     
