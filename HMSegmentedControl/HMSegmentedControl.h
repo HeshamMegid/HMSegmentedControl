@@ -65,7 +65,7 @@ typedef enum {
  */
 @property (nonatomic, strong) UIColor *textColor;
 
-/* 
+/*
  Text color for selected segment name when segmented control type is `HMSegmentedControlTypeText`
  
  Default is [UIColor blackColor]
@@ -85,6 +85,13 @@ typedef enum {
  Default is R:52, G:181, B:229
  */
 @property (nonatomic, strong) UIColor *selectionIndicatorColor;
+
+/*
+ Color for the selection indicator stripe/box
+ 
+ Default is self.textColor
+ */
+@property (nonatomic, strong) UIColor *verticalDividerColor;
 
 /*
  Specifies the style of the control
@@ -134,6 +141,10 @@ typedef enum {
  */
 @property(nonatomic, getter = isTouchEnabled) BOOL touchEnabled;
 
+/*
+ Default is NO. Set to YES to show the devider
+ */
+@property(nonatomic, getter = isShowVerticalDivider) BOOL showVerticalDivider;
 
 /*
  Index of the currently selected segment.

@@ -136,6 +136,7 @@
     self.textColor = [UIColor blackColor];
     self.selectedTextColor = [UIColor blackColor];
     self.backgroundColor = [UIColor whiteColor];
+    //self.verticalDividerColor = self.textColor;
     self.opaque = NO;
     self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
     
@@ -147,6 +148,7 @@
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
     self.userDraggable = YES;
     self.touchEnabled = YES;
+    self.showVerticalDivider = NO;
     self.type = HMSegmentedControlTypeText;
     
     self.shouldAnimateUserSelection = YES;
@@ -199,7 +201,7 @@
 - (void)drawRect:(CGRect)rect {
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
-
+    
     self.selectionIndicatorArrowLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
     
     self.selectionIndicatorStripLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
@@ -218,9 +220,10 @@
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             
-            CGRect rect;
+            CGRect rect,rectDiv;
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
                 rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2, y, stringWidth, stringHeight);
+                rectDiv = CGRectMake((self.segmentWidth * idx)-0.5, self.selectionIndicatorHeight*2, 1, self.frame.size.height-(self.selectionIndicatorHeight*4));
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
@@ -233,6 +236,7 @@
                 }
                 
                 rect = CGRectMake(xOffset, y, [[self.segmentWidthsArray objectAtIndex:idx] floatValue], stringHeight);
+                rectDiv = CGRectMake(xOffset-0.5, self.selectionIndicatorHeight*2, 1, self.frame.size.height-(self.selectionIndicatorHeight*4));
             }
             
             CATextLayer *titleLayer = [CATextLayer layer];
@@ -250,7 +254,17 @@
             }
             
             titleLayer.contentsScale = [[UIScreen mainScreen] scale];
+            
             [self.scrollView.layer addSublayer:titleLayer];
+            
+            // Vertical Divider
+            if ([self isShowVerticalDivider] && idx>0) {
+                CALayer *verticalDividerLayer = [CALayer layer];
+                verticalDividerLayer.frame = rectDiv;
+                verticalDividerLayer.backgroundColor = self.verticalDividerColor ? self.verticalDividerColor.CGColor : self.textColor.CGColor;
+                
+                [self.scrollView.layer addSublayer:verticalDividerLayer];
+            }
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
         [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
@@ -263,7 +277,7 @@
             
             CALayer *imageLayer = [CALayer layer];
             imageLayer.frame = rect;
-                        
+            
             if (self.selectedSegmentIndex == idx) {
                 if (self.sectionSelectedImages) {
                     UIImage *highlightIcon = [self.sectionSelectedImages objectAtIndex:idx];
@@ -276,6 +290,14 @@
             }
             
             [self.scrollView.layer addSublayer:imageLayer];
+            // Vertical Divider
+            if ([self isShowVerticalDivider] && idx>0) {
+                CALayer *verticalDividerLayer = [CALayer layer];
+                verticalDividerLayer.frame = CGRectMake((self.segmentWidth * idx)-0.5, self.selectionIndicatorHeight*2, 1, self.frame.size.height-(self.selectionIndicatorHeight*4));
+                verticalDividerLayer.backgroundColor = self.verticalDividerColor ? self.verticalDividerColor.CGColor : self.textColor.CGColor;
+                
+                [self.scrollView.layer addSublayer:verticalDividerLayer];
+            }
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages){
 		[self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
@@ -338,7 +360,7 @@
 			
         }];
 	}
-
+    
     // Add the selection indicators
     if (self.selectedSegmentIndex != HMSegmentedControlNoSegment) {
         if (self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
@@ -396,13 +418,13 @@
 
 - (CGRect)frameForSelectionIndicator {
     CGFloat indicatorYOffset = 0.0f;
-        
+    
     if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
         indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight;
     }
     
     CGFloat sectionWidth = 0.0f;
-
+    
     if (self.type == HMSegmentedControlTypeText) {
         CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
         sectionWidth = stringWidth;
@@ -466,7 +488,7 @@
                 break;
             }
             selectedSegmentOffset = selectedSegmentOffset + [width floatValue];
-
+            
             i++;
         }
         
@@ -541,7 +563,7 @@
         }
         self.segmentWidthsArray = [mutableSegmentWidths copy];
     }
-
+    
     self.scrollView.scrollEnabled = self.isUserDraggable;
     self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
 }
@@ -616,9 +638,9 @@
     CGFloat selectedSegmentOffset = 0;
     if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
         rectForSelectedIndex = CGRectMake(self.segmentWidth * self.selectedSegmentIndex,
-                                                 0,
-                                                 self.segmentWidth,
-                                                 self.frame.size.height);
+                                          0,
+                                          self.segmentWidth,
+                                          self.frame.size.height);
         
         selectedSegmentOffset = (CGRectGetWidth(self.frame) / 2) - (self.segmentWidth / 2);
     } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
