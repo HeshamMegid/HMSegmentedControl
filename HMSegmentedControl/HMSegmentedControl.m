@@ -624,7 +624,7 @@
                 if (self.isTouchEnabled)
                     [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
             }
-        }else if (self.type == HMSegmentedControlTypeTextImages || self.type == HMSegmentedControlTypeText) {
+        } else if (self.type == HMSegmentedControlTypeTextImages || self.type == HMSegmentedControlTypeText) {
             if (segment != self.selectedSegmentIndex && segment < [self.sectionTitles count]) {
                 // Check if we have to do anything with the touch event
                 

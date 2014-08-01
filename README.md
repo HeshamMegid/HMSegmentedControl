@@ -1,7 +1,15 @@
 HMSegmentedControl
 ===
 
+[![Pod Version](http://img.shields.io/cocoapods/v/HMSegmentedControl@hons82.svg?style=flat)](http://cocoadocs.org/docsets/HMSegmentedControl@hons82/)
+[![Pod Platform](http://img.shields.io/cocoapods/p/HMSegmentedControl@hons82.svg?style=flat)](http://cocoadocs.org/docsets/HMSegmentedControl@hons82/)
+[![Pod License](http://img.shields.io/cocoapods/l/HMSegmentedControl@hons82.svg?style=flat)](http://opensource.org/licenses/MIT)
+
 A drop-in replacement for UISegmentedControl mimicking the style of the segmented control used in Google Currents and various other Google products.
+
+# In this fork
+- Possibility to add separator lines (customizable color) 
+- Fix for Image-tabs not beeing selectable
 
 # Features
 - Supports both text and images
@@ -18,6 +26,10 @@ The easiest way of installing HMSegmentedControl is via [CocoaPods](http://cocoa
 
 ```
 pod 'HMSegmentedControl', '~> 1.3.0'
+```
+this fork:
+```
+pod 'HMSegmentedControl@hons82', '~> 1.3.1'
 ```
 
 ### Old-fashioned way
