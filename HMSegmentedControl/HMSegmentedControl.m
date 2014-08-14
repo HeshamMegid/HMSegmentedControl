@@ -418,8 +418,9 @@
     if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
         indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.bottom;
     }
+    
     if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) {
-        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.top;
+        indicatorYOffset = self.selectionIndicatorEdgeInsets.top;
     }
     
     CGFloat sectionWidth = 0.0f;
