@@ -591,7 +591,15 @@
             }
         }
         
-        if (segment != self.selectedSegmentIndex && segment < [self.sectionTitles count]) {
+        NSUInteger sectionsCount;
+        
+        if (self.type == HMSegmentedControlTypeImages) {
+            sectionsCount = [self.sectionImages count];
+        } else if (self.type == HMSegmentedControlTypeTextImages || self.type == HMSegmentedControlTypeText) {
+            sectionsCount = [self.sectionTitles count];
+        }
+        
+        if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
