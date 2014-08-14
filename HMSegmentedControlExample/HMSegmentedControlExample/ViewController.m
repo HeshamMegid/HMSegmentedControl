@@ -40,7 +40,6 @@
     
     // Segmented control with scrolling
     HMSegmentedControl *segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
-    segmentedControl1.backgroundColor = [UIColor orangeColor];
     segmentedControl1.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     segmentedControl1.frame = CGRectMake(0, 40 + yDelta, 320, 40);
     segmentedControl1.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
