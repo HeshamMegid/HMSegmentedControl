@@ -251,6 +251,9 @@
                 rect = CGRectMake(xOffset, y, [[self.segmentWidthsArray objectAtIndex:idx] floatValue], stringHeight);
             }
             
+            // Fix rect position/size to avoid blurry labels
+            rect = CGRectMake(ceilf(rect.origin.x), ceilf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height));
+            
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
             titleLayer.font = (__bridge CFTypeRef)(self.font.fontName);
