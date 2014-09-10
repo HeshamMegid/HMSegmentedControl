@@ -93,6 +93,14 @@ typedef enum {
  */
 @property (nonatomic) CGFloat selectionIndicatorBoxOpacity;
 
+/**
+ Color of the divider between segments, if not nil, single pixel separator will be added as a first pixel of all the
+ segments except for the first one
+ 
+ Default is nil
+ */
+@property (nonatomic, strong) UIColor *dividerColor;
+
 /*
  Specifies the style of the control
  
