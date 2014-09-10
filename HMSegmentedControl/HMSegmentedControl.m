@@ -217,6 +217,8 @@
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
     
+    CGRect oldRect = rect;
+    
     if (self.type == HMSegmentedControlTypeText) {
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
 
@@ -234,9 +236,11 @@
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             
+            CGRect fullRect;
             CGRect rect;
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
                 rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2, y, stringWidth, stringHeight);
+                fullRect = CGRectMake(self.segmentWidth * idx, 0, self.segmentWidth, oldRect.size.height);
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
@@ -248,7 +252,9 @@
                     i++;
                 }
                 
-                rect = CGRectMake(xOffset, y, [[self.segmentWidthsArray objectAtIndex:idx] floatValue], stringHeight);
+                CGFloat widthForIndex = [[self.segmentWidthsArray objectAtIndex:idx] floatValue];
+                rect = CGRectMake(xOffset, y, widthForIndex, stringHeight);
+                fullRect = CGRectMake(self.segmentWidth * idx, 0, widthForIndex, oldRect.size.height);
             }
             
             CATextLayer *titleLayer = [CATextLayer layer];
@@ -267,6 +273,8 @@
             
             titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             [self.scrollView.layer addSublayer:titleLayer];
+        
+            [self addBackgroundAndBorderLayerWithRect:fullRect];
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
         [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
@@ -292,6 +300,8 @@
             }
             
             [self.scrollView.layer addSublayer:imageLayer];
+            
+            [self addBackgroundAndBorderLayerWithRect:rect];
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages){
 		[self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
@@ -354,6 +364,7 @@
 			titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             [self.scrollView.layer addSublayer:titleLayer];
 			
+            [self addBackgroundAndBorderLayerWithRect:imageRect];
         }];
 	}
     
@@ -375,6 +386,39 @@
                 }
             }
         }
+    }
+}
+
+- (void)addBackgroundAndBorderLayerWithRect:(CGRect)fullRect {
+    // Background layer
+    CALayer *backgroundLayer = [CALayer layer];
+    backgroundLayer.frame = fullRect;
+    [self.scrollView.layer insertSublayer:backgroundLayer atIndex:0];
+    
+    // Border layer
+    if (self.borderType & HMSegmentedControlBorderTypeTop) {
+        CALayer *borderLayer = [CALayer layer];
+        borderLayer.frame = CGRectMake(0, 0, fullRect.size.width, self.borderWidth);
+        borderLayer.backgroundColor = self.borderColor.CGColor;
+        [backgroundLayer addSublayer: borderLayer];
+    }
+    if (self.borderType & HMSegmentedControlBorderTypeLeft) {
+        CALayer *borderLayer = [CALayer layer];
+        borderLayer.frame = CGRectMake(0, 0, self.borderWidth, fullRect.size.height);
+        borderLayer.backgroundColor = self.borderColor.CGColor;
+        [backgroundLayer addSublayer: borderLayer];
+    }
+    if (self.borderType & HMSegmentedControlBorderTypeBottom) {
+        CALayer *borderLayer = [CALayer layer];
+        borderLayer.frame = CGRectMake(0, fullRect.size.height - self.borderWidth, fullRect.size.width, self.borderWidth);
+        borderLayer.backgroundColor = self.borderColor.CGColor;
+        [backgroundLayer addSublayer: borderLayer];
+    }
+    if (self.borderType & HMSegmentedControlBorderTypeRight) {
+        CALayer *borderLayer = [CALayer layer];
+        borderLayer.frame = CGRectMake(fullRect.size.width - self.borderWidth, 0, self.borderWidth, fullRect.size.height);
+        borderLayer.backgroundColor = self.borderColor.CGColor;
+        [backgroundLayer addSublayer: borderLayer];
     }
 }
 
@@ -760,6 +804,11 @@
     
     if (self.indexChangeBlock)
         self.indexChangeBlock(index);
+}
+
+- (void)setBorderType:(HMSegmentedControlBorderType)borderType {
+    _borderType = borderType;
+    [self setNeedsDisplay];
 }
 
 @end

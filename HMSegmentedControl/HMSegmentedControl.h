@@ -28,6 +28,14 @@ typedef enum {
     HMSegmentedControlSegmentWidthStyleDynamic, // Segment width will only be as big as the text width (including inset)
 } HMSegmentedControlSegmentWidthStyle;
 
+typedef NS_OPTIONS(NSInteger, HMSegmentedControlBorderType) {
+    HMSegmentedControlBorderTypeNone = 0,
+    HMSegmentedControlBorderTypeTop = (1 << 0),
+    HMSegmentedControlBorderTypeLeft = (1 << 1),
+    HMSegmentedControlBorderTypeBottom = (1 << 2),
+    HMSegmentedControlBorderTypeRight = (1 << 3)
+};
+
 enum {
     HMSegmentedControlNoSegment = -1   // Segment index for no selected segment
 };
@@ -120,6 +128,23 @@ typedef enum {
  Default is `HMSegmentedControlSelectionIndicatorLocationUp`
  */
 @property (nonatomic, assign) HMSegmentedControlSelectionIndicatorLocation selectionIndicatorLocation;
+
+/*
+ Specifies the border type.
+ 
+ Default is `HMSegmentedControlBorderTypeNone`
+ */
+@property (nonatomic, assign) HMSegmentedControlBorderType borderType;
+
+/*
+ Specifies the border color.
+ */
+@property (nonatomic, strong) UIColor *borderColor;
+
+/*
+ Specifies the border width.
+ */
+@property (nonatomic, assign) CGFloat borderWidth;
 
 /*
  Default is NO. Set to YES to allow for adding more tabs than the screen width could fit.
