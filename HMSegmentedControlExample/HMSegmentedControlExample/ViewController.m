@@ -62,7 +62,7 @@
 
     
     // Segmented control with more customization and indexChangeBlock
-    HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
+    HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two\n2", @"Three", @"4", @"Five"]];
     [segmentedControl3 setFrame:CGRectMake(0, 160 + yDelta, 320, 50)];
     [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
         NSLog(@"Selected index %ld (via block)", (long)index);
