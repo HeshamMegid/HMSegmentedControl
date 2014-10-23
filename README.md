@@ -1,3 +1,7 @@
+Fork of kennygunie
+===
+Adding possibility to deselect a section (by touching on selected section).
+
 HMSegmentedControl
 ===
 
