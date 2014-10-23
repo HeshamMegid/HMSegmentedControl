@@ -620,8 +620,10 @@
         } else if (self.type == HMSegmentedControlTypeTextImages || self.type == HMSegmentedControlTypeText) {
             sectionsCount = [self.sectionTitles count];
         }
-        
-        if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
+        if (segment == self.selectedSegmentIndex) {
+            if (self.isDeselectable && self.isTouchEnabled)
+                [self setSelectedSegmentIndex:HMSegmentedControlNoSegment animated:self.shouldAnimateUserSelection notify:YES];
+        } else if (segment < sectionsCount) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
@@ -694,6 +696,8 @@
         [self.selectionIndicatorArrowLayer removeFromSuperlayer];
         [self.selectionIndicatorStripLayer removeFromSuperlayer];
         [self.selectionIndicatorBoxLayer removeFromSuperlayer];
+        if (notify)
+            [self notifyForSegmentChangeToIndex:index];
     } else {
         [self scrollToSelectedSegmentIndex];
         

@@ -129,17 +129,19 @@ typedef enum {
  
  As of v 1.4 this is no longer needed. The control will manage scrolling automatically based on tabs sizes.
  */
-@property(nonatomic, getter = isScrollEnabled) BOOL scrollEnabled DEPRECATED_ATTRIBUTE;
+@property (nonatomic, getter = isScrollEnabled) BOOL scrollEnabled DEPRECATED_ATTRIBUTE;
 
 /*
  Default is YES. Set to NO to deny scrolling by dragging the scrollView by the user.
  */
-@property(nonatomic, getter = isUserDraggable) BOOL userDraggable;
+@property (nonatomic, getter = isUserDraggable) BOOL userDraggable;
 
 /*
  Default is YES. Set to NO to deny any touch events by the user.
  */
-@property(nonatomic, getter = isTouchEnabled) BOOL touchEnabled;
+@property (nonatomic, getter = isTouchEnabled) BOOL touchEnabled;
+
+@property (nonatomic, getter = isDeselectable) BOOL deselectable;
 
 
 /*
