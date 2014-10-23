@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
   s.author       = { "Hesham Abd-Elmegid" => "hesham.abdelmegid@gmail.com",
                      "Kien NGUYEN" => "kennygunie@gmail.com" }
-  s.source       = { :git => "https://github.com/kennygunie/HMSegmentedControl.git", :tag => "v1.4.1" }
+  s.source       = { :git => "https://github.com/kennygunie/HMSegmentedControl.git", :tag => "v#{s.version}" }
   s.platform     = :ios, '5.0'
   s.requires_arc = true
   s.source_files = 'HMSegmentedControl/*.{h,m}'
