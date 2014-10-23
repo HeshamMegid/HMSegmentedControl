@@ -6,6 +6,8 @@ Adding possibility to deselect a section (by touching on selected section).
 segmentedControl.deselectable = YES;
 ```
 
+[@kennygunie](http://twitter.com/kennygunie)
+
 HMSegmentedControl
 ===
 
@@ -89,5 +91,3 @@ If this code was helpful, I would love to hear from you.
 
 [@HeshamMegid](http://twitter.com/HeshamMegid)   
 [http://hesh.am](http://hesh.am)
-
-[@kennygunie](http://twitter.com/kennygunie)
