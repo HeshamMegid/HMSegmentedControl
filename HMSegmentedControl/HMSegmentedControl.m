@@ -227,28 +227,17 @@
                 stringHeight = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].height;
             }
             else {
-                stringWidth = [titleString sizeWithFont:self.font].width;
-                stringHeight = [titleString sizeWithFont:self.font].height;
+                stringWidth = roundf([titleString sizeWithFont:self.font].width);
+                stringHeight = roundf([titleString sizeWithFont:self.font].height);
             }
             
-            
-            CGFloat y = (CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2
-            + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
-            
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
+            CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
+            
             CGRect rect;
-            CGFloat rectX;
-            CGFloat rectY;
-            CGFloat rectWidth;
-            CGFloat rectHeight;
-            
-            
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-                rectX = (self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2;
-                rectY = y;
-                rectWidth = stringWidth;
-                rectHeight = CGRectGetHeight(self.frame);
-            } else {
+                rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2, y, stringWidth, stringHeight);
+            } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
                 NSInteger i = 0;
@@ -259,13 +248,8 @@
                     i++;
                 }
                 
-                rectX = xOffset;
-                rectY = y;
-                rectWidth = [[self.segmentWidthsArray objectAtIndex:idx] floatValue];
-                rectHeight = CGRectGetHeight(self.frame);
+                rect = CGRectMake(xOffset, y, [[self.segmentWidthsArray objectAtIndex:idx] floatValue], stringHeight);
             }
-            
-            rect = CGRectMake(rectX,roundf(rectY),rectWidth,roundf(rectHeight));
             
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
