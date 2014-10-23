@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HMSegmentedControl@kennygunie"
-  s.version      = "1.4.1"
+  s.version      = "1.4.2"
   s.summary      = "fork of kennygunie"
   s.homepage     = "https://github.com/kennygunie/HMSegmentedControl"
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
