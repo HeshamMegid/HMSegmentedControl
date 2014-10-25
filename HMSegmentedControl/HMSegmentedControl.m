@@ -613,7 +613,7 @@
             }
         }
         
-        NSUInteger sectionsCount;
+        NSUInteger sectionsCount = 0;
         
         if (self.type == HMSegmentedControlTypeImages) {
             sectionsCount = [self.sectionImages count];
