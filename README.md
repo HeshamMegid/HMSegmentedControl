@@ -9,7 +9,7 @@ A drop-in replacement for UISegmentedControl mimicking the style of the segmente
 
 # In this fork
 - Possibility to add separator lines (customizable color) 
-- Fix for Image-tabs not beeing selectable
+- ~~Fix for Image-tabs not beeing selectable~~ (fixed in recent main repo too)
 
 # Features
 - Supports both text and images
@@ -54,6 +54,14 @@ Included is a demo project showing how to fully customise the control.
 ![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
 
 # Change log
+* v1.4
+	* Lots of bug fixes
+	* Add AutoLayout support
+	* Adds HMSegmentedControlSelectionStyleArrow
+	* Adds support for non-animated selections.
+	* Adds support for custom box layer opacity.
+	* Add support for multi-line labels on iOS 7+
+	* Updated documentation in header file
 * v1.3.0
 	* Introducing horizontal scrolling via `scrollEnabled` property. Check example project
 	* Adds XIB/Storyboard support

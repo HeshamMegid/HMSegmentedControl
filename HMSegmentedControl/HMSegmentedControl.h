@@ -94,6 +94,13 @@ typedef enum {
 @property (nonatomic, strong) UIColor *verticalDividerColor;
 
 /*
+ Opacity for the seletion inficator box.
+ 
+ Default is 0.2
+ */
+@property (nonatomic) CGFloat selectionIndicatorBoxOpacity;
+
+/*
  Specifies the style of the control
  
  Default is `HMSegmentedControlTypeText`
@@ -157,6 +164,21 @@ typedef enum {
  Default is 5.0
  */
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
+
+/*
+ Edge insets for the selection indicator.
+ NOTE: This does not affect the bounding box of HMSegmentedControlSelectionStyleBox
+ 
+ When HMSegmentedControlSelectionIndicatorLocationUp is selected, bottom edge insets are not used
+ 
+ When HMSegmentedControlSelectionIndicatorLocationDown is selected, top edge insets are not used
+ 
+ Defaults are top: 0.0f
+             left: 0.0f
+           bottom: 0.0f
+            right: 0.0f
+ */
+@property (nonatomic, readwrite) UIEdgeInsets selectionIndicatorEdgeInsets;
 
 /*
  Inset left and right edges of segments. Only effective when `scrollEnabled` is set to YES.

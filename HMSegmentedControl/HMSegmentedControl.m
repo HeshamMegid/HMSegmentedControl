@@ -143,6 +143,7 @@
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.selectionIndicatorHeight = 5.0f;
+    self.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
     self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     self.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
@@ -154,12 +155,11 @@
     self.shouldAnimateUserSelection = YES;
     
     self.selectionIndicatorArrowLayer = [CALayer layer];
-    
     self.selectionIndicatorStripLayer = [CALayer layer];
-    
     self.selectionIndicatorBoxLayer = [CALayer layer];
-    self.selectionIndicatorBoxLayer.opacity = 0.2;
+    self.selectionIndicatorBoxLayer.opacity = self.selectionIndicatorBoxOpacity;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
+    self.selectionIndicatorBoxOpacity = 0.2;
     
     self.contentMode = UIViewContentModeRedraw;
 }
@@ -196,6 +196,13 @@
 	}
 }
 
+- (void)setSelectionIndicatorBoxOpacity:(CGFloat)selectionIndicatorBoxOpacity
+{
+    _selectionIndicatorBoxOpacity = selectionIndicatorBoxOpacity;
+    
+    self.selectionIndicatorBoxLayer.opacity = _selectionIndicatorBoxOpacity;
+}
+
 #pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect {
@@ -214,8 +221,17 @@
     
     if (self.type == HMSegmentedControlTypeText) {
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
-            CGFloat stringHeight = roundf([titleString sizeWithFont:self.font].height);
-            CGFloat stringWidth = roundf([titleString sizeWithFont:self.font].width);
+
+            CGFloat stringWidth = 0;
+            CGFloat stringHeight = 0;
+            if([titleString respondsToSelector:@selector(sizeWithAttributes:)]) {
+                stringWidth = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].width;
+                stringHeight = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].height;
+            }
+            else {
+                stringWidth = roundf([titleString sizeWithFont:self.font].width);
+                stringHeight = roundf([titleString sizeWithFont:self.font].height);
+            }
             
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
@@ -308,7 +324,9 @@
             CGFloat imageHeight = icon.size.height;
 			
 			CGFloat stringHeight = roundf([self.sectionTitles[idx] sizeWithFont:self.font].height);
-            CGFloat yOffset = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2 - stringHeight / 2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
+            
+			CGFloat yOffset = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) - (stringHeight / 2));
+            
             CGFloat imageXOffset = self.segmentEdgeInset.left; // Start with edge inset
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed)
                 imageXOffset = self.segmentWidth * idx;
@@ -420,7 +438,11 @@
     CGFloat indicatorYOffset = 0.0f;
     
     if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
-        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight;
+        indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.bottom;
+    }
+    
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) {
+        indicatorYOffset = self.selectionIndicatorEdgeInsets.top;
     }
     
     CGFloat sectionWidth = 0.0f;
@@ -457,7 +479,7 @@
             CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
             
             CGFloat x = ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) + (widthToStartOfSelectedIndex - sectionWidth / 2);
-            return CGRectMake(x, indicatorYOffset, sectionWidth, self.selectionIndicatorHeight);
+            return CGRectMake(x + self.selectionIndicatorEdgeInsets.left, indicatorYOffset, sectionWidth - self.selectionIndicatorEdgeInsets.right, self.selectionIndicatorHeight);
         } else {
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 CGFloat selectedSegmentOffset = 0.0f;
@@ -469,11 +491,10 @@
                     selectedSegmentOffset = selectedSegmentOffset + [width floatValue];
                     i++;
                 }
-                
-                return CGRectMake(selectedSegmentOffset, indicatorYOffset, [[self.segmentWidthsArray objectAtIndex:self.selectedSegmentIndex] floatValue], self.selectionIndicatorHeight);
+                return CGRectMake(selectedSegmentOffset + self.selectionIndicatorEdgeInsets.left, indicatorYOffset, [[self.segmentWidthsArray objectAtIndex:self.selectedSegmentIndex] floatValue] - self.selectionIndicatorEdgeInsets.right, self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.bottom);
             }
             
-            return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, indicatorYOffset, self.segmentWidth, self.selectionIndicatorHeight);
+            return CGRectMake((self.segmentWidth + self.selectionIndicatorEdgeInsets.left) * self.selectedSegmentIndex, indicatorYOffset, self.segmentWidth - self.selectionIndicatorEdgeInsets.right, self.selectionIndicatorHeight);
         }
     }
 }
@@ -616,21 +637,19 @@
                 segment++;
             }
         }
-        if (self.type == HMSegmentedControlTypeImages){
-            
-            if (segment != self.selectedSegmentIndex && segment < [self.sectionImages count]) {
-                // Check if we have to do anything with the touch event
-                
-                if (self.isTouchEnabled)
-                    [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
-            }
+        
+        NSUInteger sectionsCount;
+        
+        if (self.type == HMSegmentedControlTypeImages) {
+            sectionsCount = [self.sectionImages count];
         } else if (self.type == HMSegmentedControlTypeTextImages || self.type == HMSegmentedControlTypeText) {
-            if (segment != self.selectedSegmentIndex && segment < [self.sectionTitles count]) {
-                // Check if we have to do anything with the touch event
-                
-                if (self.isTouchEnabled)
-                    [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
-            }
+            sectionsCount = [self.sectionTitles count];
+        }
+        
+        if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
+            // Check if we have to do anything with the touch event
+            if (self.isTouchEnabled)
+                [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
         }
     }
 }
