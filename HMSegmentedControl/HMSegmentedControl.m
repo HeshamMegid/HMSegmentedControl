@@ -519,6 +519,7 @@
 }
 
 - (void)updateSegmentsRects {
+    self.scrollView.contentInset = UIEdgeInsetsZero;
     self.scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
     
     // When `scrollEnabled` is set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
