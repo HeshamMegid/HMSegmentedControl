@@ -52,6 +52,24 @@ typedef enum {
 @property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
 
 /*
+ Text attributes to apply to item title texts.
+ 
+ The eventual text attributes applied to titles are comprised of this dictionary and the values in `font` and
+ `textColor` properties. The attributes specified in this dictionary (if present) take precedence over `font` and 
+ `textColor` properties.
+ */
+@property (nonatomic, strong) NSDictionary *titleTextAttributes;
+
+/*
+ Text attributes to apply to selected item title text.
+ 
+ The eventual text attributes applied to selected title are defined by eventual title text attributes overriden by
+ `selectedTextColor` property value, overriden by the values in this dictionary, so that you only need to specify what
+ sets the selected title apart from a title in the default state.
+ */
+@property (nonatomic, strong) NSDictionary *selectedTitleTextAttributes;
+
+/*
  Font for segments names when segmented control type is `HMSegmentedControlTypeText`
  
  Default is [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]
