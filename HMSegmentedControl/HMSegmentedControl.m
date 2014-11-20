@@ -219,15 +219,13 @@
 }
 
 - (NSAttributedString *)attributedTitleAtIndex:(NSUInteger)idx {
-    id title = self.sectionTitles[idx];
-    if ([title isKindOfClass:[NSString class]]) {
-        NSDictionary *titleAttrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
+    NSString *title = self.sectionTitles[idx];
+    BOOL selected = idx == self.selectedSegmentIndex;
+    if (self.titleFormatter == nil) {
+        NSDictionary *titleAttrs = selected ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
         return [[NSAttributedString alloc] initWithString:(NSString *)title attributes:titleAttrs];
-    } else if ([title isKindOfClass:[NSAttributedString class]]) {
-        return (NSAttributedString *)title;
     } else {
-        NSAssert(title == nil, @"Unexpected type of segment title: %@", [title class]);
-        return nil;
+        return self.titleFormatter(self, title, selected);
     }
 }
 

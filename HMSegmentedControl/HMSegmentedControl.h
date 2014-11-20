@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class HMSegmentedControl;
+
 typedef void (^IndexChangeBlock)(NSInteger index);
+typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, BOOL selected);
 
 typedef enum {
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
@@ -40,6 +43,9 @@ typedef enum {
 
 @interface HMSegmentedControl : UIControl
 
+/* 
+ * Array of `NSString` objects
+ */
 @property (nonatomic, strong) NSArray *sectionTitles;
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
@@ -50,6 +56,13 @@ typedef enum {
  Alternativly, you could use `addTarget:action:forControlEvents:`
  */
 @property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
+
+/*
+ * This block is used to apply custom text styling to titles when set.
+ *
+ * When this block is provided, no additional styling is applied to the `NSAttributedString` object returned from this block.
+ */
+@property (nonatomic, copy) HMTitleFormatterBlock titleFormatter;
 
 /*
  Text attributes to apply to item title texts.
