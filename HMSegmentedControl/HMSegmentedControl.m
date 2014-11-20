@@ -203,6 +203,34 @@
 
 #pragma mark - Drawing
 
+- (CGSize)measureTitleAtIndex:(NSUInteger)idx {
+    id title = self.sectionTitles[idx];
+    CGSize size = CGSizeZero;
+    if ([title isKindOfClass:[NSString class]]) {
+        NSDictionary *titleAttrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
+        size = [(NSString *)title sizeWithAttributes:titleAttrs];
+    } else if ([title isKindOfClass:[NSAttributedString class]]) {
+        size = [(NSAttributedString *)title size];
+    } else {
+        NSAssert(title == nil, @"Unexpected type of segment title: %@", [title class]);
+        size = CGSizeZero;
+    }
+    return CGRectIntegral((CGRect){CGPointZero, size}).size;
+}
+
+- (NSAttributedString *)attributedTitleAtIndex:(NSUInteger)idx {
+    id title = self.sectionTitles[idx];
+    if ([title isKindOfClass:[NSString class]]) {
+        NSDictionary *titleAttrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
+        return [[NSAttributedString alloc] initWithString:(NSString *)title attributes:titleAttrs];
+    } else if ([title isKindOfClass:[NSAttributedString class]]) {
+        return (NSAttributedString *)title;
+    } else {
+        NSAssert(title == nil, @"Unexpected type of segment title: %@", [title class]);
+        return nil;
+    }
+}
+
 - (void)drawRect:(CGRect)rect {
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
@@ -216,14 +244,13 @@
     
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
-    
+  
     if (self.type == HMSegmentedControlTypeText) {
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
 
             CGFloat stringWidth = 0;
             CGFloat stringHeight = 0;
-            NSDictionary *titleAttrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
-            CGSize size = [titleString sizeWithAttributes:titleAttrs];
+            CGSize size = [self measureTitleAtIndex:idx];
             stringWidth = size.width;
             stringHeight = size.height;
             
@@ -251,7 +278,7 @@
             titleLayer.frame = rect;
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.truncationMode = kCATruncationEnd;
-            titleLayer.string = [[NSAttributedString alloc] initWithString:titleString attributes:titleAttrs];
+            titleLayer.string = [self attributedTitleAtIndex:idx];
             titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             [self.scrollView.layer addSublayer:titleLayer];
         }];
@@ -288,10 +315,7 @@
             CGFloat imageWidth = icon.size.width;
             CGFloat imageHeight = icon.size.height;
 			
-            NSString *titleString = (NSString *)self.sectionTitles[idx];
-
-            NSDictionary *titleAttrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
-            CGFloat stringHeight = roundf([titleString sizeWithAttributes:titleAttrs].height);
+            CGFloat stringHeight = [self measureTitleAtIndex:idx].height;
 			CGFloat yOffset = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) - (stringHeight / 2));
             
             CGFloat imageXOffset = self.segmentEdgeInset.left; // Start with edge inset
@@ -318,7 +342,7 @@
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = textRect;
             titleLayer.alignmentMode = kCAAlignmentCenter;
-            titleLayer.string = [[NSAttributedString alloc] initWithString:titleString attributes:titleAttrs];
+            titleLayer.string = [self attributedTitleAtIndex:idx];
             titleLayer.truncationMode = kCATruncationEnd;
 			
             CALayer *imageLayer = [CALayer layer];
@@ -413,14 +437,14 @@
     CGFloat sectionWidth = 0.0f;
     
     if (self.type == HMSegmentedControlTypeText) {
-        CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithAttributes:[self resultingSelectedTitleTextAttributes]].width;
+        CGFloat stringWidth = [self measureTitleAtIndex:self.selectedSegmentIndex].width;
         sectionWidth = stringWidth;
     } else if (self.type == HMSegmentedControlTypeImages) {
         UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
         CGFloat imageWidth = sectionImage.size.width;
         sectionWidth = imageWidth;
     } else if (self.type == HMSegmentedControlTypeTextImages) {
-		CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithAttributes:[self resultingSelectedTitleTextAttributes]].width;
+		CGFloat stringWidth = [self measureTitleAtIndex:self.selectedSegmentIndex].width;
 		UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
 		CGFloat imageWidth = sectionImage.size.width;
         if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
@@ -494,17 +518,15 @@
     }
     
     if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-        [self.sectionTitles enumerateObjectsUsingBlock:^(NSString *titleString, NSUInteger idx, BOOL *stop) {
-            NSDictionary *attrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
-            CGFloat stringWidth = [titleString sizeWithAttributes:attrs].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+        [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
+            CGFloat stringWidth = [self measureTitleAtIndex:idx].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
             self.segmentWidth = MAX(stringWidth, self.segmentWidth);
         }];
     } else if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
         NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
         
-        [self.sectionTitles enumerateObjectsUsingBlock:^(NSString *titleString, NSUInteger idx, BOOL *stop) {
-            NSDictionary *attrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
-            CGFloat stringWidth = [titleString sizeWithAttributes:attrs].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+        [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
+            CGFloat stringWidth = [self measureTitleAtIndex:idx].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:stringWidth]];
         }];
         self.segmentWidthsArray = [mutableSegmentWidths copy];
@@ -515,18 +537,16 @@
         }
     } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleFixed){
         //lets just use the title.. we will assume it is wider then images...
-        [self.sectionTitles enumerateObjectsUsingBlock:^(NSString *titleString, NSUInteger idx, BOOL *stop) {
-            NSDictionary *attrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
-            CGFloat stringWidth = [titleString sizeWithAttributes:attrs].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+        [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
+            CGFloat stringWidth = [self measureTitleAtIndex:idx].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
             self.segmentWidth = MAX(stringWidth, self.segmentWidth);
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleDynamic) {
         NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
         
         int i = 0;
-        [self.sectionTitles enumerateObjectsUsingBlock:^(NSString *titleString, NSUInteger idx, BOOL *stop) {
-            NSDictionary *attrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
-            CGFloat stringWidth = [titleString sizeWithAttributes:attrs].width + self.segmentEdgeInset.right;
+        [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
+            CGFloat stringWidth = [self measureTitleAtIndex:idx].width + self.segmentEdgeInset.right;
             UIImage *sectionImage = [self.sectionImages objectAtIndex:i];
             CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left;
             
