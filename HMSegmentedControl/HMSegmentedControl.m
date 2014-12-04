@@ -206,9 +206,12 @@
 - (CGSize)measureTitleAtIndex:(NSUInteger)idx {
     id title = self.sectionTitles[idx];
     CGSize size = CGSizeZero;
-    if ([title isKindOfClass:[NSString class]]) {
-        NSDictionary *titleAttrs = idx == self.selectedSegmentIndex ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
+    BOOL selected = idx == self.selectedSegmentIndex;
+    if ([title isKindOfClass:[NSString class]] && self.titleFormatter == nil) {
+        NSDictionary *titleAttrs = selected ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
         size = [(NSString *)title sizeWithAttributes:titleAttrs];
+    } else if ([title isKindOfClass:[NSString class]] && self.titleFormatter != nil) {
+        size = [self.titleFormatter(self, title, selected) size];
     } else if ([title isKindOfClass:[NSAttributedString class]]) {
         size = [(NSAttributedString *)title size];
     } else {
