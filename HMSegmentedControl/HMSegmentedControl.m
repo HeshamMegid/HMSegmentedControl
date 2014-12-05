@@ -227,17 +227,28 @@
                 stringHeight = [titleString sizeWithAttributes:@{NSFontAttributeName: self.font}].height;
             }
             else {
-                stringWidth = roundf([titleString sizeWithFont:self.font].width);
-                stringHeight = roundf([titleString sizeWithFont:self.font].height);
+                stringWidth = [titleString sizeWithFont:self.font].width;
+                stringHeight = [titleString sizeWithFont:self.font].height;
             }
             
-            // Text inside the CATextLayer will appear blurry unless the rect values are rounded
-            CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             
+            CGFloat y = (CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2
+            + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
+            
+            // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGRect rect;
+            CGFloat rectX;
+            CGFloat rectY;
+            CGFloat rectWidth;
+            CGFloat rectHeight;
+            
+            
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-                rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2, y, stringWidth, stringHeight);
-            } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
+                rectX = (self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2;
+                rectY = y;
+                rectWidth = stringWidth;
+                rectHeight = CGRectGetHeight(self.frame);
+            } else {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
                 NSInteger i = 0;
@@ -248,8 +259,13 @@
                     i++;
                 }
                 
-                rect = CGRectMake(xOffset, y, [[self.segmentWidthsArray objectAtIndex:idx] floatValue], stringHeight);
+                rectX = xOffset;
+                rectY = y;
+                rectWidth = [[self.segmentWidthsArray objectAtIndex:idx] floatValue];
+                rectHeight = CGRectGetHeight(self.frame);
             }
+            
+            rect = CGRectMake(rectX,roundf(rectY),rectWidth,roundf(rectHeight));
             
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
@@ -620,8 +636,10 @@
         } else if (self.type == HMSegmentedControlTypeTextImages || self.type == HMSegmentedControlTypeText) {
             sectionsCount = [self.sectionTitles count];
         }
-        
-        if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
+        if (segment == self.selectedSegmentIndex) {
+            if (self.isDeselectable && self.isTouchEnabled)
+                [self setSelectedSegmentIndex:HMSegmentedControlNoSegment animated:self.shouldAnimateUserSelection notify:YES];
+        } else if (segment < sectionsCount) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
@@ -694,6 +712,8 @@
         [self.selectionIndicatorArrowLayer removeFromSuperlayer];
         [self.selectionIndicatorStripLayer removeFromSuperlayer];
         [self.selectionIndicatorBoxLayer removeFromSuperlayer];
+        if (notify)
+            [self notifyForSegmentChangeToIndex:index];
     } else {
         [self scrollToSelectedSegmentIndex];
         

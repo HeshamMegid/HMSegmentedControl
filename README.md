@@ -1,3 +1,13 @@
+Fork of kennygunie
+===
+Adding possibility to deselect a section (by touching on selected section).
+
+```  objective-c
+segmentedControl.deselectable = YES;
+```
+
+[@kennygunie](http://twitter.com/kennygunie)
+
 HMSegmentedControl
 ===
 
@@ -17,7 +27,7 @@ A drop-in replacement for UISegmentedControl mimicking the style of the segmente
 The easiest way of installing HMSegmentedControl is via [CocoaPods](http://cocoapods.org/). 
 
 ```
-pod 'HMSegmentedControl', '~> 1.4.0'
+ pod 'HMSegmentedControl@kennygunie', '~> 1.4.1'
 ```
 
 ### Old-fashioned way

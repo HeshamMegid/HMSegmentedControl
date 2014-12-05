@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BF725D76-9B36-4CBD-944F-4569B76166AF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HMSegmentedControlExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>66B082725E98CF071BEF4AB33F6878A73482DAC0</key>
+		<string>https://github.com/kennygunie/HMSegmentedControl.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>HMSegmentedControlExample/HMSegmentedControlExample.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>66B082725E98CF071BEF4AB33F6878A73482DAC0</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kennygunie/HMSegmentedControl.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>66B082725E98CF071BEF4AB33F6878A73482DAC0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>66B082725E98CF071BEF4AB33F6878A73482DAC0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HMSegmentedControl</string>
+		</dict>
+	</array>
+</dict>
+</plist>
