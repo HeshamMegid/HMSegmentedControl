@@ -138,6 +138,7 @@
     self.backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
     self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
+    self.dividerColor = nil;
     
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
@@ -258,7 +259,17 @@
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.string = titleString;
             titleLayer.truncationMode = kCATruncationEnd;
-            
+
+            /* paint the separator between segments */
+            if (idx != 0 && self.dividerColor)
+            {
+                CALayer *leftBorder = [CALayer layer];
+                leftBorder.frame = CGRectMake(self.segmentWidth * idx, 0, 1, CGRectGetHeight(self.frame));
+                leftBorder.borderColor = [self.dividerColor CGColor];
+                leftBorder.borderWidth = 1.f;
+                [self.scrollView.layer addSublayer:leftBorder];
+            }
+
             if (self.selectedSegmentIndex == idx) {
                 titleLayer.foregroundColor = self.selectedTextColor.CGColor;
             } else {
