@@ -20,7 +20,7 @@ typedef enum {
 typedef enum {
     HMSegmentedControlSelectionIndicatorLocationUp,
     HMSegmentedControlSelectionIndicatorLocationDown,
-	HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
+    HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
 } HMSegmentedControlSelectionIndicatorLocation;
 
 typedef enum {
@@ -35,7 +35,7 @@ enum {
 typedef enum {
     HMSegmentedControlTypeText,
     HMSegmentedControlTypeImages,
-	HMSegmentedControlTypeTextImages
+    HMSegmentedControlTypeTextImages
 } HMSegmentedControlType;
 
 @interface HMSegmentedControl : UIControl
@@ -65,7 +65,7 @@ typedef enum {
  */
 @property (nonatomic, strong) UIColor *textColor;
 
-/* 
+/*
  Text color for selected segment name when segmented control type is `HMSegmentedControlTypeText`
  
  Default is [UIColor blackColor]
@@ -163,9 +163,9 @@ typedef enum {
  When HMSegmentedControlSelectionIndicatorLocationDown is selected, top edge insets are not used
  
  Defaults are top: 0.0f
-             left: 0.0f
-           bottom: 0.0f
-            right: 0.0f
+ left: 0.0f
+ bottom: 0.0f
+ right: 0.0f
  */
 @property (nonatomic, readwrite) UIEdgeInsets selectionIndicatorEdgeInsets;
 
@@ -180,6 +180,22 @@ typedef enum {
  Default is YES. Set to NO to disable animation during user selection.
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
+
+/*
+ When HMSegmentedControlType == HMSegmentedControlTypeTextImages
+ 
+ imageLeft set image left title
+ 
+ Default is imageLeft (image title)
+ */
+@property (nonatomic, getter = isImageAtTitleRight) BOOL imageAtTitleRight;
+
+/*
+ Separator Color between two segment.
+ 
+ Default no separator
+ */
+@property (nonatomic, strong) UIColor *separatorColor;
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
