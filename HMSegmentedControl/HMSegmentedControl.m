@@ -234,7 +234,7 @@
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             
-            CGRect rect;
+            CGRect rect = CGRectZero;
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
                 rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2, y, stringWidth, stringHeight);
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
@@ -613,7 +613,7 @@
             }
         }
         
-        NSUInteger sectionsCount;
+        NSUInteger sectionsCount = 0;
         
         if (self.type == HMSegmentedControlTypeImages) {
             sectionsCount = [self.sectionImages count];
