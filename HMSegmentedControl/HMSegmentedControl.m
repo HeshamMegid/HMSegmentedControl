@@ -566,6 +566,24 @@
 
     self.scrollView.scrollEnabled = self.isUserDraggable;
     self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
+    
+    // Set initial segments alignment and position
+    switch (self.segmentAlignment) {
+        case HMSegmentedControlSegmentAlignmentCenter: {
+            self.scrollView.contentInset = UIEdgeInsetsMake(0,
+                                                            self.scrollView.bounds.size.width / 2.0f - [self widthOfSegmentWithIndex:0] / 2.0f,
+                                                            0,
+                                                            self.scrollView.bounds.size.width / 2.0f - [self widthOfSegmentWithIndex:[self sectionCount] - 1] / 2.0f);
+            
+            break;
+        }
+            
+        case HMSegmentedControlSegmentAlignmentEdge:
+        default:
+            break;
+    }
+    
+    [self scrollToSelectedSegmentIndexAnimated:NO];
 }
 
 - (NSUInteger)sectionCount {
@@ -642,8 +660,17 @@
 }
 
 - (void)scrollToSelectedSegmentIndex {
+    [self scrollToSelectedSegmentIndexAnimated:YES];
+}
+
+- (void)scrollToSelectedSegmentIndexAnimated:(BOOL)animated {
+    if (self.selectedSegmentIndex == HMSegmentedControlNoSegment) {
+        return;
+    }
+    
     CGRect rectForSelectedIndex;
     CGFloat selectedSegmentOffset = 0;
+    
     if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
         rectForSelectedIndex = CGRectMake(self.segmentWidth * self.selectedSegmentIndex,
                                           0,
@@ -669,11 +696,36 @@
         selectedSegmentOffset = (CGRectGetWidth(self.frame) / 2) - ([[self.segmentWidthsArray objectAtIndex:self.selectedSegmentIndex] floatValue] / 2);
     }
     
-    
     CGRect rectToScrollTo = rectForSelectedIndex;
     rectToScrollTo.origin.x -= selectedSegmentOffset;
     rectToScrollTo.size.width += selectedSegmentOffset * 2;
-    [self.scrollView scrollRectToVisible:rectToScrollTo animated:YES];
+    
+    // Scroll to segment and apply segment alignment
+    switch (self.segmentAlignment) {
+        case HMSegmentedControlSegmentAlignmentCenter: {
+            CGPoint contentOffset = self.scrollView.contentOffset;
+            contentOffset.x = rectToScrollTo.origin.x;
+            
+            [self.scrollView setContentOffset:contentOffset animated:animated];
+            
+            break;
+        }
+            
+        case HMSegmentedControlSegmentAlignmentEdge:
+        default:
+            [self.scrollView scrollRectToVisible:rectToScrollTo animated:animated];
+            
+            break;
+    }
+}
+
+- (CGFloat)widthOfSegmentWithIndex:(NSInteger)index
+{
+    return self.segmentWidthsArray
+            ? index < ([self.segmentWidthsArray count] - 1)
+                ? [self.segmentWidthsArray[index] floatValue]
+                : 0
+            : self.segmentWidth;
 }
 
 #pragma mark - Index change
