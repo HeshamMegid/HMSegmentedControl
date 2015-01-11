@@ -28,6 +28,11 @@ typedef enum {
     HMSegmentedControlSegmentWidthStyleDynamic, // Segment width will only be as big as the text width (including inset)
 } HMSegmentedControlSegmentWidthStyle;
 
+typedef enum {
+    HMSegmentedControlSegmentAlignmentEdge, // Segments align to the edges of the view
+    HMSegmentedControlSegmentAlignmentCenter, // Selected segments are always centered in the view
+} HMSegmentedControlSegmentAlignment;
+
 enum {
     HMSegmentedControlNoSegment = -1   // Segment index for no selected segment
 };
@@ -113,6 +118,14 @@ typedef enum {
  Default is `HMSegmentedControlSegmentWidthStyleFixed`
  */
 @property (nonatomic, assign) HMSegmentedControlSegmentWidthStyle segmentWidthStyle;
+
+/*
+ Specifies the alignment of segments.
+ 
+ Default is `HMSegmentedControlSegmentAlignmentEdge`
+ */
+@property (nonatomic, assign) HMSegmentedControlSegmentAlignment segmentAlignment;
+
 
 /*
  Specifies the location of the selection indicator.

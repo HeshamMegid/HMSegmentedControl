@@ -8,6 +8,7 @@ A drop-in replacement for UISegmentedControl mimicking the style of the segmente
 - Support horizontal scrolling
 - Font and all colors are customizable
 - Supports selection indicator both on top and bottom
+- Supports segment alignment to the edge and centering of selected segments
 - Supports blocks
 - Works with ARC and iOS >= 5
 
