@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HMSegmentedControl@hons82"
-  s.version      = "1.4.2"
+  s.version      = "1.4.3"
   s.summary      = "A drop-in replacement for UISegmentedControl mimicking the style of various Google products. FORK of hons82"
   s.homepage     = "https://github.com/hons82/HMSegmentedControl"
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
