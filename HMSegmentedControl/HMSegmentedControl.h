@@ -44,98 +44,98 @@ typedef enum {
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
 
-/*
+/**
  Provide a block to be executed when selected index is changed.
  
  Alternativly, you could use `addTarget:action:forControlEvents:`
  */
 @property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
 
-/*
+/**
  Font for segments names when segmented control type is `HMSegmentedControlTypeText`
  
  Default is [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]
  */
 @property (nonatomic, strong) UIFont *font;
 
-/*
+/**
  Text color for segments names when segmented control type is `HMSegmentedControlTypeText`
  
  Default is [UIColor blackColor]
  */
 @property (nonatomic, strong) UIColor *textColor;
 
-/*
+/**
  Text color for selected segment name when segmented control type is `HMSegmentedControlTypeText`
  
  Default is [UIColor blackColor]
  */
 @property (nonatomic, strong) UIColor *selectedTextColor;
 
-/*
+/**
  Segmented control background color.
  
  Default is [UIColor whiteColor]
  */
 @property (nonatomic, strong) UIColor *backgroundColor;
 
-/*
+/**
  Color for the selection indicator stripe/box
  
  Default is R:52, G:181, B:229
  */
 @property (nonatomic, strong) UIColor *selectionIndicatorColor;
 
-/*
+/**
  Color for the selection indicator stripe/box
  
  Default is self.textColor
  */
 @property (nonatomic, strong) UIColor *verticalDividerColor;
 
-/*
+/**
  Opacity for the seletion indicator box.
  
  Default is 0.2
  */
 @property (nonatomic) CGFloat selectionIndicatorBoxOpacity;
 
-/*
+/**
  Width the vertical divider between segments that is added when `verticalDividerEnabled` is set to YES.
  
  Deafult is 1.0f
  */
 @property (nonatomic, assign) CGFloat verticalDividerWidth;
 
-/*
+/**
  Specifies the style of the control
  
  Default is `HMSegmentedControlTypeText`
  */
 @property (nonatomic, assign) HMSegmentedControlType type;
 
-/*
+/**
  Specifies the style of the selection indicator.
  
  Default is `HMSegmentedControlSelectionStyleTextWidthStripe`
  */
 @property (nonatomic, assign) HMSegmentedControlSelectionStyle selectionStyle;
 
-/*
+/**
  Specifies the style of the segment's width.
  
  Default is `HMSegmentedControlSegmentWidthStyleFixed`
  */
 @property (nonatomic, assign) HMSegmentedControlSegmentWidthStyle segmentWidthStyle;
 
-/*
+/**
  Specifies the location of the selection indicator.
  
  Default is `HMSegmentedControlSelectionIndicatorLocationUp`
  */
 @property (nonatomic, assign) HMSegmentedControlSelectionIndicatorLocation selectionIndicatorLocation;
 
-/*
+/**
  Default is NO. Set to YES to allow for adding more tabs than the screen width could fit.
  
  When set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
@@ -145,34 +145,34 @@ typedef enum {
  */
 @property(nonatomic, getter = isScrollEnabled) BOOL scrollEnabled DEPRECATED_ATTRIBUTE;
 
-/*
+/**
  Default is YES. Set to NO to deny scrolling by dragging the scrollView by the user.
  */
 @property(nonatomic, getter = isUserDraggable) BOOL userDraggable;
 
-/*
+/**
  Default is YES. Set to NO to deny any touch events by the user.
  */
 @property(nonatomic, getter = isTouchEnabled) BOOL touchEnabled;
 
-/*
+/**
  Default is NO. Set to YES to show a vertical divider between the segments.
  */
 @property(nonatomic, getter = isVerticalDividerEnabled) BOOL verticalDividerEnabled;
 
-/*
+/**
  Index of the currently selected segment.
  */
 @property (nonatomic, assign) NSInteger selectedSegmentIndex;
 
-/*
+/**
  Height of the selection indicator. Only effective when `HMSegmentedControlSelectionStyle` is either `HMSegmentedControlSelectionStyleTextWidthStripe` or `HMSegmentedControlSelectionStyleFullWidthStripe`.
  
  Default is 5.0
  */
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
 
-/*
+/**
  Edge insets for the selection indicator.
  NOTE: This does not affect the bounding box of HMSegmentedControlSelectionStyleBox
  
@@ -187,14 +187,14 @@ typedef enum {
  */
 @property (nonatomic, readwrite) UIEdgeInsets selectionIndicatorEdgeInsets;
 
-/*
+/**
  Inset left and right edges of segments. Only effective when `scrollEnabled` is set to YES.
  
  Default is UIEdgeInsetsMake(0, 5, 0, 5)
  */
 @property (nonatomic, readwrite) UIEdgeInsets segmentEdgeInset;
 
-/*
+/**
  Default is YES. Set to NO to disable animation during user selection.
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
