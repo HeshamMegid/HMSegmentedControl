@@ -148,7 +148,9 @@
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
     self.userDraggable = YES;
     self.touchEnabled = YES;
+    self.verticalDividerEnabled = NO;
     self.type = HMSegmentedControlTypeText;
+    self.verticalDividerWidth = 1.0f;
     
     self.shouldAnimateUserSelection = YES;
     
@@ -234,9 +236,10 @@
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             
-            CGRect rect;
+            CGRect rect,rectDiv;
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-                rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth)/2, y, stringWidth, stringHeight);
+                rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth) / 2, y, stringWidth, stringHeight);
+                rectDiv = CGRectMake((self.segmentWidth * idx) - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
@@ -249,6 +252,7 @@
                 }
                 
                 rect = CGRectMake(xOffset, y, [[self.segmentWidthsArray objectAtIndex:idx] floatValue], stringHeight);
+                rectDiv = CGRectMake(xOffset - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
             }
             
             CATextLayer *titleLayer = [CATextLayer layer];
@@ -266,7 +270,17 @@
             }
             
             titleLayer.contentsScale = [[UIScreen mainScreen] scale];
+            
             [self.scrollView.layer addSublayer:titleLayer];
+            
+            // Vertical Divider
+            if (self.isVerticalDividerEnabled && idx > 0) {
+                CALayer *verticalDividerLayer = [CALayer layer];
+                verticalDividerLayer.frame = rectDiv;
+                verticalDividerLayer.backgroundColor = self.verticalDividerColor ? self.verticalDividerColor.CGColor : self.textColor.CGColor;
+                
+                [self.scrollView.layer addSublayer:verticalDividerLayer];
+            }
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
         [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
@@ -292,6 +306,14 @@
             }
             
             [self.scrollView.layer addSublayer:imageLayer];
+            // Vertical Divider
+            if (self.isVerticalDividerEnabled && idx>0) {
+                CALayer *verticalDividerLayer = [CALayer layer];
+                verticalDividerLayer.frame = CGRectMake((self.segmentWidth * idx) - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height-(self.selectionIndicatorHeight * 4));
+                verticalDividerLayer.backgroundColor = self.verticalDividerColor ? self.verticalDividerColor.CGColor : self.textColor.CGColor;
+                
+                [self.scrollView.layer addSublayer:verticalDividerLayer];
+            }
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages){
 		[self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {

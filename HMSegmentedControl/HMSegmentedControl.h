@@ -65,7 +65,7 @@ typedef enum {
  */
 @property (nonatomic, strong) UIColor *textColor;
 
-/* 
+/*
  Text color for selected segment name when segmented control type is `HMSegmentedControlTypeText`
  
  Default is [UIColor blackColor]
@@ -87,11 +87,25 @@ typedef enum {
 @property (nonatomic, strong) UIColor *selectionIndicatorColor;
 
 /*
- Opacity for the seletion inficator box.
+ Color for the selection indicator stripe/box
+ 
+ Default is self.textColor
+ */
+@property (nonatomic, strong) UIColor *verticalDividerColor;
+
+/*
+ Opacity for the seletion indicator box.
  
  Default is 0.2
  */
 @property (nonatomic) CGFloat selectionIndicatorBoxOpacity;
+
+/*
+ Width the vertical divider between segments that is added when `verticalDividerEnabled` is set to YES.
+ 
+ Deafult is 1.0f
+ */
+@property (nonatomic, assign) CGFloat verticalDividerWidth;
 
 /*
  Specifies the style of the control
@@ -141,6 +155,10 @@ typedef enum {
  */
 @property(nonatomic, getter = isTouchEnabled) BOOL touchEnabled;
 
+/*
+ Default is NO. Set to YES to show a vertical divider between the segments.
+ */
+@property(nonatomic, getter = isVerticalDividerEnabled) BOOL verticalDividerEnabled;
 
 /*
  Index of the currently selected segment.
