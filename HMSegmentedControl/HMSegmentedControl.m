@@ -663,7 +663,7 @@
     }
 }
 
-- (void)scrollToSelectedSegmentIndex {
+- (void)scrollToSelectedSegmentIndex:(BOOL)animated {
     CGRect rectForSelectedIndex;
     CGFloat selectedSegmentOffset = 0;
     if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
@@ -695,7 +695,7 @@
     CGRect rectToScrollTo = rectForSelectedIndex;
     rectToScrollTo.origin.x -= selectedSegmentOffset;
     rectToScrollTo.size.width += selectedSegmentOffset * 2;
-    [self.scrollView scrollRectToVisible:rectToScrollTo animated:YES];
+    [self.scrollView scrollRectToVisible:rectToScrollTo animated:animated];
 }
 
 #pragma mark - Index change
@@ -717,7 +717,7 @@
         [self.selectionIndicatorStripLayer removeFromSuperlayer];
         [self.selectionIndicatorBoxLayer removeFromSuperlayer];
     } else {
-        [self scrollToSelectedSegmentIndex];
+        [self scrollToSelectedSegmentIndex:animated];
         
         if (animated) {
             // If the selected segment layer is not added to the super layer, that means no
