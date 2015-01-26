@@ -28,6 +28,14 @@ typedef enum {
     HMSegmentedControlSegmentWidthStyleDynamic, // Segment width will only be as big as the text width (including inset)
 } HMSegmentedControlSegmentWidthStyle;
 
+typedef NS_OPTIONS(NSInteger, HMSegmentedControlBorderType) {
+    HMSegmentedControlBorderTypeNone = 0,
+    HMSegmentedControlBorderTypeTop = (1 << 0),
+    HMSegmentedControlBorderTypeLeft = (1 << 1),
+    HMSegmentedControlBorderTypeBottom = (1 << 2),
+    HMSegmentedControlBorderTypeRight = (1 << 3)
+};
+
 enum {
     HMSegmentedControlNoSegment = -1   // Segment index for no selected segment
 };
@@ -54,56 +62,56 @@ typedef enum {
 /**
  Font for segments names when segmented control type is `HMSegmentedControlTypeText`
  
- Default is [UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]
+ Default is `[UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]`
  */
 @property (nonatomic, strong) UIFont *font;
 
 /**
  Text color for segments names when segmented control type is `HMSegmentedControlTypeText`
  
- Default is [UIColor blackColor]
+ Default is `[UIColor blackColor]`
  */
 @property (nonatomic, strong) UIColor *textColor;
 
 /**
  Text color for selected segment name when segmented control type is `HMSegmentedControlTypeText`
  
- Default is [UIColor blackColor]
+ Default is `[UIColor blackColor]`
  */
 @property (nonatomic, strong) UIColor *selectedTextColor;
 
 /**
  Segmented control background color.
  
- Default is [UIColor whiteColor]
+ Default is `[UIColor whiteColor]`
  */
 @property (nonatomic, strong) UIColor *backgroundColor;
 
 /**
  Color for the selection indicator stripe/box
  
- Default is R:52, G:181, B:229
+ Default is `R:52, G:181, B:229`
  */
 @property (nonatomic, strong) UIColor *selectionIndicatorColor;
 
 /**
  Color for the selection indicator stripe/box
  
- Default is self.textColor
+ Default is `self.textColor`
  */
 @property (nonatomic, strong) UIColor *verticalDividerColor;
 
 /**
  Opacity for the seletion indicator box.
  
- Default is 0.2
+ Default is `0.2f`
  */
 @property (nonatomic) CGFloat selectionIndicatorBoxOpacity;
 
 /**
  Width the vertical divider between segments that is added when `verticalDividerEnabled` is set to YES.
  
- Deafult is 1.0f
+ Default is `1.0f`
  */
 @property (nonatomic, assign) CGFloat verticalDividerWidth;
 
@@ -135,7 +143,28 @@ typedef enum {
  */
 @property (nonatomic, assign) HMSegmentedControlSelectionIndicatorLocation selectionIndicatorLocation;
 
+/*
+ Specifies the border type.
+ 
+ Default is `HMSegmentedControlBorderTypeNone`
+ */
+@property (nonatomic, assign) HMSegmentedControlBorderType borderType;
+
 /**
+ Specifies the border color.
+ 
+ Default is `[UIColor blackColor]`
+ */
+@property (nonatomic, strong) UIColor *borderColor;
+
+/**
+ Specifies the border width.
+ 
+ Default is `1.0f`
+ */
+@property (nonatomic, assign) CGFloat borderWidth;
+
+/*
  Default is NO. Set to YES to allow for adding more tabs than the screen width could fit.
  
  When set to YES, segment width will be automatically set to the width of the biggest segment's text or image,
