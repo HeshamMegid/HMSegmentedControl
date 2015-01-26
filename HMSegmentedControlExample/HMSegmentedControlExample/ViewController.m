@@ -30,9 +30,11 @@
         yDelta = 0.0f;
     }
     
+    CGFloat viewWidth = CGRectGetWidth(self.view.frame);
+    
     // Minimum code required to use the segmented control with the default styling.
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Trending", @"News", @"Library"]];
-    segmentedControl.frame = CGRectMake(0, 0 + yDelta, 320, 40);
+    segmentedControl.frame = CGRectMake(0, 0 + yDelta, viewWidth, 40);
     segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
@@ -41,7 +43,7 @@
     // Segmented control with scrolling
     HMSegmentedControl *segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
     segmentedControl1.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-    segmentedControl1.frame = CGRectMake(0, 40 + yDelta, 320, 40);
+    segmentedControl1.frame = CGRectMake(0, 40 + yDelta, viewWidth, 40);
     segmentedControl1.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
     segmentedControl1.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
@@ -54,7 +56,7 @@
     
     // Segmented control with images
     HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:@[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], [UIImage imageNamed:@"3"], [UIImage imageNamed:@"4"]] sectionSelectedImages:@[[UIImage imageNamed:@"1-selected"], [UIImage imageNamed:@"2-selected"], [UIImage imageNamed:@"3-selected"], [UIImage imageNamed:@"4-selected"]]];
-    segmentedControl2.frame = CGRectMake(0, 100 + yDelta, 320, 50);
+    segmentedControl2.frame = CGRectMake(0, 100 + yDelta, viewWidth, 50);
     segmentedControl2.selectionIndicatorHeight = 4.0f;
     segmentedControl2.backgroundColor = [UIColor clearColor];
     segmentedControl2.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
@@ -65,7 +67,7 @@
     
     // Segmented control with more customization and indexChangeBlock
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two\n2", @"Three", @"4", @"Five"]];
-    [segmentedControl3 setFrame:CGRectMake(0, 160 + yDelta, 320, 50)];
+    [segmentedControl3 setFrame:CGRectMake(0, 160 + yDelta, viewWidth, 50)];
     [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
         NSLog(@"Selected index %ld (via block)", (long)index);
     }];
@@ -83,7 +85,7 @@
     
     
     // Tying up the segmented control to a scroll view
-    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 240 + yDelta, 320, 50)];
+    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 240 + yDelta, viewWidth, 50)];
     self.segmentedControl4.sectionTitles = @[@"Worldwide", @"Local", @"Headlines"];
     self.segmentedControl4.selectedSegmentIndex = 1;
     self.segmentedControl4.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
@@ -96,31 +98,31 @@
     
     __weak typeof(self) weakSelf = self;
     [self.segmentedControl4 setIndexChangeBlock:^(NSInteger index) {
-        [weakSelf.scrollView scrollRectToVisible:CGRectMake(320 * index, 0, 320, 200) animated:YES];
+        [weakSelf.scrollView scrollRectToVisible:CGRectMake(viewWidth * index, 0, viewWidth, 200) animated:YES];
     }];
     
     [self.view addSubview:self.segmentedControl4];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 290 + yDelta, 320, 210)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 290 + yDelta, viewWidth, 210)];
     self.scrollView.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
-    self.scrollView.contentSize = CGSizeMake(960, 200);
+    self.scrollView.contentSize = CGSizeMake(viewWidth * 3, 200);
     self.scrollView.delegate = self;
-    [self.scrollView scrollRectToVisible:CGRectMake(320, 0, 320, 200) animated:NO];
+    [self.scrollView scrollRectToVisible:CGRectMake(viewWidth, 0, viewWidth, 200) animated:NO];
     [self.view addSubview:self.scrollView];
     
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 210)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, viewWidth, 210)];
     [self setApperanceForLabel:label1];
     label1.text = @"Worldwide";
     [self.scrollView addSubview:label1];
     
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(320, 0, 320, 210)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(viewWidth, 0, viewWidth, 210)];
     [self setApperanceForLabel:label2];
     label2.text = @"Local";
     [self.scrollView addSubview:label2];
     
-    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(640, 0, 320, 210)];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(viewWidth * 2, 0, viewWidth, 210)];
     [self setApperanceForLabel:label3];
     label3.text = @"Headlines";
     [self.scrollView addSubview:label3];

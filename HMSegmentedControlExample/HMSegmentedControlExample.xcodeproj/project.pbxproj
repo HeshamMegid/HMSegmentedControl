@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54337E5A1A7661FB00496DA3 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54337E591A7661FB00496DA3 /* Launch Screen.xib */; };
 		5483A70516AEE40A00129C1A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05AFB1689D3650064FCE1 /* QuartzCore.framework */; };
 		5483A70616AEE43800129C1A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05ADC1689D34A0064FCE1 /* CoreGraphics.framework */; };
 		54E531BE16B951AB005F17A1 /* 1-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531AE16B951AB005F17A1 /* 1-selected.png */; };
@@ -30,14 +31,12 @@
 		54F05AE31689D34A0064FCE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AE11689D34A0064FCE1 /* InfoPlist.strings */; };
 		54F05AE51689D34A0064FCE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AE41689D34A0064FCE1 /* main.m */; };
 		54F05AE91689D34A0064FCE1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AE81689D34A0064FCE1 /* AppDelegate.m */; };
-		54F05AEB1689D34A0064FCE1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AEA1689D34A0064FCE1 /* Default.png */; };
-		54F05AED1689D34A0064FCE1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AEC1689D34A0064FCE1 /* Default@2x.png */; };
-		54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AEE1689D34A0064FCE1 /* Default-568h@2x.png */; };
 		54F05AF21689D34B0064FCE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AF11689D34B0064FCE1 /* ViewController.m */; };
 		54F05B001689D38C0064FCE1 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		54337E591A7661FB00496DA3 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		54E531AE16B951AB005F17A1 /* 1-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1-selected.png"; path = "HMSegmentedControlExample/Images/1-selected.png"; sourceTree = SOURCE_ROOT; };
 		54E531AF16B951AB005F17A1 /* 1-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1-selected@2x.png"; path = "HMSegmentedControlExample/Images/1-selected@2x.png"; sourceTree = SOURCE_ROOT; };
 		54E531B016B951AB005F17A1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = HMSegmentedControlExample/Images/1.png; sourceTree = SOURCE_ROOT; };
@@ -59,18 +58,15 @@
 		54F05ADA1689D34A0064FCE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		54F05ADC1689D34A0064FCE1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		54F05AE01689D34A0064FCE1 /* HMSegmentedControlExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HMSegmentedControlExample-Info.plist"; sourceTree = "<group>"; };
-		54F05AE21689D34A0064FCE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		54F05AE21689D34A0064FCE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		54F05AE41689D34A0064FCE1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		54F05AE61689D34A0064FCE1 /* HMSegmentedControlExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HMSegmentedControlExample-Prefix.pch"; sourceTree = "<group>"; };
 		54F05AE71689D34A0064FCE1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		54F05AE81689D34A0064FCE1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		54F05AEA1689D34A0064FCE1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		54F05AEC1689D34A0064FCE1 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		54F05AEE1689D34A0064FCE1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		54F05AF01689D34B0064FCE1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		54F05AF11689D34B0064FCE1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		54F05AFB1689D3650064FCE1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HMSegmentedControl.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,9 +134,6 @@
 				54F05AE11689D34A0064FCE1 /* InfoPlist.strings */,
 				54F05AE41689D34A0064FCE1 /* main.m */,
 				54F05AE61689D34A0064FCE1 /* HMSegmentedControlExample-Prefix.pch */,
-				54F05AEA1689D34A0064FCE1 /* Default.png */,
-				54F05AEC1689D34A0064FCE1 /* Default@2x.png */,
-				54F05AEE1689D34A0064FCE1 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -150,6 +143,7 @@
 			children = (
 				54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */,
 				54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */,
+				54337E591A7661FB00496DA3 /* Launch Screen.xib */,
 			);
 			name = HMSegmentedControl;
 			path = ../../HMSegmentedControl;
@@ -231,9 +225,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				54F05AE31689D34A0064FCE1 /* InfoPlist.strings in Resources */,
-				54F05AEB1689D34A0064FCE1 /* Default.png in Resources */,
-				54F05AED1689D34A0064FCE1 /* Default@2x.png in Resources */,
-				54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */,
 				54E531BE16B951AB005F17A1 /* 1-selected.png in Resources */,
 				54E531BF16B951AB005F17A1 /* 1-selected@2x.png in Resources */,
 				54E531C016B951AB005F17A1 /* 1.png in Resources */,
@@ -241,6 +232,7 @@
 				54E531C216B951AB005F17A1 /* 2-selected.png in Resources */,
 				54E531C316B951AB005F17A1 /* 2-selected@2x.png in Resources */,
 				54E531C416B951AB005F17A1 /* 2.png in Resources */,
+				54337E5A1A7661FB00496DA3 /* Launch Screen.xib in Resources */,
 				54E531C516B951AB005F17A1 /* 2@2x.png in Resources */,
 				54E531C616B951AB005F17A1 /* 3-selected.png in Resources */,
 				54E531C716B951AB005F17A1 /* 3-selected@2x.png in Resources */,
@@ -334,6 +326,8 @@
 		54F05AF91689D34B0064FCE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HMSegmentedControlExample/HMSegmentedControlExample-Prefix.pch";
 				INFOPLIST_FILE = "HMSegmentedControlExample/HMSegmentedControlExample-Info.plist";
@@ -346,6 +340,8 @@
 		54F05AFA1689D34B0064FCE1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HMSegmentedControlExample/HMSegmentedControlExample-Prefix.pch";
 				INFOPLIST_FILE = "HMSegmentedControlExample/HMSegmentedControlExample-Info.plist";
