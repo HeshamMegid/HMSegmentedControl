@@ -237,7 +237,6 @@
                 stringHeight = roundf([titleString sizeWithFont:self.font].height);
             }
             
-            // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             
             CGRect rect,rectDiv, fullRect;
@@ -362,6 +361,10 @@
             
             // The text rect's width is the segment width without the image, image padding and insets
             CGRect textRect = CGRectMake(textXOffset, yOffset, [[self.segmentWidthsArray objectAtIndex:idx] floatValue]-imageWidth-segmentImageTextPadding-self.segmentEdgeInset.left-self.segmentEdgeInset.right, stringHeight);
+            
+            // Fix rect position/size to avoid blurry labels
+            textRect = CGRectMake(ceilf(textRect.origin.x), ceilf(textRect.origin.y), ceilf(textRect.size.width), ceilf(textRect.size.height));
+
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = textRect;
             titleLayer.font = (__bridge CFTypeRef)(self.font.fontName);
