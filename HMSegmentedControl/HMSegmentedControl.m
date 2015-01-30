@@ -338,29 +338,38 @@
 			
 			CGFloat stringHeight = roundf([self.sectionTitles[idx] sizeWithFont:self.font].height);
             
-			CGFloat yOffset = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) - (stringHeight / 2));
+			CGFloat yOffset = roundf((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2.0f) - stringHeight;
             
             CGFloat imageXOffset = self.segmentEdgeInset.left; // Start with edge inset
-            if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed)
-                imageXOffset = self.segmentWidth * idx;
-            else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
+            CGFloat textXOffset  = self.segmentEdgeInset.left;
+            CGFloat textWidth = 0;
+            
+            if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
+                imageXOffset = (self.segmentWidth * idx) + (self.segmentWidth / 2.0f) - (imageWidth / 2.0f);
+                textXOffset = self.segmentWidth * idx;
+                textWidth = self.segmentWidth;
+            } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
+                CGFloat xOffset = 0;
                 NSInteger i = 0;
+                
                 for (NSNumber *width in self.segmentWidthsArray) {
-                    if (idx == i)
+                    if (idx == i) {
                         break;
-                    imageXOffset = imageXOffset + [width floatValue];
+                    }
+                    
+                    xOffset = xOffset + [width floatValue];
                     i++;
                 }
+                
+                imageXOffset = xOffset + ([self.segmentWidthsArray[idx] floatValue] / 2.0f) - (imageWidth / 2.0f); //(self.segmentWidth / 2.0f) - (imageWidth / 2.0f)
+                textXOffset = xOffset;
+                textWidth = [self.segmentWidthsArray[idx] floatValue];
             }
             
-            CGRect imageRect = CGRectMake(imageXOffset, yOffset, imageWidth, imageHeight);
-			
-            // Use the image offset and padding to calculate the text offset
-            CGFloat textXOffset = imageXOffset + imageWidth + segmentImageTextPadding;
-            
-            // The text rect's width is the segment width without the image, image padding and insets
-            CGRect textRect = CGRectMake(textXOffset, yOffset, [[self.segmentWidthsArray objectAtIndex:idx] floatValue]-imageWidth-segmentImageTextPadding-self.segmentEdgeInset.left-self.segmentEdgeInset.right, stringHeight);
+            CGFloat imageYOffset = roundf((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2.0f);
+            CGRect imageRect = CGRectMake(imageXOffset, imageYOffset, imageWidth, imageHeight);
+            CGRect textRect = CGRectMake(textXOffset, yOffset, textWidth, stringHeight);
             
             // Fix rect position/size to avoid blurry labels
             textRect = CGRectMake(ceilf(textRect.origin.x), ceilf(textRect.origin.y), ceilf(textRect.size.width), ceilf(textRect.size.height));
@@ -605,7 +614,7 @@
             CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
             self.segmentWidth = MAX(imageWidth, self.segmentWidth);
         }
-    } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleFixed){
+    } else if (self.type == HMSegmentedControlTypeTextImages && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed){
         //lets just use the title.. we will assume it is wider then images...
         for (NSString *titleString in self.sectionTitles) {
 #if  __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
@@ -615,7 +624,7 @@
 #endif
             self.segmentWidth = MAX(stringWidth, self.segmentWidth);
         }
-    } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleDynamic) {
+    } else if (self.type == HMSegmentedControlTypeTextImages && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
         NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
         
         int i = 0;
