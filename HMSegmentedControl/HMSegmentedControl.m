@@ -196,11 +196,19 @@
 	}
 }
 
-- (void)setSelectionIndicatorBoxOpacity:(CGFloat)selectionIndicatorBoxOpacity
-{
+- (void)setSelectionIndicatorBoxOpacity:(CGFloat)selectionIndicatorBoxOpacity {
     _selectionIndicatorBoxOpacity = selectionIndicatorBoxOpacity;
     
     self.selectionIndicatorBoxLayer.opacity = _selectionIndicatorBoxOpacity;
+}
+
+- (void)setSegmentWidthStyle:(HMSegmentedControlSegmentWidthStyle)segmentWidthStyle {
+    // Force HMSegmentedControlSegmentWidthStyleFixed when type is HMSegmentedControlTypeImages.
+    if (self.type == HMSegmentedControlTypeImages) {
+        _segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
+    } else {
+        _segmentWidthStyle = segmentWidthStyle;
+    }
 }
 
 #pragma mark - Drawing
