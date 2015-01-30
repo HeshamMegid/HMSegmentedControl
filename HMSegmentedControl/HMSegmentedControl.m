@@ -236,7 +236,9 @@
             
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight)/2 - stringHeight/2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             
-            CGRect rect,rectDiv, fullRect;
+            CGRect rect = CGRectZero;
+            CGRect rectDiv;
+            CGRect fullRect;
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
                 rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth) / 2, y, stringWidth, stringHeight);
                 rectDiv = CGRectMake((self.segmentWidth * idx) - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
