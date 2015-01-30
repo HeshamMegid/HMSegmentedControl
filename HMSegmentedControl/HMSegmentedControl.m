@@ -10,8 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <math.h>
 
-#define segmentImageTextPadding 7
-
 @interface HMScrollView : UIScrollView
 @end
 
@@ -321,8 +319,6 @@
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages){
 		[self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
-            // When we have both an image and a title, we start with the image and use segmentImageTextPadding before drawing the text.
-            // So the image will be left to the text, centered in the middle
             UIImage *icon = iconImage;
             CGFloat imageWidth = icon.size.width;
             CGFloat imageHeight = icon.size.height;
@@ -509,11 +505,7 @@
 		CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithAttributes:@{NSFontAttributeName: self.font}].width;
 		UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
 		CGFloat imageWidth = sectionImage.size.width;
-        if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-            sectionWidth = MAX(stringWidth, imageWidth);
-        } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
-            sectionWidth = imageWidth + segmentImageTextPadding + stringWidth;
-        }
+        sectionWidth = MAX(stringWidth, imageWidth);
 	}
     
     if (self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
@@ -610,7 +602,7 @@
             UIImage *sectionImage = [self.sectionImages objectAtIndex:i];
             CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left;
             
-            CGFloat combinedWidth = imageWidth + segmentImageTextPadding + stringWidth;
+            CGFloat combinedWidth = MAX(imageWidth, stringWidth);
             
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:combinedWidth]];
             
