@@ -72,35 +72,35 @@ typedef enum {
 /**
  Text attributes to apply to item title text.
  */
-@property (nonatomic, strong) NSDictionary *titleTextAttributes;
+@property (nonatomic, strong) NSDictionary *titleTextAttributes UI_APPEARANCE_SELECTOR;
 
 /*
  Text attributes to apply to selected item title text.
  
  Attributes not set in this dictionary are inherited from `titleTextAttributes`.
  */
-@property (nonatomic, strong) NSDictionary *selectedTitleTextAttributes;
+@property (nonatomic, strong) NSDictionary *selectedTitleTextAttributes UI_APPEARANCE_SELECTOR;
 
 /**
  Segmented control background color.
  
  Default is `[UIColor whiteColor]`
  */
-@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
  Color for the selection indicator stripe/box
  
  Default is `R:52, G:181, B:229`
  */
-@property (nonatomic, strong) UIColor *selectionIndicatorColor;
+@property (nonatomic, strong) UIColor *selectionIndicatorColor UI_APPEARANCE_SELECTOR;
 
 /**
- Color for the selection indicator stripe/box
+ Color for the vertical divider between segments.
  
  Default is `[UIColor blackColor]`
  */
-@property (nonatomic, strong) UIColor *verticalDividerColor;
+@property (nonatomic, strong) UIColor *verticalDividerColor UI_APPEARANCE_SELECTOR;
 
 /**
  Opacity for the seletion indicator box.

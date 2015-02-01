@@ -130,9 +130,9 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     [self addSubview:self.scrollView];
     
-    self.backgroundColor = [UIColor whiteColor];
+    _backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
-    self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
+    _selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
     
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
@@ -146,7 +146,7 @@
     self.verticalDividerEnabled = NO;
     self.type = HMSegmentedControlTypeText;
     self.verticalDividerWidth = 1.0f;
-    self.verticalDividerColor = [UIColor blackColor];
+    _verticalDividerColor = [UIColor blackColor];
     self.borderColor = [UIColor blackColor];
     self.borderWidth = 1.0f;
     
