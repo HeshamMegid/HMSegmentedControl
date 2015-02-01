@@ -3,12 +3,15 @@
 //  HMSegmentedControl
 //
 //  Created by Hesham Abd-Elmegid on 23/12/12.
-//  Copyright (c) 2012 Hesham Abd-Elmegid. All rights reserved.
+//  Copyright (c) 2012-2015 Hesham Abd-Elmegid. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
+@class HMSegmentedControl;
+
 typedef void (^IndexChangeBlock)(NSInteger index);
+typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
 
 typedef enum {
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
@@ -60,25 +63,23 @@ typedef enum {
 @property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
 
 /**
- Font for segments names when segmented control type is `HMSegmentedControlTypeText`
+ Used to apply custom text styling to titles when set.
  
- Default is `[UIFont fontWithName:@"STHeitiSC-Light" size:18.0f]`
+ When this block is set, no additional styling is applied to the `NSAttributedString` object returned from this block.
  */
-@property (nonatomic, strong) UIFont *font;
+@property (nonatomic, copy) HMTitleFormatterBlock titleFormatter;
 
 /**
- Text color for segments names when segmented control type is `HMSegmentedControlTypeText`
- 
- Default is `[UIColor blackColor]`
+ Text attributes to apply to item title text.
  */
-@property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong) NSDictionary *titleTextAttributes;
 
-/**
- Text color for selected segment name when segmented control type is `HMSegmentedControlTypeText`
+/*
+ Text attributes to apply to selected item title text.
  
- Default is `[UIColor blackColor]`
+ Attributes not set in this dictionary are inherited from `titleTextAttributes`.
  */
-@property (nonatomic, strong) UIColor *selectedTextColor;
+@property (nonatomic, strong) NSDictionary *selectedTitleTextAttributes;
 
 /**
  Segmented control background color.
@@ -97,7 +98,7 @@ typedef enum {
 /**
  Color for the selection indicator stripe/box
  
- Default is `self.textColor`
+ Default is `[UIColor blackColor]`
  */
 @property (nonatomic, strong) UIColor *verticalDividerColor;
 
@@ -223,5 +224,6 @@ typedef enum {
 - (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
+- (void)setTitleFormatter:(HMTitleFormatterBlock)titleFormatter;
 
 @end

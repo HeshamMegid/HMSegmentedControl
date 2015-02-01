@@ -10,10 +10,10 @@ A drop-in replacement for UISegmentedControl mimicking the style of the segmente
 # Features
 - Supports both text and images
 - Support horizontal scrolling
-- Font and all colors are customizable
+- Supports advanced title styling with text attributes for font, color, kerning, shadow, etc.
 - Supports selection indicator both on top and bottom
 - Supports blocks
-- Works with ARC and iOS >= 5
+- Works with ARC and iOS >= 7
 
 # Installation
 
