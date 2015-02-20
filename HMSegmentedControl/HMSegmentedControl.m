@@ -393,9 +393,11 @@
                 textWidth = [self.segmentWidthsArray[idx] floatValue];
             }
             
+            CGFloat spacerImageText = 2.0f;
             CGFloat imageYOffset = roundf((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2.0f);
             imageYOffset = imageYOffset - (imageHeight/2);
-            imageXOffset = imageXOffset - ([self measureTitleAtIndex:idx].width/2) - imageWidth/2 - 5;
+            imageXOffset = imageXOffset - ([self measureTitleAtIndex:idx].width/2) - spacerImageText;
+            textXOffset += (imageWidth + spacerImageText)/2;
             
             CGRect imageRect = CGRectMake(imageXOffset, imageYOffset, imageWidth, imageHeight);
             CGRect textRect = CGRectMake(textXOffset, yOffset, textWidth, stringHeight);
