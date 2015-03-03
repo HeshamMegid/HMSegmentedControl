@@ -46,6 +46,12 @@ Included is a demo project showing how to fully customise the control.
 ![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
 
 # Change log
+* v1.5
+	* Adds advanced styling support for default and selected state with ability to customize kerning, shadow, stroke color and width, ligature, baseline offset, paragraph style, etc.
+	* A few of the control style attributes can now be customized using `UIAppearance`.
+	* Adds ability to specify a border type, color and width.
+	* Drops support for older iOS versions. Now works with iOS 7 and above.
+	* Lots of bug fixes.	 
 * v1.4
 	* Lots of bug fixes
 	* Add AutoLayout support
