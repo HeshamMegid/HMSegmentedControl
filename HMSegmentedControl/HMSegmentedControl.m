@@ -240,6 +240,18 @@
     
     if (!self.titleFormatter) {
         NSDictionary *titleAttrs = selected ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
+        
+        // the color should be cast to CGColor in order to avoid invalid context on iOS7
+        UIColor *titleColor = titleAttrs[NSForegroundColorAttributeName];
+        
+        if (titleColor) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:titleAttrs];
+            
+            dict[NSForegroundColorAttributeName] = (id)titleColor.CGColor;
+            
+            titleAttrs = [NSDictionary dictionaryWithDictionary:dict];
+        }
+        
         return [[NSAttributedString alloc] initWithString:(NSString *)title attributes:titleAttrs];
     } else {
         return self.titleFormatter(self, title, index, selected);
