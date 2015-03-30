@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		54337E5A1A7661FB00496DA3 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54337E591A7661FB00496DA3 /* Launch Screen.xib */; };
+		542415F51AC99E050081610C /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 542415F41AC99E050081610C /* Launch Screen.xib */; };
 		5483A70516AEE40A00129C1A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05AFB1689D3650064FCE1 /* QuartzCore.framework */; };
 		5483A70616AEE43800129C1A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F05ADC1689D34A0064FCE1 /* CoreGraphics.framework */; };
 		54E531BE16B951AB005F17A1 /* 1-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E531AE16B951AB005F17A1 /* 1-selected.png */; };
@@ -36,7 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		54337E591A7661FB00496DA3 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		542415F41AC99E050081610C /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		54E531AE16B951AB005F17A1 /* 1-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1-selected.png"; path = "HMSegmentedControlExample/Images/1-selected.png"; sourceTree = SOURCE_ROOT; };
 		54E531AF16B951AB005F17A1 /* 1-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1-selected@2x.png"; path = "HMSegmentedControlExample/Images/1-selected@2x.png"; sourceTree = SOURCE_ROOT; };
 		54E531B016B951AB005F17A1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = HMSegmentedControlExample/Images/1.png; sourceTree = SOURCE_ROOT; };
@@ -121,6 +121,7 @@
 				54F05AE81689D34A0064FCE1 /* AppDelegate.m */,
 				54F05AF01689D34B0064FCE1 /* ViewController.h */,
 				54F05AF11689D34B0064FCE1 /* ViewController.m */,
+				542415F41AC99E050081610C /* Launch Screen.xib */,
 				A3A4632116B6190F00AE52BA /* Images */,
 				54F05ADF1689D34A0064FCE1 /* Supporting Files */,
 			);
@@ -143,7 +144,6 @@
 			children = (
 				54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */,
 				54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */,
-				54337E591A7661FB00496DA3 /* Launch Screen.xib */,
 			);
 			name = HMSegmentedControl;
 			path = ../../HMSegmentedControl;
@@ -232,10 +232,10 @@
 				54E531C216B951AB005F17A1 /* 2-selected.png in Resources */,
 				54E531C316B951AB005F17A1 /* 2-selected@2x.png in Resources */,
 				54E531C416B951AB005F17A1 /* 2.png in Resources */,
-				54337E5A1A7661FB00496DA3 /* Launch Screen.xib in Resources */,
 				54E531C516B951AB005F17A1 /* 2@2x.png in Resources */,
 				54E531C616B951AB005F17A1 /* 3-selected.png in Resources */,
 				54E531C716B951AB005F17A1 /* 3-selected@2x.png in Resources */,
+				542415F51AC99E050081610C /* Launch Screen.xib in Resources */,
 				54E531C816B951AB005F17A1 /* 3.png in Resources */,
 				54E531C916B951AB005F17A1 /* 3@2x.png in Resources */,
 				54E531CA16B951AB005F17A1 /* 4-selected.png in Resources */,
