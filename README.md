@@ -45,39 +45,6 @@ Included is a demo project showing how to fully customise the control.
 
 ![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
 
-# Change log
-* v1.5
-	* Adds advanced styling support for default and selected state with ability to customize kerning, shadow, stroke color and width, ligature, baseline offset, paragraph style, etc.
-	* A few of the control style attributes can now be customized using `UIAppearance`.
-	* Adds ability to specify a border type, color and width.
-	* Drops support for older iOS versions. Now works with iOS 7 and above.
-	* Lots of bug fixes.	 
-* v1.4
-	* Lots of bug fixes
-	* Add AutoLayout support
-	* Adds HMSegmentedControlSelectionStyleArrow
-	* Adds support for non-animated selections.
-	* Adds support for custom box layer opacity.
-	* Add support for multi-line labels on iOS 7+
-	* Updated documentation in header file
-* v1.3.0
-	* Introducing horizontal scrolling via `scrollEnabled` property. Check example project
-	* Adds XIB/Storyboard support
-	* Fixes deprecations when building with iOS 7 SDK
-	* Updates example project to support iOS 7
-	* Code refactoring and cleanup
-* v1.2.0
-	* Added new selection indicator style: HMSelectionIndicatorBox
-	* Added ability to set text colour for selected segment (thanks to [@jmkr](https://github.com/jmkr))
-	* Segment titles are now added in a separate CATextLayer, and images are drawn in a separate CALayer
-	* Calls to index change block/selector now happen before the animation starts
-	* Lots of code refactoring and clean up
-* v1.1.0 (merged pull request from [@jacksonpan](https://github.com/jacksonpan))
-  * Added image support
-  * Support for changing selection indicator position
-* v1.0.0
-	* Initial release
-  
 # Apps using HMSegmentedControl
 
 If you are using HMSegmentedControl in your app or know of an app that uses it, please add it to [this list](https://github.com/HeshamMegid/HMSegmentedControl/wiki/Apps-using-HMSegmentedControl).
