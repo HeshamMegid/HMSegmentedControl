@@ -43,7 +43,7 @@ segmentedControl.frame = CGRectMake(10, 10, 300, 60);
 
 Included is a demo project showing how to fully customise the control.
 
-![HMSegmentedControl](https://raw.github.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
+![HMSegmentedControl](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
 
 # Apps using HMSegmentedControl
 
