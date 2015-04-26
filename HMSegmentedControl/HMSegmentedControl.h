@@ -171,6 +171,11 @@ typedef enum {
 @property(nonatomic, getter = isUserDraggable) BOOL userDraggable;
 
 /**
+ Default is YES. Set to NO to deny bouncing of the scrollView.
+ */
+@property(nonatomic, getter = isBouncingEnabled) BOOL bouncingEnabled;
+
+/**
  Default is YES. Set to NO to deny any touch events by the user.
  */
 @property(nonatomic, getter = isTouchEnabled) BOOL touchEnabled;

@@ -142,6 +142,7 @@
     self.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
     self.userDraggable = YES;
+    self.bouncingEnabled = YES;
     self.touchEnabled = YES;
     self.verticalDividerEnabled = NO;
     self.type = HMSegmentedControlTypeText;
@@ -657,6 +658,7 @@
     }
 
     self.scrollView.scrollEnabled = self.isUserDraggable;
+    self.scrollView.bounces = self.isBouncingEnabled;
     self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
 }
 
