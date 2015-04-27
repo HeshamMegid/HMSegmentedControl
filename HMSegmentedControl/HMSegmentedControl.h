@@ -138,6 +138,13 @@ typedef enum {
 @property (nonatomic, assign) HMSegmentedControlSegmentWidthStyle segmentWidthStyle;
 
 /**
+ Specifies whether it must occupy at least full screen with HMSegmentedControlSegmentWidthStyleDynamic.
+ 
+ Default is NO
+ */
+@property (nonatomic, assign) BOOL satisfyFullScreenWidth;
+
+/**
  Specifies the location of the selection indicator.
  
  Default is `HMSegmentedControlSelectionIndicatorLocationUp`
