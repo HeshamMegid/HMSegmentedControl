@@ -158,7 +158,9 @@
     self.selectionIndicatorBoxLayer.opacity = self.selectionIndicatorBoxOpacity;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
     self.selectionIndicatorBoxOpacity = 0.2;
-    
+
+    self.titleEdgeInsets = UIEdgeInsetsZero;
+
     self.contentMode = UIViewContentModeRedraw;
 }
 
