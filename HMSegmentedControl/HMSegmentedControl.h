@@ -14,6 +14,7 @@ typedef void (^IndexChangeBlock)(NSInteger index);
 typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
 
 typedef enum {
+    HMSegmentedControlSelectionStyleFixedWidth, // Indicator width will be specified by property selectionIndicatorWidth
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
     HMSegmentedControlSelectionStyleFullWidthStripe, // Indicator width will fill the whole segment
     HMSegmentedControlSelectionStyleBox, // A rectangle that covers the whole segment
@@ -191,6 +192,13 @@ typedef enum {
  Default is 5.0
  */
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
+
+/**
+ Width of the selection indicator. Only effective when `HMSegmentedControlSelectionStyleFixedWidth`
+ 
+ Default is 75.0
+ */
+@property (nonatomic) CGFloat selectionIndicatorWidth;
 
 /**
  Edge insets for the selection indicator.

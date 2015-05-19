@@ -122,6 +122,17 @@
     [self setApperanceForLabel:label3];
     label3.text = @"Headlines";
     [self.scrollView addSubview:label3];
+    
+    // Segmented control with fixed indicator
+    HMSegmentedControl *segmentedControl5 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"城区", @"地铁 "]];
+    segmentedControl5.frame = CGRectMake(viewWidth, 20, viewWidth, 40);
+    segmentedControl5.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    segmentedControl5.selectionStyle = HMSegmentedControlSelectionStyleFixedWidth;
+    segmentedControl5.selectionIndicatorWidth = 75.0f;
+    segmentedControl5.selectionIndicatorHeight = 2.0f;
+    segmentedControl5.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    [segmentedControl5 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [self.scrollView addSubview:segmentedControl5];
 }
 
 - (void)setApperanceForLabel:(UILabel *)label {
