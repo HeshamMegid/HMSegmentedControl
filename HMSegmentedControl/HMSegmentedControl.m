@@ -315,7 +315,7 @@
             rect = CGRectMake(ceilf(rect.origin.x), ceilf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height));
             
             CATextLayer *titleLayer = [CATextLayer layer];
-            titleLayer.frame = rect;
+            titleLayer.frame = UIEdgeInsetsInsetRect(rect, self.titleEdgeInsets);
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.truncationMode = kCATruncationEnd;
             titleLayer.string = [self attributedTitleAtIndex:idx];
@@ -413,7 +413,7 @@
             textRect = CGRectMake(ceilf(textRect.origin.x), ceilf(textRect.origin.y), ceilf(textRect.size.width), ceilf(textRect.size.height));
 
             CATextLayer *titleLayer = [CATextLayer layer];
-            titleLayer.frame = textRect;
+            titleLayer.frame = UIEdgeInsetsInsetRect(textRect, self.titleEdgeInsets);
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.string = [self attributedTitleAtIndex:idx];
             titleLayer.truncationMode = kCATruncationEnd;
