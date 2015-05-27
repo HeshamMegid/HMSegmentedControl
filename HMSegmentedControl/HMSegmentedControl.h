@@ -117,6 +117,20 @@ typedef enum {
 @property (nonatomic, assign) CGFloat verticalDividerWidth;
 
 /**
+ Color of the mask applied when this control is disabled.
+ 
+ Default is '[UIColor blackColor]'
+ */
+@property (nonatomic, strong) UIColor *disabledMaskColor;
+
+/**
+ Opacity of the mask applied when this control is disabled.
+ 
+ Default is '0.5f'
+*/
+@property (nonatomic, assign) CGFloat disabledMaskOpacity;
+
+/**
  Specifies the style of the control
  
  Default is `HMSegmentedControlTypeText`
