@@ -4,6 +4,7 @@ HMSegmentedControl
 [![Pod Version](http://img.shields.io/cocoapods/v/HMSegmentedControl.svg?style=flat)](http://cocoadocs.org/docsets/HMSegmentedControl)
 [![Pod Platform](http://img.shields.io/cocoapods/p/HMSegmentedControl.svg?style=flat)](http://cocoadocs.org/docsets/HMSegmentedControl)
 [![Pod License](http://img.shields.io/cocoapods/l/HMSegmentedControl.svg?style=flat)](http://opensource.org/licenses/MIT)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/HeshamMegid/HMSegmentedControl)
 
 A drop-in replacement for UISegmentedControl mimicking the style of the segmented control used in Google Currents and various other Google products.
 
@@ -18,10 +19,18 @@ A drop-in replacement for UISegmentedControl mimicking the style of the segmente
 # Installation
 
 ### CocoaPods
-The easiest way of installing HMSegmentedControl is via [CocoaPods](http://cocoapods.org/). 
+The easiest way of installing HMSegmentedControl is via [CocoaPods](http://cocoapods.org/).
 
 ```
 pod 'HMSegmentedControl'
+```
+
+### Carthage
+
+Add the following line into `Cartfile`
+
+```
+github "HeshamMegid/HMSegmentedControl"
 ```
 
 ### Old-fashioned way
@@ -48,7 +57,7 @@ Included is a demo project showing how to fully customise the control.
 # Apps using HMSegmentedControl
 
 If you are using HMSegmentedControl in your app or know of an app that uses it, please add it to [this list](https://github.com/HeshamMegid/HMSegmentedControl/wiki/Apps-using-HMSegmentedControl).
-  
+
 
 # License
 
@@ -56,5 +65,5 @@ HMSegmentedControl is licensed under the terms of the MIT License. Please see th
 
 If this code was helpful, I would love to hear from you.
 
-[@HeshamMegid](http://twitter.com/HeshamMegid)   
+[@HeshamMegid](http://twitter.com/HeshamMegid)
 [http://hesh.am](http://hesh.am)
