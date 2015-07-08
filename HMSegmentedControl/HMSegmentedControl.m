@@ -22,6 +22,8 @@
 @property (nonatomic, readwrite) NSArray *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
 
+@property (nonatomic) CGColorRef currentSelectionIndicatorCGColor;
+
 @end
 
 @implementation HMScrollView
@@ -132,7 +134,8 @@
     
     _backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
-    _selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
+    self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f]; // use setter to persist to 'currentSelectionIndicatorColor' property
+    
     
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
@@ -187,11 +190,18 @@
 }
 
 - (void)setSelectionIndicatorLocation:(HMSegmentedControlSelectionIndicatorLocation)selectionIndicatorLocation {
-	_selectionIndicatorLocation = selectionIndicatorLocation;
-	
-	if (selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationNone) {
-		self.selectionIndicatorHeight = 0.0f;
-	}
+    _selectionIndicatorLocation = selectionIndicatorLocation;
+    
+    if (selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationNone) {
+        self.selectionIndicatorHeight = 0.0f;
+    }
+}
+
+- (void) setSelectionIndicatorColor:(UIColor *)selectionIndicatorColor {
+    _selectionIndicatorColor = selectionIndicatorColor;
+    
+    // Also track this ivar in our own private property, which can be overriden by a formatting block
+    self.currentSelectionIndicatorCGColor = _selectionIndicatorColor.CGColor;
 }
 
 - (void)setSelectionIndicatorBoxOpacity:(CGFloat)selectionIndicatorBoxOpacity {
@@ -258,17 +268,13 @@
     }
 }
 
+
 - (void)drawRect:(CGRect)rect {
     [self.backgroundColor setFill];
     UIRectFill([self bounds]);
     
-    self.selectionIndicatorArrowLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    
-    self.selectionIndicatorStripLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    
-    self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
-    
+    [self configureSelectionIndicatorBackgroundColors:self.currentSelectionIndicatorCGColor];
+
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
     
@@ -276,7 +282,7 @@
     
     if (self.type == HMSegmentedControlTypeText) {
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
-
+            
             CGFloat stringWidth = 0;
             CGFloat stringHeight = 0;
             CGSize size = [self measureTitleAtIndex:idx];
@@ -287,7 +293,7 @@
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             BOOL locationUp = (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp);
             BOOL selectionStyleNotBox = (self.selectionStyle != HMSegmentedControlSelectionStyleBox);
-
+            
             CGFloat y = roundf((CGRectGetHeight(self.frame) - selectionStyleNotBox * self.selectionIndicatorHeight) / 2 - stringHeight / 2 + self.selectionIndicatorHeight * locationUp);
             CGRect rect;
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
@@ -370,13 +376,13 @@
             [self addBackgroundAndBorderLayerWithRect:rect];
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages){
-		[self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
+        [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
             UIImage *icon = iconImage;
             CGFloat imageWidth = icon.size.width;
             CGFloat imageHeight = icon.size.height;
-			
+            
             CGFloat stringHeight = [self measureTitleAtIndex:idx].height;
-			CGFloat yOffset = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) - (stringHeight / 2));
+            CGFloat yOffset = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) - (stringHeight / 2));
             
             CGFloat imageXOffset = self.segmentEdgeInset.left; // Start with edge inset
             CGFloat textXOffset  = self.segmentEdgeInset.left;
@@ -460,6 +466,16 @@
         }
     }
 }
+
+- (void) configureSelectionIndicatorBackgroundColors:(CGColorRef)colorRef {
+    self.selectionIndicatorArrowLayer.backgroundColor = colorRef;
+    
+    self.selectionIndicatorStripLayer.backgroundColor = colorRef;
+    
+    self.selectionIndicatorBoxLayer.backgroundColor = colorRef;
+    self.selectionIndicatorBoxLayer.borderColor = colorRef;
+}
+
 
 - (void)addBackgroundAndBorderLayerWithRect:(CGRect)fullRect {
     // Background layer
@@ -549,11 +565,11 @@
         CGFloat imageWidth = sectionImage.size.width;
         sectionWidth = imageWidth;
     } else if (self.type == HMSegmentedControlTypeTextImages) {
-		CGFloat stringWidth = [self measureTitleAtIndex:self.selectedSegmentIndex].width;
-		UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
-		CGFloat imageWidth = sectionImage.size.width;
+        CGFloat stringWidth = [self measureTitleAtIndex:self.selectedSegmentIndex].width;
+        UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
+        CGFloat imageWidth = sectionImage.size.width;
         sectionWidth = MAX(stringWidth, imageWidth);
-	}
+    }
     
     if (self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
         CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
@@ -788,6 +804,16 @@
         [self.selectionIndicatorBoxLayer removeFromSuperlayer];
     } else {
         [self scrollToSelectedSegmentIndex:animated];
+        
+        // Handle dynamic color change of selection indicator
+        if (self.selectionIndicatorFormatter)
+        {
+            UIColor * desiredSelectionIndicatorColor = self.selectionIndicatorFormatter(self, index);
+            if (desiredSelectionIndicatorColor)
+            {
+                self.currentSelectionIndicatorCGColor = desiredSelectionIndicatorColor.CGColor;
+            }
+        }
         
         if (animated) {
             // If the selected segment layer is not added to the super layer, that means no
