@@ -12,6 +12,7 @@
 
 typedef void (^IndexChangeBlock)(NSInteger index);
 typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
+typedef UIColor *(^HMSelectionIndicatorFormatterBlock)(HMSegmentedControl *segmentedControl, NSUInteger index);
 
 typedef enum {
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
@@ -23,7 +24,7 @@ typedef enum {
 typedef enum {
     HMSegmentedControlSelectionIndicatorLocationUp,
     HMSegmentedControlSelectionIndicatorLocationDown,
-	HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
+    HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
 } HMSegmentedControlSelectionIndicatorLocation;
 
 typedef enum {
@@ -68,6 +69,13 @@ typedef enum {
  When this block is set, no additional styling is applied to the `NSAttributedString` object returned from this block.
  */
 @property (nonatomic, copy) HMTitleFormatterBlock titleFormatter;
+
+/**
+ Used to apply custom styling to the selection box
+ 
+ When this block is set, the selectionIndicatorColor property is not used
+ */
+@property (nonatomic, copy) HMSelectionIndicatorFormatterBlock selectionIndicatorFormatter;
 
 /**
  Text attributes to apply to item title text.
