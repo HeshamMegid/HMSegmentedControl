@@ -719,7 +719,7 @@
                 // Determine if we should proceed with the change
             bool shouldSelectSegment = YES;
             if (self.indexShouldChangeBlock)
-                shouldSelectSegment = self.indexShouldChangeBlock(index);
+                shouldSelectSegment = self.indexShouldChangeBlock(segment);
            
             // Check if we have to do anything with the touch event
             if (shouldSelectSegment && self.isTouchEnabled)
