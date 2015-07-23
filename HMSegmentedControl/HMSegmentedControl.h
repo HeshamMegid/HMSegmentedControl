@@ -11,6 +11,8 @@
 @class HMSegmentedControl;
 
 typedef void (^IndexChangeBlock)(NSInteger index);
+typedef bool (^IndexShouldChangeBlock)(NSInteger index);
+
 typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
 
 typedef enum {
@@ -58,9 +60,14 @@ typedef enum {
 /**
  Provide a block to be executed when selected index is changed.
  
- Alternativly, you could use `addTarget:action:forControlEvents:`
+ Alternatively, you could use `addTarget:action:forControlEvents:`
  */
 @property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
+
+/**
+ Provide a block to be executed to determine if an selected index should be changed to.
+ */
+@property (nonatomic, copy) IndexShouldChangeBlock indexShouldChangeBlock;
 
 /**
  Used to apply custom text styling to titles when set.
