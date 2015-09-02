@@ -385,8 +385,8 @@
             CGFloat textWidth = 0;
             
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-                imageXOffset = (self.segmentWidth * idx) + (self.segmentWidth / 2.0f) - (imageWidth / 2.0f);
-                textXOffset = self.segmentWidth * idx;
+                imageXOffset = (self.segmentWidth * idx) + (self.segmentWidth / 2.0f);
+                textXOffset = self.segmentWidth * idx + imageWidth / 2.0f;
                 textWidth = self.segmentWidth;
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
