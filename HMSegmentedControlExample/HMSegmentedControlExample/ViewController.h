@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HMSegmentedControl.h"
+#import <HMSegmentedControl/HMSegmentedControl.h>
 
 @interface ViewController : UIViewController <UIScrollViewDelegate>
 
