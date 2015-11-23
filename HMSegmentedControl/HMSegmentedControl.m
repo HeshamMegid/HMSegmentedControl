@@ -660,6 +660,18 @@
 
     self.scrollView.scrollEnabled = self.isUserDraggable;
     self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
+    
+    if ([self totalSegmentedControlWidth] < self.frame.size.width) {
+        if (self.contentHorizontalAlignment == UIControlContentHorizontalAlignmentCenter) {
+            CGFloat leadingContentOffsetX = (self.scrollView.contentSize.width - self.scrollView.frame.size.width) / 2;
+            self.scrollView.contentInset = UIEdgeInsetsMake(0, leadingContentOffsetX, 0, 0);
+            self.scrollView.contentOffset = CGPointMake(leadingContentOffsetX, 0);
+        } else if (self.contentHorizontalAlignment == UIControlContentHorizontalAlignmentRight) {
+            CGFloat leadingContentOffsetX = (self.scrollView.contentSize.width - self.scrollView.frame.size.width);
+            self.scrollView.contentInset = UIEdgeInsetsMake(0, leadingContentOffsetX, 0, 0);
+            self.scrollView.contentOffset = CGPointMake(leadingContentOffsetX, 0);
+        }
+    }
 }
 
 - (NSUInteger)sectionCount {
