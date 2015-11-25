@@ -687,15 +687,15 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInView:self];
+    CGPoint touchLocation = [touch locationInView:self.scrollView];
     
     if (CGRectContainsPoint(self.bounds, touchLocation)) {
         NSInteger segment = 0;
         if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-            segment = (touchLocation.x + self.scrollView.contentOffset.x) / self.segmentWidth;
+            segment = touchLocation.x / self.segmentWidth;
         } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
             // To know which segment the user touched, we need to loop over the widths and substract it from the x position.
-            CGFloat widthLeft = (touchLocation.x + self.scrollView.contentOffset.x);
+            CGFloat widthLeft = touchLocation.x;
             for (NSNumber *width in self.segmentWidthsArray) {
                 widthLeft = widthLeft - [width floatValue];
                 
