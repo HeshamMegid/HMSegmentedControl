@@ -17,7 +17,8 @@ typedef enum {
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
     HMSegmentedControlSelectionStyleFullWidthStripe, // Indicator width will fill the whole segment
     HMSegmentedControlSelectionStyleBox, // A rectangle that covers the whole segment
-    HMSegmentedControlSelectionStyleArrow // An arrow in the middle of the segment pointing up or down depending on `HMSegmentedControlSelectionIndicatorLocation`
+   HMSegmentedControlSelectionStyleArrow, // An arrow in the middle of the segment pointing up or down depending on `HMSegmentedControlSelectionIndicatorLocation`
+   HMSegmentedControlSelectionStyleBoard // An arrow in the middle of the segment pointing up or down depending on `HMSegmentedControlSelectionIndicatorLocation`
 } HMSegmentedControlSelectionStyle;
 
 typedef enum {
@@ -108,6 +109,20 @@ typedef enum {
  Default is `0.2f`
  */
 @property (nonatomic) CGFloat selectionIndicatorBoxOpacity;
+
+/**
+ Opacity for the seletion indicator board.
+ 
+ Default is `0.2f`
+ */
+@property (nonatomic) CGFloat selectionIndicatorBoardOpacity;
+
+/**
+ Radius for the seletion indicator board.
+ 
+ Default is `0.2f`
+ */
+@property (nonatomic) CGFloat selectionIndicatorBoardRadius;
 
 /**
  Width the vertical divider between segments that is added when `verticalDividerEnabled` is set to YES.

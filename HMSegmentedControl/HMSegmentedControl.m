@@ -18,6 +18,7 @@
 @property (nonatomic, strong) CALayer *selectionIndicatorStripLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorBoxLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorArrowLayer;
+@property (nonatomic, strong) CALayer *selectionIndicatorBoardLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
@@ -116,12 +117,12 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    self.segmentWidth = 0.0f;
-    [self commonInit];
-}
+//- (void)awakeFromNib {
+//    [super awakeFromNib];
+//    
+//    self.segmentWidth = 0.0f;
+//    [self commonInit];
+//}
 
 - (void)commonInit {
     self.scrollView = [[HMScrollView alloc] init];
@@ -155,10 +156,18 @@
     self.selectionIndicatorArrowLayer = [CALayer layer];
     self.selectionIndicatorStripLayer = [CALayer layer];
     self.selectionIndicatorBoxLayer = [CALayer layer];
+   self.selectionIndicatorBoxOpacity = 0.2;
     self.selectionIndicatorBoxLayer.opacity = self.selectionIndicatorBoxOpacity;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
-    self.selectionIndicatorBoxOpacity = 0.2;
-    
+   
+    self.selectionIndicatorBoardLayer = [CALayer layer];
+    self.selectionIndicatorBoardOpacity = 0.2;
+    self.selectionIndicatorBoardRadius  = 0.0;
+    self.selectionIndicatorBoardLayer.opacity = self.selectionIndicatorBoardOpacity;
+    self.selectionIndicatorBoardLayer.borderWidth = 1.0f;
+    [self.selectionIndicatorBoardLayer setCornerRadius:self.selectionIndicatorBoardRadius];
+   
+   
     self.contentMode = UIViewContentModeRedraw;
 }
 
@@ -200,6 +209,19 @@
     self.selectionIndicatorBoxLayer.opacity = _selectionIndicatorBoxOpacity;
 }
 
+- (void)setSelectionIndicatorBoardOpacity:(CGFloat)selectionIndicatorBoardOpacity {
+   _selectionIndicatorBoardOpacity = selectionIndicatorBoardOpacity;
+   
+   self.selectionIndicatorBoardLayer.opacity = _selectionIndicatorBoardOpacity;
+}
+
+- (void)setSelectionIndicatorBoardRadius:(CGFloat)selectionIndicatorBoardRadius
+{
+   _selectionIndicatorBoardRadius = selectionIndicatorBoardRadius;
+   
+   self.selectionIndicatorBoardLayer.cornerRadius = _selectionIndicatorBoardRadius;
+}
+
 - (void)setSegmentWidthStyle:(HMSegmentedControlSegmentWidthStyle)segmentWidthStyle {
     // Force HMSegmentedControlSegmentWidthStyleFixed when type is HMSegmentedControlTypeImages.
     if (self.type == HMSegmentedControlTypeImages) {
@@ -235,12 +257,10 @@
 }
 
 - (NSAttributedString *)attributedTitleAtIndex:(NSUInteger)index {
-    id title = self.sectionTitles[index];
+    NSString *title = self.sectionTitles[index];
     BOOL selected = (index == self.selectedSegmentIndex) ? YES : NO;
     
-    if ([title isKindOfClass:[NSAttributedString class]]) {
-        return (NSAttributedString *)title;
-    } else if (!self.titleFormatter) {
+    if (!self.titleFormatter) {
         NSDictionary *titleAttrs = selected ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
         
         // the color should be cast to CGColor in order to avoid invalid context on iOS7
@@ -270,7 +290,10 @@
     
     self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
     self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
-    
+   
+    self.selectionIndicatorBoardLayer.backgroundColor = [UIColor clearColor].CGColor;
+    self.selectionIndicatorBoardLayer.borderColor = self.selectionIndicatorColor.CGColor;
+   
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
     
@@ -288,8 +311,8 @@
             
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             BOOL locationUp = (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp);
-            BOOL selectionStyleNotBox = (self.selectionStyle != HMSegmentedControlSelectionStyleBox);
-
+            BOOL selectionStyleNotBox = ((self.selectionStyle != HMSegmentedControlSelectionStyleBox) && (self.selectionStyle != HMSegmentedControlSelectionStyleBoard));
+           
             CGFloat y = roundf((CGRectGetHeight(self.frame) - selectionStyleNotBox * self.selectionIndicatorHeight) / 2 - stringHeight / 2 + self.selectionIndicatorHeight * locationUp);
             CGRect rect;
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
@@ -458,6 +481,11 @@
                     self.selectionIndicatorBoxLayer.frame = [self frameForFillerSelectionIndicator];
                     [self.scrollView.layer insertSublayer:self.selectionIndicatorBoxLayer atIndex:0];
                 }
+                if (self.selectionStyle == HMSegmentedControlSelectionStyleBoard && !self.selectionIndicatorBoardLayer.superlayer) {
+                   self.selectionIndicatorBoardLayer.frame = [self frameForFillerSelectionIndicator];
+                   [self.scrollView.layer insertSublayer:self.selectionIndicatorBoardLayer atIndex:0];
+                }
+               
             }
         }
     }
@@ -467,8 +495,9 @@
     // Background layer
     CALayer *backgroundLayer = [CALayer layer];
     backgroundLayer.frame = fullRect;
+   
     [self.scrollView.layer insertSublayer:backgroundLayer atIndex:0];
-    
+   
     // Border layer
     if (self.borderType & HMSegmentedControlBorderTypeTop) {
         CALayer *borderLayer = [CALayer layer];
@@ -788,6 +817,7 @@
         [self.selectionIndicatorArrowLayer removeFromSuperlayer];
         [self.selectionIndicatorStripLayer removeFromSuperlayer];
         [self.selectionIndicatorBoxLayer removeFromSuperlayer];
+        [self.selectionIndicatorBoardLayer removeFromSuperlayer];
     } else {
         [self scrollToSelectedSegmentIndex:animated];
         
@@ -808,7 +838,10 @@
                     
                     if (self.selectionStyle == HMSegmentedControlSelectionStyleBox && [self.selectionIndicatorBoxLayer superlayer] == nil)
                         [self.scrollView.layer insertSublayer:self.selectionIndicatorBoxLayer atIndex:0];
-                    
+
+                    if (self.selectionStyle == HMSegmentedControlSelectionStyleBoard && [self.selectionIndicatorBoardLayer superlayer] == nil)
+                       [self.scrollView.layer insertSublayer:self.selectionIndicatorBoardLayer atIndex:0];
+
                     [self setSelectedSegmentIndex:index animated:NO notify:YES];
                     return;
                 }
@@ -821,15 +854,18 @@
             self.selectionIndicatorArrowLayer.actions = nil;
             self.selectionIndicatorStripLayer.actions = nil;
             self.selectionIndicatorBoxLayer.actions = nil;
-            
+            self.selectionIndicatorBoardLayer.actions = nil;
+           
             // Animate to new position
             [CATransaction begin];
             [CATransaction setAnimationDuration:0.15f];
             [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
             [self setArrowFrame];
             self.selectionIndicatorBoxLayer.frame = [self frameForSelectionIndicator];
+            self.selectionIndicatorBoardLayer.frame = [self frameForSelectionIndicator];
             self.selectionIndicatorStripLayer.frame = [self frameForSelectionIndicator];
             self.selectionIndicatorBoxLayer.frame = [self frameForFillerSelectionIndicator];
+            self.selectionIndicatorBoardLayer.frame = [self frameForFillerSelectionIndicator];
             [CATransaction commit];
         } else {
             // Disable CALayer animations
@@ -842,7 +878,10 @@
             
             self.selectionIndicatorBoxLayer.actions = newActions;
             self.selectionIndicatorBoxLayer.frame = [self frameForFillerSelectionIndicator];
-            
+
+            self.selectionIndicatorBoardLayer.actions = newActions;
+            self.selectionIndicatorBoardLayer.frame = [self frameForFillerSelectionIndicator];
+
             if (notify)
                 [self notifyForSegmentChangeToIndex:index];
         }
