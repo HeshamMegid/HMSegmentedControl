@@ -89,11 +89,18 @@ typedef enum {
 @property (nonatomic, strong) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
- Color for the selection indicator stripe/box
+ Color for the selection indicator stripe
  
  Default is `R:52, G:181, B:229`
  */
 @property (nonatomic, strong) UIColor *selectionIndicatorColor UI_APPEARANCE_SELECTOR;
+
+/**
+ Color for the selection indicator box
+ 
+ Default is selectionIndicatorColor
+ */
+@property (nonatomic, strong) UIColor *selectionIndicatorBoxColor UI_APPEARANCE_SELECTOR;
 
 /**
  Color for the vertical divider between segments.

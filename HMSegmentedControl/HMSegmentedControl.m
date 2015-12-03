@@ -133,7 +133,8 @@
     _backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
     _selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
-    
+    _selectionIndicatorBoxColor = _selectionIndicatorColor;
+
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.selectionIndicatorHeight = 5.0f;
@@ -268,8 +269,8 @@
     
     self.selectionIndicatorStripLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
     
-    self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
+    self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorBoxColor.CGColor;
+    self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorBoxColor.CGColor;
     
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
