@@ -149,7 +149,8 @@
     _verticalDividerColor = [UIColor blackColor];
     self.borderColor = [UIColor blackColor];
     self.borderWidth = 1.0f;
-    
+    self.corenerRadius = 0.0f;
+	
     self.shouldAnimateUserSelection = YES;
     
     self.selectionIndicatorArrowLayer = [CALayer layer];
@@ -270,6 +271,7 @@
     
     self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
     self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
+	self.selectionIndicatorBoxLayer.cornerRadius = self.corenerRadius;
     
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
