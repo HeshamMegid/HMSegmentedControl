@@ -18,6 +18,8 @@
 @property (nonatomic, strong) CALayer *selectionIndicatorStripLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorBoxLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorArrowLayer;
+@property (nonatomic, strong) CALayer *selectionIndicatorDotLayer;
+
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
@@ -153,6 +155,7 @@
     self.shouldAnimateUserSelection = YES;
     
     self.selectionIndicatorArrowLayer = [CALayer layer];
+    self.selectionIndicatorDotLayer = [CALayer layer];
     self.selectionIndicatorStripLayer = [CALayer layer];
     self.selectionIndicatorBoxLayer = [CALayer layer];
     self.selectionIndicatorBoxLayer.opacity = self.selectionIndicatorBoxOpacity;
@@ -265,7 +268,8 @@
     UIRectFill([self bounds]);
     
     self.selectionIndicatorArrowLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    
+    self.selectionIndicatorDotLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
+
     self.selectionIndicatorStripLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
     
     self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
@@ -449,6 +453,12 @@
                 [self setArrowFrame];
                 [self.scrollView.layer addSublayer:self.selectionIndicatorArrowLayer];
             }
+        } else if(self.selectionStyle == HMSegmentedControlSelectionStyleDot) {
+            if (!self.selectionIndicatorDotLayer.superlayer) {
+                [self setDotFrame];
+                [self.scrollView.layer addSublayer:self.selectionIndicatorDotLayer];
+            }
+
         } else {
             if (!self.selectionIndicatorStripLayer.superlayer) {
                 self.selectionIndicatorStripLayer.frame = [self frameForSelectionIndicator];
@@ -528,6 +538,21 @@
     maskLayer.frame = self.selectionIndicatorArrowLayer.bounds;
     maskLayer.path = arrowPath.CGPath;
     self.selectionIndicatorArrowLayer.mask = maskLayer;
+}
+
+- (void)setDotFrame {
+    
+    self.selectionIndicatorDotLayer.frame = [self frameForSelectionIndicator];
+    self.selectionIndicatorDotLayer.mask = nil;
+    
+    CGFloat circleX = self.selectionIndicatorDotLayer.bounds.size.width/2 - self.selectionIndicatorDotLayer.bounds.size.height/2;
+    
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(circleX, 0, self.selectionIndicatorDotLayer.bounds.size.height, self.selectionIndicatorDotLayer.bounds.size.height) cornerRadius:self.selectionIndicatorDotLayer.bounds.size.height/2];
+    
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.selectionIndicatorDotLayer.bounds;
+    maskLayer.path = circlePath.CGPath;
+    self.selectionIndicatorDotLayer.mask = maskLayer;
 }
 
 - (CGRect)frameForSelectionIndicator {
