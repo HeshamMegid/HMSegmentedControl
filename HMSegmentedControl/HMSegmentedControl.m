@@ -309,7 +309,7 @@
                 
                 CGFloat widthForIndex = [[self.segmentWidthsArray objectAtIndex:idx] floatValue];
                 rect = CGRectMake(xOffset, y, widthForIndex, stringHeight);
-                fullRect = CGRectMake(self.segmentWidth * idx, 0, widthForIndex, oldRect.size.height);
+                fullRect = CGRectMake(xOffset, 0, widthForIndex, oldRect.size.height);
                 rectDiv = CGRectMake(xOffset - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
             }
             
