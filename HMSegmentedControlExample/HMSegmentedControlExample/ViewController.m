@@ -91,7 +91,9 @@
     self.segmentedControl4.selectionStyle = HMSegmentedControlSelectionStyleBox;
     self.segmentedControl4.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
     self.segmentedControl4.tag = 3;
-    
+
+    [self.segmentedControl4 addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
+
     __weak typeof(self) weakSelf = self;
     [self.segmentedControl4 setIndexChangeBlock:^(NSInteger index) {
         [weakSelf.scrollView scrollRectToVisible:CGRectMake(viewWidth * index, 0, viewWidth, 200) animated:YES];
@@ -143,13 +145,19 @@
 	NSLog(@"Selected index %ld", (long)segmentedControl.selectedSegmentIndex);
 }
 
+#pragma mark - Selector
+
+- (void)segmentChanged:(HMSegmentedControl*)segment {
+    NSLog(@"Segment changed: %ld", segment.selectedSegmentIndex);
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGFloat pageWidth = scrollView.frame.size.width;
     NSInteger page = scrollView.contentOffset.x / pageWidth;
     
-    [self.segmentedControl4 setSelectedSegmentIndex:page animated:YES];
+    [self.segmentedControl4 setSelectedSegmentIndex:page animated:YES notify:YES];
 }
 
 @end
