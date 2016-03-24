@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "HMSegmentedControl@JA“
   s.version      = “1.0.0”
-  s.summary      = " apple "
+  s.summary      = “im jason "
   s.homepage     = "https://github.com/JasonStu/HMSegmentedControl"
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
   s.author       = { “Jason Xu” => “jason4271735@gmail.com" }
