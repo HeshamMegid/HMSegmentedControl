@@ -1,3 +1,4 @@
+@@ -1,13 +0,0 @@
 Pod::Spec.new do |s|
   s.name         = "HMSegmentedControl"
   s.version      = "1.5.2"
