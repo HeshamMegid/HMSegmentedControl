@@ -207,6 +207,18 @@ typedef enum {
  */
 @property (nonatomic, readwrite) UIEdgeInsets selectionIndicatorEdgeInsets;
 
+
+/**
+ Edge insets for the text labels.
+ 
+ Defaults are top: 0.0f
+ left: 0.0f
+ bottom: 0.0f
+ right: 0.0f
+ */
+@property (nonatomic, readwrite) UIEdgeInsets textLabelInsets;
+
+
 /**
  Inset left and right edges of segments.
  
