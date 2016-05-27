@@ -220,6 +220,11 @@ typedef enum {
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
 
+/**
+Default is NO. Set to YES to use section image as title badge.
+ */
+@property (nonatomic) BOOL imageAsBadge;
+
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
 - (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
