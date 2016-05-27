@@ -151,6 +151,7 @@
     self.borderWidth = 1.0f;
     
     self.shouldAnimateUserSelection = YES;
+	self.imageAsBadge = NO;
     
     self.selectionIndicatorArrowLayer = [CALayer layer];
     self.selectionIndicatorStripLayer = [CALayer layer];
@@ -419,7 +420,13 @@
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.string = [self attributedTitleAtIndex:idx];
             titleLayer.truncationMode = kCATruncationEnd;
-			
+
+			if (self.imageAsBadge) {
+				CGRect calculation = [titleLayer.string boundingRectWithSize:textRect.size options:nil context:nil];
+				imageRect.origin.x += calculation.size.width / 2 + 10;
+				imageRect.origin.y -= calculation.size.height / 2 + 5;
+			}
+
             CALayer *imageLayer = [CALayer layer];
             imageLayer.frame = imageRect;
 			
@@ -715,7 +722,7 @@
             sectionsCount = [self.sectionTitles count];
         }
         
-        if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
+        if (segment < sectionsCount) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];

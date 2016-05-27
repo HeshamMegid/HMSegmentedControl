@@ -54,6 +54,7 @@ typedef enum {
 @property (nonatomic, strong) NSArray *sectionTitles;
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
+@property (nonatomic, strong, readonly) CALayer *selectionIndicatorStripLayer;
 
 /**
  Provide a block to be executed when selected index is changed.
@@ -218,6 +219,11 @@ typedef enum {
  Default is YES. Set to NO to disable animation during user selection.
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
+
+/**
+Default is NO. Set to YES to use section image as title badge.
+ */
+@property (nonatomic) BOOL imageAsBadge;
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
