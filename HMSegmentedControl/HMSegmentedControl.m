@@ -319,7 +319,7 @@
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
             titleLayer.alignmentMode = kCAAlignmentCenter;
-            if ([UIDevice currentDevice].systemVersion.floatValue <= 10.0 ) {
+            if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
                 titleLayer.truncationMode = kCATruncationEnd;
             }
             titleLayer.string = [self attributedTitleAtIndex:idx];
@@ -420,7 +420,7 @@
             titleLayer.frame = textRect;
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.string = [self attributedTitleAtIndex:idx];
-            if ([UIDevice currentDevice].systemVersion.floatValue <= 10.0 ) {
+            if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
                 titleLayer.truncationMode = kCATruncationEnd;
             }
             CALayer *imageLayer = [CALayer layer];
