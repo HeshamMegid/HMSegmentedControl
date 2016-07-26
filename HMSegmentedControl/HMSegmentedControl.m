@@ -179,6 +179,7 @@
     _sectionTitles = sectionTitles;
     
     [self setNeedsLayout];
+    [self setNeedsDisplay];
 }
 
 - (void)setSectionImages:(NSArray *)sectionImages {
