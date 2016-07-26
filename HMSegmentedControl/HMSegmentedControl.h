@@ -55,6 +55,11 @@ typedef enum {
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
 
+/*
+ Default is NO. is show bottomBoundaryLine.
+ */
+@property (nonatomic, assign) BOOL isShowBoundaryLine;
+
 /**
  Provide a block to be executed when selected index is changed.
  

@@ -21,6 +21,7 @@
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
+@property (nonatomic, strong) UIView *boundaryLine;
 
 @end
 
@@ -660,6 +661,13 @@
 
     self.scrollView.scrollEnabled = self.isUserDraggable;
     self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
+    
+    if (self.isShowBoundaryLine){
+        [self addSubview:_boundaryLine];
+    }else{
+        [self.boundaryLine removeFromSuperview];
+    }
+    _boundaryLine.frame = CGRectMake(0, CGRectGetHeight(self.frame) - 1, CGRectGetWidth(self.frame), 1);
 }
 
 - (NSUInteger)sectionCount {
