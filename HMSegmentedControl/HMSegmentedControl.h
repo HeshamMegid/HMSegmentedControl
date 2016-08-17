@@ -11,6 +11,8 @@
 @class HMSegmentedControl;
 
 typedef void (^IndexChangeBlock)(NSInteger index);
+typedef void (^NoSegmentBlock)(NSInteger index);
+
 typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
 
 typedef enum {
@@ -61,6 +63,13 @@ typedef enum {
  Alternativly, you could use `addTarget:action:forControlEvents:`
  */
 @property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
+
+/**
+ Provide a block to be executed when no segment.
+ 
+ useful when 'unSelectEnabled' is YES
+ */
+@property (nonatomic, copy) NoSegmentBlock noSegmentBlock;
 
 /**
  Used to apply custom text styling to titles when set.
@@ -185,6 +194,10 @@ typedef enum {
  */
 @property (nonatomic, assign) NSInteger selectedSegmentIndex;
 
+/**
+ Default is NO. Set to YES to make any segment unSelected when touch the same seleted one. the selected Index will be -1.
+ */
+@property (nonatomic, assign) BOOL unSelectEnabled;
 /**
  Height of the selection indicator. Only effective when `HMSegmentedControlSelectionStyle` is either `HMSegmentedControlSelectionStyleTextWidthStripe` or `HMSegmentedControlSelectionStyleFullWidthStripe`.
  

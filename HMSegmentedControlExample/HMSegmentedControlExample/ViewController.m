@@ -44,6 +44,10 @@
     segmentedControl1.verticalDividerEnabled = YES;
     segmentedControl1.verticalDividerColor = [UIColor blackColor];
     segmentedControl1.verticalDividerWidth = 1.0f;
+    segmentedControl1.unSelectEnabled = YES;
+    segmentedControl1.noSegmentBlock = ^(NSInteger index){
+        NSLog(@"取消点击%zd", index);
+    };
     [segmentedControl1 setTitleFormatter:^NSAttributedString *(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected) {
         NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName : [UIColor blueColor]}];
         return attString;

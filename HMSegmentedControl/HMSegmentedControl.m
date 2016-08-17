@@ -715,11 +715,16 @@
             sectionsCount = [self.sectionTitles count];
         }
         
-        if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
-            // Check if we have to do anything with the touch event
-            if (self.isTouchEnabled)
+        // Check if we have to do anything with the touch event
+        if (segment < sectionsCount && self.isTouchEnabled) {
+            if (segment != self.selectedSegmentIndex) {
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
+            } else if (self.unSelectEnabled){
+                [self setSelectedSegmentIndex:-1 animated:self.shouldAnimateUserSelection notify:YES];
+            }
+
         }
+        
     }
 }
 
@@ -781,10 +786,18 @@
 }
 
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated notify:(BOOL)notify {
+    NSInteger currentIndex = _selectedSegmentIndex;
     _selectedSegmentIndex = index;
     [self setNeedsDisplay];
     
     if (index == HMSegmentedControlNoSegment) {
+        if (notify){
+            if (self.superview)
+                [self sendActionsForControlEvents:UIControlEventValueChanged];
+            
+            if (self.noSegmentBlock)
+                self.noSegmentBlock(currentIndex);
+        }
         [self.selectionIndicatorArrowLayer removeFromSuperlayer];
         [self.selectionIndicatorStripLayer removeFromSuperlayer];
         [self.selectionIndicatorBoxLayer removeFromSuperlayer];
