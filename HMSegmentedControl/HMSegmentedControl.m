@@ -319,7 +319,9 @@
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
             titleLayer.alignmentMode = kCAAlignmentCenter;
-            titleLayer.truncationMode = kCATruncationEnd;
+            if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
+                titleLayer.truncationMode = kCATruncationEnd;
+            }
             titleLayer.string = [self attributedTitleAtIndex:idx];
             titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             
@@ -427,8 +429,9 @@
             titleLayer.frame = textRect;
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.string = [self attributedTitleAtIndex:idx];
-            titleLayer.truncationMode = kCATruncationEnd;
-            
+            if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
+                titleLayer.truncationMode = kCATruncationEnd;
+            }
             CALayer *imageLayer = [CALayer layer];
             imageLayer.frame = imageRect;
             
@@ -698,7 +701,12 @@
     UITouch *touch = [touches anyObject];
     CGPoint touchLocation = [touch locationInView:self];
     
-    if (CGRectContainsPoint(self.bounds, touchLocation)) {
+    CGRect enlargeRect =   CGRectMake(self.bounds.origin.x - self.enlargeEdgeInset.left,
+                      self.bounds.origin.y - self.enlargeEdgeInset.top,
+                      self.bounds.size.width + self.enlargeEdgeInset.left + self.enlargeEdgeInset.right,
+                      self.bounds.size.height + self.enlargeEdgeInset.top + self.enlargeEdgeInset.bottom);
+    
+    if (CGRectContainsPoint(enlargeRect, touchLocation)) {
         NSInteger segment = 0;
         if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
             segment = (touchLocation.x + self.scrollView.contentOffset.x) / self.segmentWidth;
