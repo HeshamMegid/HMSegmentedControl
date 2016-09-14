@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionIndicatorLocation) {
     HMSegmentedControlSelectionIndicatorLocationUp,
     HMSegmentedControlSelectionIndicatorLocationDown,
     HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
-} HMSegmentedControlSelectionIndicatorLocation;
+};
 
 
 typedef NS_ENUM(NSInteger, HMSegmentedControlSegmentWidthStyle) {
@@ -48,7 +48,7 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
     HMSegmentedControlTypeText,
     HMSegmentedControlTypeImages,
     HMSegmentedControlTypeTextImages
-} HMSegmentedControlType;
+};
 
 
 
