@@ -420,14 +420,12 @@
             titleLayer.frame = textRect;
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.string = [self attributedTitleAtIndex:idx];
-<<<<<<< HEAD
-            titleLayer.truncationMode = kCATruncationEnd;
-            
-=======
+
             if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
                 titleLayer.truncationMode = kCATruncationEnd;
             }
->>>>>>> HeshamMegid/master
+
+
             CALayer *imageLayer = [CALayer layer];
             imageLayer.frame = imageRect;
             

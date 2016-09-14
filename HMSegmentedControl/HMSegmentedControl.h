@@ -23,13 +23,9 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionStyle) {
 typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionIndicatorLocation) {
     HMSegmentedControlSelectionIndicatorLocationUp,
     HMSegmentedControlSelectionIndicatorLocationDown,
-<<<<<<< HEAD
     HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
 } HMSegmentedControlSelectionIndicatorLocation;
-=======
-	HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
-};
->>>>>>> HeshamMegid/master
+
 
 typedef NS_ENUM(NSInteger, HMSegmentedControlSegmentWidthStyle) {
     HMSegmentedControlSegmentWidthStyleFixed, // Segment width is fixed
@@ -51,13 +47,10 @@ enum {
 typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
     HMSegmentedControlTypeText,
     HMSegmentedControlTypeImages,
-<<<<<<< HEAD
     HMSegmentedControlTypeTextImages
 } HMSegmentedControlType;
-=======
-	HMSegmentedControlTypeTextImages
-};
->>>>>>> HeshamMegid/master
+
+
 
 @interface HMSegmentedControl : UIControl
 
