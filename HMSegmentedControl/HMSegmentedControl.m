@@ -18,9 +18,11 @@
 @property (nonatomic, strong) CALayer *selectionIndicatorStripLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorBoxLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorArrowLayer;
+@property (nonatomic, strong) CALayer *disabledLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
+@property (nonatomic, assign) BOOL disabledLayerDirty;
 
 @end
 
@@ -133,6 +135,8 @@
     _backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
     _selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
+    self.disabledMaskColor = [UIColor blackColor];
+    self.disabledMaskOpacity = 0.5f;
     
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
@@ -212,6 +216,28 @@
 - (void)setBorderType:(HMSegmentedControlBorderType)borderType {
     _borderType = borderType;
     [self setNeedsDisplay];
+}
+
+- (void)setEnabled:(BOOL)enabled {
+    [super setEnabled:enabled];
+    
+    if (enabled) {
+        if (self.disabledLayer != nil) {
+            [self.disabledLayer removeFromSuperlayer];
+            self.disabledLayer = nil;
+        }
+        self.disabledLayerDirty = NO;
+    } else {
+        self.disabledLayerDirty = YES;
+    }
+}
+
+- (void)setNeedsDisplay {
+    [super setNeedsDisplay];
+    
+    if( !self.enabled ) {
+        self.disabledLayerDirty = YES;
+    }
 }
 
 #pragma mark - Drawing
@@ -464,6 +490,8 @@
             }
         }
     }
+    
+    [self updateDisabledMask];
 }
 
 - (void)addBackgroundAndBorderLayerWithRect:(CGRect)fullRect {
@@ -674,6 +702,36 @@
     }
     
     return 0;
+}
+
+- (void)updateDisabledMask {
+    if ( self.disabledLayerDirty ||
+         (self.disabledLayer != nil && !CGSizeEqualToSize(self.disabledLayer.frame.size, self.layer.bounds.size))) {
+        if (self.disabledLayer != nil) {
+            [self.disabledLayer removeFromSuperlayer];
+        }
+        
+        self.disabledLayer = [CALayer layer];
+        self.disabledLayer.backgroundColor = self.disabledMaskColor.CGColor;
+        self.disabledLayer.opacity = self.disabledMaskOpacity;
+        self.disabledLayer.frame = CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height);
+        
+        // Create an image from the view
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0.0);
+        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *maskImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        // Create a mask layer for the black layer
+        CALayer *maskLayer = [CALayer layer];
+        maskLayer.contents = (__bridge id) maskImage.CGImage;
+        maskLayer.frame = self.disabledLayer.frame;
+        
+        self.disabledLayer.mask = maskLayer;
+        [self.layer addSublayer:self.disabledLayer];
+        
+        self.disabledLayerDirty = NO;
+    }
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
