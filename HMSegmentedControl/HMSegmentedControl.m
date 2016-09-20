@@ -176,13 +176,13 @@
 
 - (void)setSectionTitles:(NSArray *)sectionTitles {
     _sectionTitles = sectionTitles;
-    
+    [self setNeedsDisplay];
     [self setNeedsLayout];
 }
 
 - (void)setSectionImages:(NSArray *)sectionImages {
     _sectionImages = sectionImages;
-    
+    [self setNeedsDisplay];
     [self setNeedsLayout];
 }
 
