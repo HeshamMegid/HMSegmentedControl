@@ -561,8 +561,16 @@
 	}
     
     if (self.selectionStyle == HMSegmentedControlSelectionStyleArrow) {
-        CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
-        CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
+        CGFloat widthToStartOfSelectedIndex = 0.0, widthToEndOfSelectedSegment = 0.0;
+        if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
+            for (int idx = 0; idx < self.selectedSegmentIndex; ++idx) {
+                widthToStartOfSelectedIndex += [[self.segmentWidthsArray objectAtIndex:idx] floatValue];
+            }
+            widthToEndOfSelectedSegment = widthToStartOfSelectedIndex + [[self.segmentWidthsArray objectAtIndex:self.selectedSegmentIndex] floatValue];
+        } else {
+            widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
+            widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
+        }
         
         CGFloat x = widthToStartOfSelectedIndex + ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) - (self.selectionIndicatorHeight/2);
         return CGRectMake(x - (self.selectionIndicatorHeight / 2), indicatorYOffset, self.selectionIndicatorHeight * 2, self.selectionIndicatorHeight);
