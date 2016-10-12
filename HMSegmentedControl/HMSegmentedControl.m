@@ -693,6 +693,12 @@
     
     if (self.sectionTitles || self.sectionImages) {
         [self updateSegmentsRects];
+
+        if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
+            // Now that the segments are updated and segmentWidthsArray is no longer nil,
+            // scroll to the right segment (again).
+            [self scrollToSelectedSegmentIndex:NO];
+        }
     }
 }
 
