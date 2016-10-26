@@ -383,8 +383,8 @@
             
             CGFloat imageXOffset = self.segmentEdgeInset.left; // Start with edge inset
             CGFloat textXOffset  = self.segmentEdgeInset.left;
-            CGFloat imageYOffset = ceilf(self.frame.size.height / 2.0); // Start in center
-            CGFloat textYOffset  = ceilf(self.frame.size.height / 2.0);
+            CGFloat imageYOffset = ceilf((self.frame.size.height - imageHeight) / 2.0); // Start in center
+            CGFloat textYOffset  = ceilf((self.frame.size.height - stringHeight) / 2.0);
             
             CGFloat textWidth = 0;
             
