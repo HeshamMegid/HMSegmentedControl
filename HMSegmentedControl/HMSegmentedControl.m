@@ -403,7 +403,7 @@
                         textYOffset = imageYOffset + imageHeight + self.textImageSpacing;
                     } else if (self.imagePosition == HMSegmentedControlImagePositionBelowText) {
                         textYOffset = ceilf(whitespace / 2.0);
-                        imageYOffset = imageYOffset + imageHeight + self.textImageSpacing;
+                        imageYOffset = textYOffset + stringHeight + self.textImageSpacing;
                     }
                 }
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
@@ -420,7 +420,7 @@
                     i++;
                 }
                 
-                imageXOffset = xOffset + ([self.segmentWidthsArray[idx] floatValue] / 2.0f) - (imageWidth / 2.0f); //(self.segmentWidth / 2.0f) - (imageWidth / 2.0f)
+                imageXOffset = xOffset + ([self.segmentWidthsArray[idx] floatValue] / 2.0f) - (imageWidth / 2.0f);
                 textXOffset = xOffset;
                 textWidth = [self.segmentWidthsArray[idx] floatValue];
             }
