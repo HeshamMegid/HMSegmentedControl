@@ -49,6 +49,14 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 	HMSegmentedControlTypeTextImages
 };
 
+typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
+    HMSegmentedControlImagePositionBehindText,
+    HMSegmentedControlImagePositionLeftOfText,
+    HMSegmentedControlImagePositionRightOfText,
+    HMSegmentedControlImagePositionAboveText,
+    HMSegmentedControlImagePositionBelowText
+};
+
 @interface HMSegmentedControl : UIControl
 
 @property (nonatomic, strong) NSArray *sectionTitles;
@@ -150,6 +158,20 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  Default is `HMSegmentedControlBorderTypeNone`
  */
 @property (nonatomic, assign) HMSegmentedControlBorderType borderType;
+
+/**
+ Specifies the image position relative to the text. Only applicable for HMSegmentedControlTypeTextImages
+ 
+ Default is `HMSegmentedControlImagePositionBehindText`
+ */
+@property (nonatomic) HMSegmentedControlImagePosition imagePosition;
+
+/**
+ Specifies the distance between the text and the image. Only applicable for HMSegmentedControlTypeTextImages
+ 
+ Default is `0,0`
+ */
+@property (nonatomic) CGFloat textImageSpacing;
 
 /**
  Specifies the border color.
