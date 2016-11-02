@@ -427,9 +427,28 @@
                     i++;
                 }
                 
-                imageXOffset = xOffset + ([self.segmentWidthsArray[idx] floatValue] / 2.0f) - (imageWidth / 2.0f);
-                textXOffset = xOffset;
-                stringWidth = [self.segmentWidthsArray[idx] floatValue];
+                BOOL isImageInLineWidthText = self.imagePosition == HMSegmentedControlImagePositionLeftOfText || self.imagePosition == HMSegmentedControlImagePositionRightOfText;
+                if (isImageInLineWidthText) {
+                    if (self.imagePosition == HMSegmentedControlImagePositionLeftOfText) {
+                        imageXOffset = xOffset;
+                        textXOffset = imageXOffset + imageWidth + self.textImageSpacing;
+                    } else {
+                        textXOffset = xOffset;
+                        imageXOffset = textXOffset + stringWidth + self.textImageSpacing;
+                    }
+                } else {
+                    imageXOffset = xOffset + ([self.segmentWidthsArray[i] floatValue] - imageWidth) / 2.0f; // Start with edge inset
+                    textXOffset  = xOffset + ([self.segmentWidthsArray[i] floatValue] - stringWidth) / 2.0f;
+                    
+                    CGFloat whitespace = CGRectGetHeight(self.frame) - imageHeight - stringHeight - self.textImageSpacing;
+                    if (self.imagePosition == HMSegmentedControlImagePositionAboveText) {
+                        imageYOffset = ceilf(whitespace / 2.0);
+                        textYOffset = imageYOffset + imageHeight + self.textImageSpacing;
+                    } else if (self.imagePosition == HMSegmentedControlImagePositionBelowText) {
+                        textYOffset = ceilf(whitespace / 2.0);
+                        imageYOffset = textYOffset + stringHeight + self.textImageSpacing;
+                    }
+                }
             }
             
             CGRect imageRect = CGRectMake(imageXOffset, imageYOffset, imageWidth, imageHeight);
@@ -673,7 +692,12 @@
             UIImage *sectionImage = [self.sectionImages objectAtIndex:i];
             CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left;
             
-            CGFloat combinedWidth = MAX(imageWidth, stringWidth);
+            CGFloat combinedWidth = 0.0;
+            if (self.imagePosition == HMSegmentedControlImagePositionLeftOfText || self.imagePosition == HMSegmentedControlImagePositionRightOfText) {
+                combinedWidth = imageWidth + stringWidth + self.textImageSpacing;
+            } else {
+                combinedWidth = MAX(imageWidth, stringWidth);
+            }
             
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:combinedWidth]];
         }];
