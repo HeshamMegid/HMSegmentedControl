@@ -124,6 +124,17 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 @property (nonatomic, assign) CGFloat verticalDividerWidth;
 
 /**
+ Edge insets for the vertical divider.
+ Only top and bottom edge insets are used.
+
+ Defaults are top: 0.0f
+ left: 0.0f
+ bottom: 0.0f
+ right: 0.0f
+ */
+@property (nonatomic, assign) UIEdgeInsets verticalDividerEdgeInsets;
+
+/**
  Specifies the style of the control
  
  Default is `HMSegmentedControlTypeText`

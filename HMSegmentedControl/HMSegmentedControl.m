@@ -149,6 +149,7 @@
     _verticalDividerColor = [UIColor blackColor];
     self.borderColor = [UIColor blackColor];
     self.borderWidth = 1.0f;
+    self.verticalDividerEdgeInsets = UIEdgeInsetsZero;
     
     self.shouldAnimateUserSelection = YES;
     
@@ -340,6 +341,11 @@
                 verticalDividerLayer.frame = rectDiv;
                 verticalDividerLayer.backgroundColor = self.verticalDividerColor.CGColor;
                 
+                //verticalDividerEdgeInsets
+                if (!UIEdgeInsetsEqualToEdgeInsets(self.verticalDividerEdgeInsets, UIEdgeInsetsZero)) {
+                    verticalDividerLayer.frame = CGRectMake(CGRectGetMinX(verticalDividerLayer.frame), CGRectGetMinY(verticalDividerLayer.frame)+self.verticalDividerEdgeInsets.top, CGRectGetWidth(verticalDividerLayer.frame), CGRectGetHeight(verticalDividerLayer.frame)-self.verticalDividerEdgeInsets.top-self.verticalDividerEdgeInsets.bottom);
+                }
+                
                 [self.scrollView.layer addSublayer:verticalDividerLayer];
             }
         
@@ -374,6 +380,11 @@
                 CALayer *verticalDividerLayer = [CALayer layer];
                 verticalDividerLayer.frame = CGRectMake((self.segmentWidth * idx) - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height-(self.selectionIndicatorHeight * 4));
                 verticalDividerLayer.backgroundColor = self.verticalDividerColor.CGColor;
+                
+                //verticalDividerEdgeInsets
+                if (!UIEdgeInsetsEqualToEdgeInsets(self.verticalDividerEdgeInsets, UIEdgeInsetsZero)) {
+                    verticalDividerLayer.frame = CGRectMake(CGRectGetMinX(verticalDividerLayer.frame), CGRectGetMinY(verticalDividerLayer.frame)+self.verticalDividerEdgeInsets.top, CGRectGetWidth(verticalDividerLayer.frame), CGRectGetHeight(verticalDividerLayer.frame)-self.verticalDividerEdgeInsets.top-self.verticalDividerEdgeInsets.bottom);
+                }
                 
                 [self.scrollView.layer addSublayer:verticalDividerLayer];
             }
