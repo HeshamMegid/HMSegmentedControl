@@ -789,6 +789,9 @@
 }
 
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated notify:(BOOL)notify {
+    if (_selectedSegmentIndex == index && notify)
+        notify = NO;
+
     _selectedSegmentIndex = index;
     [self setNeedsDisplay];
     
