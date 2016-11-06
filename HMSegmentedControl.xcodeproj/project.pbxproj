@@ -11,7 +11,6 @@
 		9C1632EC1DA57220001FB468 /* HMSegmentedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C1632EA1DA57220001FB468 /* HMSegmentedControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C1632ED1DA57220001FB468 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1632EB1DA57220001FB468 /* HMSegmentedControl.m */; };
 		9C1633241DA57320001FB468 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C16330A1DA57320001FB468 /* AppDelegate.m */; };
-		9C1633251DA57320001FB468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C16330C1DA57320001FB468 /* InfoPlist.strings */; };
 		9C1633271DA57320001FB468 /* 1-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1633111DA57320001FB468 /* 1-selected.png */; };
 		9C1633281DA57320001FB468 /* 1-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1633121DA57320001FB468 /* 1-selected@2x.png */; };
 		9C1633291DA57320001FB468 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1633131DA57320001FB468 /* 1.png */; };
@@ -69,7 +68,6 @@
 		9C1632F21DA572BA001FB468 /* HMSegmentedControlExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMSegmentedControlExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C1633091DA57320001FB468 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9C16330A1DA57320001FB468 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9C16330D1DA57320001FB468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		9C16330E1DA57320001FB468 /* HMSegmentedControlExample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "HMSegmentedControlExample-Info.plist"; sourceTree = "<group>"; };
 		9C16330F1DA57320001FB468 /* HMSegmentedControlExample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HMSegmentedControlExample-Prefix.pch"; sourceTree = "<group>"; };
 		9C1633111DA57320001FB468 /* 1-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-selected.png"; sourceTree = "<group>"; };
@@ -92,10 +90,6 @@
 		9C1633221DA57320001FB468 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9C1633231DA57320001FB468 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9C1633411DA574EB001FB468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9C1633441DA575C7001FB468 /* HMSegmentedControl.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HMSegmentedControl.podspec; sourceTree = "<group>"; };
-		9C1633451DA575C7001FB468 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		9C1633461DA575C7001FB468 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		9C1633471DA575C7001FB468 /* Screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,10 +114,9 @@
 		9C1632CE1DA57134001FB468 = {
 			isa = PBXGroup;
 			children = (
-				9C1633431DA575A4001FB468 /* Metadata */,
 				9C1632E91DA57220001FB468 /* HMSegmentedControl */,
-				9C1632E31DA57214001FB468 /* Framework */,
 				9C1632F31DA572BA001FB468 /* HMSegmentedControlExample */,
+				9C1632E31DA57214001FB468 /* Framework */,
 				9C1632D91DA57134001FB468 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -164,7 +157,6 @@
 				9C1633221DA57320001FB468 /* ViewController.h */,
 				9C1633231DA57320001FB468 /* ViewController.m */,
 				9C1633101DA57320001FB468 /* Images */,
-				9C16330B1DA57320001FB468 /* en.lproj */,
 				9C16330E1DA57320001FB468 /* HMSegmentedControlExample-Info.plist */,
 				9C16330F1DA57320001FB468 /* HMSegmentedControlExample-Prefix.pch */,
 				9C1633211DA57320001FB468 /* Launch Screen.xib */,
@@ -179,14 +171,6 @@
 				9C1633411DA574EB001FB468 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		9C16330B1DA57320001FB468 /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				9C16330C1DA57320001FB468 /* InfoPlist.strings */,
-			);
-			path = en.lproj;
 			sourceTree = "<group>";
 		};
 		9C1633101DA57320001FB468 /* Images */ = {
@@ -210,17 +194,6 @@
 				9C1633201DA57320001FB468 /* 4@2x.png */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		9C1633431DA575A4001FB468 /* Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				9C1633441DA575C7001FB468 /* HMSegmentedControl.podspec */,
-				9C1633451DA575C7001FB468 /* LICENSE.md */,
-				9C1633461DA575C7001FB468 /* README.md */,
-				9C1633471DA575C7001FB468 /* Screenshot.png */,
-			);
-			name = Metadata;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,7 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C16332A1DA57320001FB468 /* 1@2x.png in Resources */,
-				9C1633251DA57320001FB468 /* InfoPlist.strings in Resources */,
 				9C1633281DA57320001FB468 /* 1-selected@2x.png in Resources */,
 				9C1633271DA57320001FB468 /* 1-selected.png in Resources */,
 				9C1633351DA57320001FB468 /* 4.png in Resources */,
@@ -378,17 +350,6 @@
 			targetProxy = 9C1633391DA573BD001FB468 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		9C16330C1DA57320001FB468 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9C16330D1DA57320001FB468 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		9C1632DE1DA57134001FB468 /* Debug */ = {
