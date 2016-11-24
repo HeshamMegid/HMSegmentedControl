@@ -49,6 +49,12 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 	HMSegmentedControlTypeTextImages
 };
 
+typedef NS_OPTIONS(NSInteger, HMSegmentedControlAlignment) {
+    HMSegmentedControlAlignmentLeft = 0,
+    HMSegmentedControlAlignmentCenter = (1 << 0),
+    HMSegmentedControlAlignmentRight = (1 << 1)
+};
+
 @interface HMSegmentedControl : UIControl
 
 @property (nonatomic, strong) NSArray *sectionTitles;
@@ -227,6 +233,12 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  Default is YES. Set to NO to disable animation during user selection.
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
+
+
+/**
+ Default is HMSegmentedControlAlignmentLeft. This property is only effective, if segmentWidthStyle is set to HMSegmentedControlSegmentWidthStyleDynamic.
+ */
+@property (nonatomic, assign) HMSegmentedControlAlignment horizontalAlignment;
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
