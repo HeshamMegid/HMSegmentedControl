@@ -299,27 +299,32 @@
 
             CGFloat y = roundf((CGRectGetHeight(self.frame) - selectionStyleNotBox * self.selectionIndicatorHeight) / 2 - stringHeight / 2 + self.selectionIndicatorHeight * locationUp);
             CGRect rect;
-            if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-                rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth) / 2, y, stringWidth, stringHeight);
-                rectDiv = CGRectMake((self.segmentWidth * idx) - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
-                fullRect = CGRectMake(self.segmentWidth * idx, 0, self.segmentWidth, oldRect.size.height);
-            } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
-                // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
-                CGFloat xOffset = 0;
-                NSInteger i = 0;
-                for (NSNumber *width in self.segmentWidthsArray) {
-                    if (idx == i)
-                        break;
-                    xOffset = xOffset + [width floatValue];
-                    i++;
-                }
-                
-                CGFloat widthForIndex = [[self.segmentWidthsArray objectAtIndex:idx] floatValue];
-                rect = CGRectMake(xOffset, y, widthForIndex, stringHeight);
-                fullRect = CGRectMake(self.segmentWidth * idx, 0, widthForIndex, oldRect.size.height);
-                rectDiv = CGRectMake(xOffset - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
-            }
             
+            switch (self.segmentWidthStyle) {
+                case HMSegmentedControlSegmentWidthStyleFixed:
+                    rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth) / 2, y, stringWidth, stringHeight);
+                    rectDiv = CGRectMake((self.segmentWidth * idx) - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
+                    fullRect = CGRectMake(self.segmentWidth * idx, 0, self.segmentWidth, oldRect.size.height);
+                    break;
+                case HMSegmentedControlSegmentWidthStyleDynamic: {
+                    // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
+                    CGFloat xOffset = 0;
+                    NSInteger i = 0;
+                    for (NSNumber *width in self.segmentWidthsArray) {
+                        if (idx == i)
+                            break;
+                        xOffset = xOffset + [width floatValue];
+                        i++;
+                    }
+
+                    CGFloat widthForIndex = [[self.segmentWidthsArray objectAtIndex:idx] floatValue];
+                    rect = CGRectMake(xOffset, y, widthForIndex, stringHeight);
+                    fullRect = CGRectMake(self.segmentWidth * idx, 0, widthForIndex, oldRect.size.height);
+                    rectDiv = CGRectMake(xOffset - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
+                    break;
+                }
+            }
+
             // Fix rect position/size to avoid blurry labels
             rect = CGRectMake(ceilf(rect.origin.x), ceilf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height));
             
