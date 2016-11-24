@@ -159,6 +159,9 @@
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
     self.selectionIndicatorBoxOpacity = 0.2;
     
+    self.imageWidth = CGFLOAT_MAX;
+    self.imageHeight = CGFLOAT_MAX;
+    
     self.contentMode = UIViewContentModeRedraw;
 }
 
@@ -348,8 +351,8 @@
     } else if (self.type == HMSegmentedControlTypeImages) {
         [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
             UIImage *icon = iconImage;
-            CGFloat imageWidth = icon.size.width;
-            CGFloat imageHeight = icon.size.height;
+            CGFloat imageWidth = self.imageWidth != CGFLOAT_MAX ? self.imageWidth : icon.size.width;
+            CGFloat imageHeight = self.imageHeight != CGFLOAT_MAX ? self.imageHeight : icon.size.height;
             CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2 - imageHeight / 2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
             CGFloat x = self.segmentWidth * idx + (self.segmentWidth - imageWidth)/2.0f;
             CGRect rect = CGRectMake(x, y, imageWidth, imageHeight);
@@ -383,8 +386,8 @@
     } else if (self.type == HMSegmentedControlTypeTextImages){
 		[self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
             UIImage *icon = iconImage;
-            CGFloat imageWidth = icon.size.width;
-            CGFloat imageHeight = icon.size.height;
+            CGFloat imageWidth = self.imageWidth != CGFLOAT_MAX ? self.imageWidth : icon.size.width;
+            CGFloat imageHeight = self.imageHeight != CGFLOAT_MAX ? self.imageHeight : icon.size.height;
 			
             CGFloat stringHeight = [self measureTitleAtIndex:idx].height;
 			CGFloat yOffset = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) - (stringHeight / 2));
@@ -558,12 +561,12 @@
         sectionWidth = stringWidth;
     } else if (self.type == HMSegmentedControlTypeImages) {
         UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
-        CGFloat imageWidth = sectionImage.size.width;
+        CGFloat imageWidth = self.imageWidth != CGFLOAT_MAX ? self.imageWidth : sectionImage.size.width;
         sectionWidth = imageWidth;
     } else if (self.type == HMSegmentedControlTypeTextImages) {
 		CGFloat stringWidth = [self measureTitleAtIndex:self.selectedSegmentIndex].width;
 		UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];
-		CGFloat imageWidth = sectionImage.size.width;
+        CGFloat imageWidth = self.imageWidth != CGFLOAT_MAX ? self.imageWidth : sectionImage.size.width;
         sectionWidth = MAX(stringWidth, imageWidth);
 	}
     
@@ -643,7 +646,8 @@
         self.segmentWidthsArray = [mutableSegmentWidths copy];
     } else if (self.type == HMSegmentedControlTypeImages) {
         for (UIImage *sectionImage in self.sectionImages) {
-            CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+            CGFloat imageWidth = self.imageWidth != CGFLOAT_MAX ? self.imageWidth : sectionImage.size.width;
+            imageWidth += self.segmentEdgeInset.left + self.segmentEdgeInset.right;
             self.segmentWidth = MAX(imageWidth, self.segmentWidth);
         }
     } else if (self.type == HMSegmentedControlTypeTextImages && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed){

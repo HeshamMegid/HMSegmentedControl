@@ -228,6 +228,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
 
+
+@property (nonatomic) CGFloat imageWidth;
+
+@property (nonatomic) CGFloat imageHeight;
+
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
 - (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
