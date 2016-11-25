@@ -49,11 +49,15 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 	HMSegmentedControlTypeTextImages
 };
 
+@interface HMScrollView : UIScrollView
+@end
+
 @interface HMSegmentedControl : UIControl
 
 @property (nonatomic, strong) NSArray *sectionTitles;
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
+@property (nonatomic, strong) HMScrollView *scrollView;
 
 /**
  Provide a block to be executed when selected index is changed.
