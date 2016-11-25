@@ -151,6 +151,7 @@
     self.borderWidth = 1.0f;
     
     self.shouldAnimateUserSelection = YES;
+    self.selectionAnimationDuration = 0.15f;
     
     self.selectionIndicatorArrowLayer = [CALayer layer];
     self.selectionIndicatorStripLayer = [CALayer layer];
@@ -733,7 +734,7 @@
         if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
-                [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
+                [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection animationDuration:self.selectionAnimationDuration notify:YES];
         }
     }
 }
@@ -788,14 +789,18 @@
 #pragma mark - Index Change
 
 - (void)setSelectedSegmentIndex:(NSInteger)index {
-    [self setSelectedSegmentIndex:index animated:NO notify:NO];
+    [self setSelectedSegmentIndex:index animated:NO animationDuration:0 notify:NO];
 }
 
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated {
-    [self setSelectedSegmentIndex:index animated:animated notify:NO];
+    [self setSelectedSegmentIndex:index animated:animated animationDuration:self.selectionAnimationDuration notify:NO];
 }
 
-- (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated notify:(BOOL)notify {
+- (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated animationDuration:(CGFloat)duration {
+    [self setSelectedSegmentIndex:index animated:animated animationDuration:duration notify:NO];
+}
+
+- (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated animationDuration:(CGFloat)duration notify:(BOOL)notify {
     _selectedSegmentIndex = index;
     [self setNeedsDisplay];
     
@@ -814,7 +819,7 @@
                 if ([self.selectionIndicatorArrowLayer superlayer] == nil) {
                     [self.scrollView.layer addSublayer:self.selectionIndicatorArrowLayer];
                     
-                    [self setSelectedSegmentIndex:index animated:NO notify:YES];
+                    [self setSelectedSegmentIndex:index animated:NO animationDuration:self.selectionAnimationDuration notify:YES];
                     return;
                 }
             }else {
@@ -824,7 +829,7 @@
                     if (self.selectionStyle == HMSegmentedControlSelectionStyleBox && [self.selectionIndicatorBoxLayer superlayer] == nil)
                         [self.scrollView.layer insertSublayer:self.selectionIndicatorBoxLayer atIndex:0];
                     
-                    [self setSelectedSegmentIndex:index animated:NO notify:YES];
+                    [self setSelectedSegmentIndex:index animated:NO animationDuration:self.selectionAnimationDuration notify:YES];
                     return;
                 }
             }
@@ -839,7 +844,7 @@
             
             // Animate to new position
             [CATransaction begin];
-            [CATransaction setAnimationDuration:0.15f];
+            [CATransaction setAnimationDuration:duration];
             [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
             [self setArrowFrame];
             self.selectionIndicatorBoxLayer.frame = [self frameForSelectionIndicator];
