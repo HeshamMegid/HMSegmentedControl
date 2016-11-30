@@ -202,6 +202,8 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
  */
 @property(nonatomic, getter = isVerticalDividerEnabled) BOOL verticalDividerEnabled;
 
+@property (nonatomic, getter=shouldStretchSegmentsToScreenSize) BOOL stretchSegmentsToScreenSize;
+
 /**
  Index of the currently selected segment.
  */

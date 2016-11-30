@@ -684,7 +684,9 @@
             self.segmentWidth = MAX(stringWidth, self.segmentWidth);
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleDynamic) {
+        
         NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
+        __block CGFloat totalWidth = 0.0;
         
         int i = 0;
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
@@ -699,8 +701,20 @@
                 combinedWidth = MAX(imageWidth, stringWidth);
             }
             
+            totalWidth += combinedWidth;
+            
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:combinedWidth]];
         }];
+        
+        if (self.shouldStretchSegmentsToScreenSize && totalWidth < self.bounds.size.width) {
+            CGFloat whitespace = self.bounds.size.width - totalWidth;
+            CGFloat whitespaceForSegment = whitespace / [mutableSegmentWidths count];
+            [mutableSegmentWidths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CGFloat extendedWidth = whitespaceForSegment + [obj floatValue];
+                [mutableSegmentWidths replaceObjectAtIndex:idx withObject:[NSNumber numberWithFloat:extendedWidth]];
+            }];
+        }
+        
         self.segmentWidthsArray = [mutableSegmentWidths copy];
     }
 
