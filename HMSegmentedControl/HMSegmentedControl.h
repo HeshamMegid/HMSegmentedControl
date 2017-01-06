@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@interface HMScrollView : UIScrollView
+@end
+
 @class HMSegmentedControl;
 
 typedef void (^IndexChangeBlock)(NSInteger index);
@@ -54,6 +57,8 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 @property (nonatomic, strong) NSArray *sectionTitles;
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
+@property (nonatomic, strong) HMScrollView *scrollView;
+@property (nonatomic, strong) NSMutableArray *titleRects;
 
 /**
  Provide a block to be executed when selected index is changed.
