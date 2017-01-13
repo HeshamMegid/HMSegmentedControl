@@ -51,9 +51,9 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 
 @interface HMSegmentedControl : UIControl
 
-@property (nonatomic, strong) NSArray *sectionTitles;
-@property (nonatomic, strong) NSArray *sectionImages;
-@property (nonatomic, strong) NSArray *sectionSelectedImages;
+@property (nonatomic, strong) NSArray<NSString *> *sectionTitles;
+@property (nonatomic, strong) NSArray<UIImage *> *sectionImages;
+@property (nonatomic, strong) NSArray<UIImage *> *sectionSelectedImages;
 
 /**
  Provide a block to be executed when selected index is changed.
@@ -72,14 +72,14 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 /**
  Text attributes to apply to item title text.
  */
-@property (nonatomic, strong) NSDictionary *titleTextAttributes UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) NSDictionary<NSString *, id> *titleTextAttributes UI_APPEARANCE_SELECTOR;
 
 /*
  Text attributes to apply to selected item title text.
  
  Attributes not set in this dictionary are inherited from `titleTextAttributes`.
  */
-@property (nonatomic, strong) NSDictionary *selectedTitleTextAttributes UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) NSDictionary<NSString *, id> *selectedTitleTextAttributes UI_APPEARANCE_SELECTOR;
 
 /**
  Segmented control background color.
@@ -228,9 +228,9 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
 
-- (id)initWithSectionTitles:(NSArray *)sectiontitles;
-- (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
-- (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
+- (instancetype _Nonnull)initWithSectionTitles:(NSArray<NSString *> * _Nonnull )sectiontitles;
+- (instancetype _Nonnull)initWithSectionImages:(NSArray<UIImage *> * _Nonnull )sectionImages sectionSelectedImages:(NSArray<UIImage *> * _Nonnull )sectionSelectedImages;
+- (instancetype _Nonnull)initWithSectionImages:(NSArray<UIImage *> * _Nonnull )sectionImages sectionSelectedImages:(NSArray<UIImage *> * _Nonnull )sectionSelectedImages titlesForSections:(NSArray<NSString *> * _Nonnull )sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 - (void)setTitleFormatter:(HMTitleFormatterBlock)titleFormatter;
