@@ -19,14 +19,14 @@
 @property (nonatomic, strong) CALayer *selectionIndicatorBoxLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorArrowLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
-@property (nonatomic, readwrite) NSArray *segmentWidthsArray;
+@property (nonatomic, readwrite) NSArray<NSNumber *> *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
 
 @end
 
 @implementation HMScrollView
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if (!self.dragging) {
         [self.nextResponder touchesBegan:touches withEvent:event];
     } else {
@@ -34,7 +34,7 @@
     }
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     if (!self.dragging) {
         [self.nextResponder touchesMoved:touches withEvent:event];
     } else{
@@ -42,7 +42,7 @@
     }
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if (!self.dragging) {
         [self.nextResponder touchesEnded:touches withEvent:event];
     } else {
@@ -72,7 +72,7 @@
     return self;
 }
 
-- (id)initWithSectionTitles:(NSArray *)sectiontitles {
+- (id)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles {
     self = [super initWithFrame:CGRectZero];
     
     if (self) {
@@ -84,7 +84,7 @@
     return self;
 }
 
-- (id)initWithSectionImages:(NSArray*)sectionImages sectionSelectedImages:(NSArray*)sectionSelectedImages {
+- (id)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages {
     self = [super initWithFrame:CGRectZero];
     
     if (self) {
@@ -97,14 +97,14 @@
     return self;
 }
 
-- (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles {
+- (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages titlesForSections:(NSArray<NSString *> *)sectiontitles {
 	self = [super initWithFrame:CGRectZero];
     
     if (self) {
         [self commonInit];
 		
 		if (sectionImages.count != sectiontitles.count) {
-			[NSException raise:NSRangeException format:@"***%s: Images bounds (%ld) Dont match Title bounds (%ld)", sel_getName(_cmd), (unsigned long)sectionImages.count, (unsigned long)sectiontitles.count];
+			[NSException raise:NSRangeException format:@"***%s: Images bounds (%ld) Don't match Title bounds (%ld)", sel_getName(_cmd), (unsigned long)sectionImages.count, (unsigned long)sectiontitles.count];
         }
 		
         self.sectionImages = sectionImages;
@@ -174,14 +174,14 @@
     [self updateSegmentsRects];
 }
 
-- (void)setSectionTitles:(NSArray *)sectionTitles {
+- (void)setSectionTitles:(NSArray<NSString *> *)sectionTitles {
     _sectionTitles = sectionTitles;
     
     [self setNeedsLayout];
     [self setNeedsDisplay];
 }
 
-- (void)setSectionImages:(NSArray *)sectionImages {
+- (void)setSectionImages:(NSArray<UIImage *> *)sectionImages {
     _sectionImages = sectionImages;
     
     [self setNeedsLayout];
@@ -695,7 +695,7 @@
 
 #pragma mark - Touch
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint touchLocation = [touch locationInView:self];
     

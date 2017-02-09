@@ -54,12 +54,12 @@
     
     
     // Segmented control with images
-    NSArray *images = @[[UIImage imageNamed:@"1"],
+    NSArray<UIImage *> *images = @[[UIImage imageNamed:@"1"],
                         [UIImage imageNamed:@"2"],
                         [UIImage imageNamed:@"3"],
                         [UIImage imageNamed:@"4"]];
     
-    NSArray *selectedImages = @[[UIImage imageNamed:@"1-selected"],
+    NSArray<UIImage *> *selectedImages = @[[UIImage imageNamed:@"1-selected"],
                                 [UIImage imageNamed:@"2-selected"],
                                 [UIImage imageNamed:@"3-selected"],
                                 [UIImage imageNamed:@"4-selected"]];
