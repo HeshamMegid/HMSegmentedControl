@@ -248,14 +248,13 @@
         return (NSAttributedString *)title;
     } else if (!self.titleFormatter) {
         NSDictionary *titleAttrs = selected ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
-        
-        // the color should be cast to CGColor in order to avoid invalid context on iOS7
+
         UIColor *titleColor = titleAttrs[NSForegroundColorAttributeName];
         
         if (titleColor) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:titleAttrs];
             
-            dict[NSForegroundColorAttributeName] = (id)titleColor.CGColor;
+            dict[NSForegroundColorAttributeName] = (id)titleColor;
             
             titleAttrs = [NSDictionary dictionaryWithDictionary:dict];
         }
@@ -279,6 +278,9 @@
     
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
+    for (UIView *view in self.scrollView.subviews) {
+        [view removeFromSuperview];
+    }
     
     CGRect oldRect = rect;
     
@@ -323,16 +325,15 @@
             // Fix rect position/size to avoid blurry labels
             rect = CGRectMake(ceilf(rect.origin.x), ceilf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height));
             
-            CATextLayer *titleLayer = [CATextLayer layer];
-            titleLayer.frame = rect;
-            titleLayer.alignmentMode = kCAAlignmentCenter;
-            if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
-                titleLayer.truncationMode = kCATruncationEnd;
-            }
-            titleLayer.string = [self attributedTitleAtIndex:idx];
-            titleLayer.contentsScale = [[UIScreen mainScreen] scale];
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:rect];
+//            titleLabel.frame = rect;
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+
+            titleLabel.attributedText = [self attributedTitleAtIndex:idx];
+            titleLabel.accessibilityLabel = titleLabel.attributedText.string;
+            titleLabel.contentScaleFactor = [[UIScreen mainScreen] scale];
             
-            [self.scrollView.layer addSublayer:titleLayer];
+            [self.scrollView addSubview:titleLabel];
             
             // Vertical Divider
             if (self.isVerticalDividerEnabled && idx > 0) {
