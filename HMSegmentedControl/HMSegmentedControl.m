@@ -72,7 +72,7 @@
     return self;
 }
 
-- (id)initWithSectionTitles:(NSArray *)sectiontitles {
+- (instancetype)initWithSectionTitles:(NSArray<NSString *> * _Nonnull )sectiontitles {
     self = [super initWithFrame:CGRectZero];
     
     if (self) {
@@ -84,7 +84,7 @@
     return self;
 }
 
-- (id)initWithSectionImages:(NSArray*)sectionImages sectionSelectedImages:(NSArray*)sectionSelectedImages {
+- (instancetype)initWithSectionImages:(NSArray<UIImage *> * _Nonnull )sectionImages sectionSelectedImages:(NSArray<UIImage *> * _Nonnull )sectionSelectedImages {
     self = [super initWithFrame:CGRectZero];
     
     if (self) {
@@ -97,7 +97,7 @@
     return self;
 }
 
-- (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles {
+- (instancetype)initWithSectionImages:(NSArray<UIImage *> * _Nonnull )sectionImages sectionSelectedImages:(NSArray<UIImage *> * _Nonnull )sectionSelectedImages titlesForSections:(NSArray<NSString *> * _Nonnull )sectiontitles {
 	self = [super initWithFrame:CGRectZero];
     
     if (self) {
@@ -874,13 +874,13 @@
 
 #pragma mark - Styling Support
 
-- (NSDictionary *)resultingTitleTextAttributes {
-    NSDictionary *defaults = @{
+- (NSDictionary<NSString *, id> *)resultingTitleTextAttributes {
+    NSDictionary<NSString *, id> *defaults = @{
         NSFontAttributeName : [UIFont systemFontOfSize:19.0f],
         NSForegroundColorAttributeName : [UIColor blackColor],
     };
     
-    NSMutableDictionary *resultingAttrs = [NSMutableDictionary dictionaryWithDictionary:defaults];
+    NSMutableDictionary<NSString *, id> *resultingAttrs = [NSMutableDictionary dictionaryWithDictionary:defaults];
     
     if (self.titleTextAttributes) {
         [resultingAttrs addEntriesFromDictionary:self.titleTextAttributes];
@@ -889,8 +889,8 @@
     return [resultingAttrs copy];
 }
 
-- (NSDictionary *)resultingSelectedTitleTextAttributes {
-    NSMutableDictionary *resultingAttrs = [NSMutableDictionary dictionaryWithDictionary:[self resultingTitleTextAttributes]];
+- (NSDictionary<NSString *, id> *)resultingSelectedTitleTextAttributes {
+    NSMutableDictionary<NSString *, id> *resultingAttrs = [NSMutableDictionary dictionaryWithDictionary:[self resultingTitleTextAttributes]];
     
     if (self.selectedTitleTextAttributes) {
         [resultingAttrs addEntriesFromDictionary:self.selectedTitleTextAttributes];
