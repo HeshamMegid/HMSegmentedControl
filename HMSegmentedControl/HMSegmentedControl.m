@@ -158,7 +158,9 @@
     self.selectionIndicatorBoxLayer.opacity = self.selectionIndicatorBoxOpacity;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
     self.selectionIndicatorBoxOpacity = 0.2;
-    
+
+    self.titleEdgeInsets = UIEdgeInsetsZero;
+
     self.contentMode = UIViewContentModeRedraw;
 }
 
@@ -324,7 +326,7 @@
             rect = CGRectMake(ceilf(rect.origin.x), ceilf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height));
             
             CATextLayer *titleLayer = [CATextLayer layer];
-            titleLayer.frame = rect;
+            titleLayer.frame = UIEdgeInsetsInsetRect(rect, self.titleEdgeInsets);
             titleLayer.alignmentMode = kCAAlignmentCenter;
             if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
                 titleLayer.truncationMode = kCATruncationEnd;
@@ -424,7 +426,7 @@
             textRect = CGRectMake(ceilf(textRect.origin.x), ceilf(textRect.origin.y), ceilf(textRect.size.width), ceilf(textRect.size.height));
 
             CATextLayer *titleLayer = [CATextLayer layer];
-            titleLayer.frame = textRect;
+            titleLayer.frame = UIEdgeInsetsInsetRect(textRect, self.titleEdgeInsets);
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.string = [self attributedTitleAtIndex:idx];
             if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
@@ -670,6 +672,18 @@
 
     self.scrollView.scrollEnabled = self.isUserDraggable;
     self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
+    
+    if ([self totalSegmentedControlWidth] < self.frame.size.width) {
+        if (self.contentHorizontalAlignment == UIControlContentHorizontalAlignmentCenter) {
+            CGFloat leadingContentOffsetX = (self.scrollView.contentSize.width - self.scrollView.frame.size.width) / 2;
+            self.scrollView.contentInset = UIEdgeInsetsMake(0, leadingContentOffsetX, 0, 0);
+            self.scrollView.contentOffset = CGPointMake(leadingContentOffsetX, 0);
+        } else if (self.contentHorizontalAlignment == UIControlContentHorizontalAlignmentRight) {
+            CGFloat leadingContentOffsetX = (self.scrollView.contentSize.width - self.scrollView.frame.size.width);
+            self.scrollView.contentInset = UIEdgeInsetsMake(0, leadingContentOffsetX, 0, 0);
+            self.scrollView.contentOffset = CGPointMake(leadingContentOffsetX, 0);
+        }
+    }
 }
 
 - (NSUInteger)sectionCount {
