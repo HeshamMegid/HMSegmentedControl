@@ -730,9 +730,8 @@
             sectionsCount = [self.sectionTitles count];
         }
         
-        if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
-            // Check if we have to do anything with the touch event
-            if (self.isTouchEnabled)
+        if ((segment == self.selectedSegmentIndex && self.needMultipleSelection) || segment != self.selectedSegmentIndex) {
+            if (self.isTouchEnabled && segment < sectionsCount)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
         }
     }

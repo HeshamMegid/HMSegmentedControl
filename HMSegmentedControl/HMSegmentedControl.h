@@ -200,6 +200,15 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
 
 /**
+ Whether need multiple selection. 
+ 
+ If set yes, it means that we will send the selected info all the time while user selected one index.
+ 
+ But first off all, you need set `touchEnabled` to yes
+ */
+@property (assign, nonatomic) BOOL needMultipleSelection;
+
+/**
  Edge insets for the selection indicator.
  NOTE: This does not affect the bounding box of HMSegmentedControlSelectionStyleBox
  
