@@ -731,8 +731,13 @@
         }
         
         if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
+                // Determine if we should proceed with the change
+            bool shouldSelectSegment = YES;
+            if (self.indexShouldChangeBlock)
+                shouldSelectSegment = self.indexShouldChangeBlock(index);
+           
             // Check if we have to do anything with the touch event
-            if (self.isTouchEnabled)
+            if (shouldSelectSegment && self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
         }
     }
