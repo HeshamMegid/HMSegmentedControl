@@ -145,6 +145,13 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 @property (nonatomic, assign) HMSegmentedControlSegmentWidthStyle segmentWidthStyle;
 
 /**
+ Specifies whether it must occupy at least full screen with HMSegmentedControlSegmentWidthStyleDynamic.
+ 
+ Default is NO
+ */
+@property (nonatomic, assign) BOOL satisfyFullScreenWidth;
+
+/**
  Specifies the location of the selection indicator.
  
  Default is `HMSegmentedControlSelectionIndicatorLocationUp`
@@ -176,6 +183,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  Default is YES. Set to NO to deny scrolling by dragging the scrollView by the user.
  */
 @property(nonatomic, getter = isUserDraggable) BOOL userDraggable;
+
+/**
+ Default is YES. Set to NO to deny bouncing of the scrollView.
+ */
+@property(nonatomic, getter = isBouncingEnabled) BOOL bouncingEnabled;
 
 /**
  Default is YES. Set to NO to deny any touch events by the user.

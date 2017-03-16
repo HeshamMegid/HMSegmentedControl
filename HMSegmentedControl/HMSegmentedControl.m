@@ -141,7 +141,9 @@
     self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     self.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
+    self.satisfyFullScreenWidth = NO;
     self.userDraggable = YES;
+    self.bouncingEnabled = YES;
     self.touchEnabled = YES;
     self.verticalDividerEnabled = NO;
     self.type = HMSegmentedControlTypeText;
@@ -210,6 +212,10 @@
         _segmentWidthStyle = segmentWidthStyle;
     }
 }
+//
+//- (void)setFullScreenWidth:(BOOL)fullScreenWidth {
+//    _fullScreenWidth = fullScreenWidth;
+//}
 
 - (void)setBorderType:(HMSegmentedControlBorderType)borderType {
     _borderType = borderType;
@@ -620,6 +626,29 @@
     return CGRectMake(self.segmentWidth * self.selectedSegmentIndex, 0, self.segmentWidth, CGRectGetHeight(self.frame));
 }
 
+-(void)buildSegmentWidthsArray:(NSArray *)segmentWidths{
+    if (self.satisfyFullScreenWidth) {
+        //if the width of all segments is less than screen width, expand them to be the full screen width.
+        CGFloat totalWidth = 0;
+        for (NSNumber *width in segmentWidths) {
+            totalWidth += width.floatValue;
+        }
+        CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+        if (totalWidth < screenWidth) {
+            CGFloat addingWidth = (screenWidth - totalWidth) / [segmentWidths count];
+            NSMutableArray *fullScreenSegmentWidths = [NSMutableArray new];
+            for (NSNumber *width in segmentWidths) {
+                [fullScreenSegmentWidths addObject:[NSNumber numberWithFloat:width.floatValue + addingWidth]];
+            }
+            self.segmentWidthsArray = [fullScreenSegmentWidths copy];
+            return;
+        }
+    }
+    
+    self.segmentWidthsArray = [segmentWidths copy];
+    return;
+}
+
 - (void)updateSegmentsRects {
     self.scrollView.contentInset = UIEdgeInsetsZero;
     self.scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
@@ -640,7 +669,7 @@
             CGFloat stringWidth = [self measureTitleAtIndex:idx].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:stringWidth]];
         }];
-        self.segmentWidthsArray = [mutableSegmentWidths copy];
+        [self buildSegmentWidthsArray:mutableSegmentWidths];
     } else if (self.type == HMSegmentedControlTypeImages) {
         for (UIImage *sectionImage in self.sectionImages) {
             CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
@@ -665,10 +694,11 @@
             
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:combinedWidth]];
         }];
-        self.segmentWidthsArray = [mutableSegmentWidths copy];
+        [self buildSegmentWidthsArray:mutableSegmentWidths];
     }
 
     self.scrollView.scrollEnabled = self.isUserDraggable;
+    self.scrollView.bounces = self.isBouncingEnabled;
     self.scrollView.contentSize = CGSizeMake([self totalSegmentedControlWidth], self.frame.size.height);
 }
 
