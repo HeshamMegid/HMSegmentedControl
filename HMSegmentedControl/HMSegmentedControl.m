@@ -229,6 +229,8 @@
     if ([title isKindOfClass:[NSString class]] && !self.titleFormatter) {
         NSDictionary *titleAttrs = selected ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
         size = [(NSString *)title sizeWithAttributes:titleAttrs];
+        UIFont *font = titleAttrs[@"NSFont"];
+        size = CGSizeMake(ceil(size.width), ceil(size.height-font.descender));
     } else if ([title isKindOfClass:[NSString class]] && self.titleFormatter) {
         size = [self.titleFormatter(self, title, index, selected) size];
     } else if ([title isKindOfClass:[NSAttributedString class]]) {
@@ -394,8 +396,8 @@
             CGFloat textWidth = 0;
             
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-                imageXOffset = (self.segmentWidth * idx) + (self.segmentWidth / 2.0f) - (imageWidth / 2.0f);
-                textXOffset = self.segmentWidth * idx;
+                imageXOffset = (self.segmentWidth * idx) + (self.segmentWidth / 2.0f);
+                textXOffset = self.segmentWidth * idx + imageWidth / 2.0f;
                 textWidth = self.segmentWidth;
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
