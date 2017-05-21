@@ -21,8 +21,10 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionStyle) {
 };
 
 typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionIndicatorLocation) {
-    HMSegmentedControlSelectionIndicatorLocationUp,
-    HMSegmentedControlSelectionIndicatorLocationDown,
+    HMSegmentedControlSelectionIndicatorLocationTop,
+    HMSegmentedControlSelectionIndicatorLocationBottom,
+    HMSegmentedControlSelectionIndicatorLocationUp __deprecated_enum_msg("Use HMSegmentedControlSelectionIndicatorLocationTop.") = HMSegmentedControlSelectionIndicatorLocationTop,
+    HMSegmentedControlSelectionIndicatorLocationDown __deprecated_enum_msg("Use HMSegmentedControlSelectionIndicatorLocationBottom.") = HMSegmentedControlSelectionIndicatorLocationBottom,
 	HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
 };
 

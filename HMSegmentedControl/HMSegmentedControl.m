@@ -139,7 +139,7 @@
     self.selectionIndicatorHeight = 5.0f;
     self.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
     self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
-    self.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
+    self.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationTop;
     self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
     self.userDraggable = YES;
     self.touchEnabled = YES;
@@ -294,7 +294,7 @@
             CGRect fullRect = CGRectZero;
             
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
-            BOOL locationUp = (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp);
+            BOOL locationUp = (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationTop);
             BOOL selectionStyleNotBox = (self.selectionStyle != HMSegmentedControlSelectionStyleBox);
 
             CGFloat y = roundf((CGRectGetHeight(self.frame) - selectionStyleNotBox * self.selectionIndicatorHeight) / 2 - stringHeight / 2 + self.selectionIndicatorHeight * locationUp);
@@ -350,7 +350,7 @@
             UIImage *icon = iconImage;
             CGFloat imageWidth = icon.size.width;
             CGFloat imageHeight = icon.size.height;
-            CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2 - imageHeight / 2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) ? self.selectionIndicatorHeight : 0);
+            CGFloat y = roundf(CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2 - imageHeight / 2 + ((self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationTop) ? self.selectionIndicatorHeight : 0);
             CGFloat x = self.segmentWidth * idx + (self.segmentWidth - imageWidth)/2.0f;
             CGRect rect = CGRectMake(x, y, imageWidth, imageHeight);
             
@@ -517,13 +517,13 @@
     CGPoint p2 = CGPointZero;
     CGPoint p3 = CGPointZero;
     
-    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationBottom) {
         p1 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width / 2, 0);
         p2 = CGPointMake(0, self.selectionIndicatorArrowLayer.bounds.size.height);
         p3 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width, self.selectionIndicatorArrowLayer.bounds.size.height);
     }
     
-    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) {
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationTop) {
         p1 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width / 2, self.selectionIndicatorArrowLayer.bounds.size.height);
         p2 = CGPointMake(self.selectionIndicatorArrowLayer.bounds.size.width, 0);
         p3 = CGPointMake(0, 0);
@@ -543,11 +543,11 @@
 - (CGRect)frameForSelectionIndicator {
     CGFloat indicatorYOffset = 0.0f;
     
-    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationDown) {
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationBottom) {
         indicatorYOffset = self.bounds.size.height - self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.bottom;
     }
     
-    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp) {
+    if (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationTop) {
         indicatorYOffset = self.selectionIndicatorEdgeInsets.top;
     }
     
