@@ -55,6 +55,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 @property (nonatomic, strong) NSArray<UIImage *> *sectionImages;
 @property (nonatomic, strong) NSArray<UIImage *> *sectionSelectedImages;
 
+/*
+ Default is NO. is show bottomBoundaryLine.
+ */
+@property (nonatomic, assign) BOOL isShowBoundaryLine;
+
 /**
  Provide a block to be executed when selected index is changed.
  
