@@ -118,6 +118,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.segmentWidth = 0.0f;
     
     self.segmentWidth = 0.0f;
 }
