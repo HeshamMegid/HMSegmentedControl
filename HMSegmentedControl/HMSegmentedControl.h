@@ -81,6 +81,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  */
 @property (nonatomic, strong) NSDictionary *selectedTitleTextAttributes UI_APPEARANCE_SELECTOR;
 
+/*
+ The inset or outset margins for the rectangle around the titles.
+ */
+@property (nonatomic, readwrite) UIEdgeInsets titleEdgeInsets;
+
 /**
  Segmented control background color.
  

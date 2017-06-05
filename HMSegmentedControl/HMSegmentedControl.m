@@ -158,7 +158,9 @@
     self.selectionIndicatorBoxLayer.opacity = self.selectionIndicatorBoxOpacity;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
     self.selectionIndicatorBoxOpacity = 0.2;
-    
+
+    self.titleEdgeInsets = UIEdgeInsetsZero;
+
     self.contentMode = UIViewContentModeRedraw;
 }
 
@@ -324,7 +326,7 @@
             rect = CGRectMake(ceilf(rect.origin.x), ceilf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height));
             
             CATextLayer *titleLayer = [CATextLayer layer];
-            titleLayer.frame = rect;
+            titleLayer.frame = UIEdgeInsetsInsetRect(rect, self.titleEdgeInsets);
             titleLayer.alignmentMode = kCAAlignmentCenter;
             if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
                 titleLayer.truncationMode = kCATruncationEnd;
@@ -424,7 +426,7 @@
             textRect = CGRectMake(ceilf(textRect.origin.x), ceilf(textRect.origin.y), ceilf(textRect.size.width), ceilf(textRect.size.height));
 
             CATextLayer *titleLayer = [CATextLayer layer];
-            titleLayer.frame = textRect;
+            titleLayer.frame = UIEdgeInsetsInsetRect(textRect, self.titleEdgeInsets);
             titleLayer.alignmentMode = kCAAlignmentCenter;
             titleLayer.string = [self attributedTitleAtIndex:idx];
             if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
