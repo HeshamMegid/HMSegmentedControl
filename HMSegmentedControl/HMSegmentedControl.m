@@ -19,14 +19,15 @@
 @property (nonatomic, strong) CALayer *selectionIndicatorBoxLayer;
 @property (nonatomic, strong) CALayer *selectionIndicatorArrowLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
-@property (nonatomic, readwrite) NSArray<NSNumber *> *segmentWidthsArray;
+@property (nonatomic, readwrite) NSArray *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
+@property (nonatomic, strong) NSMutableArray *segmentDisabledArray;
 
 @end
 
 @implementation HMScrollView
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (!self.dragging) {
         [self.nextResponder touchesBegan:touches withEvent:event];
     } else {
@@ -34,7 +35,7 @@
     }
 }
 
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     if (!self.dragging) {
         [self.nextResponder touchesMoved:touches withEvent:event];
     } else{
@@ -42,7 +43,7 @@
     }
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (!self.dragging) {
         [self.nextResponder touchesEnded:touches withEvent:event];
     } else {
@@ -72,8 +73,8 @@
     return self;
 }
 
-- (id)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles {
-    self = [super initWithFrame:CGRectZero];
+- (id)initWithSectionTitles:(NSArray *)sectiontitles {
+    self = [self initWithFrame:CGRectZero];
     
     if (self) {
         [self commonInit];
@@ -84,7 +85,7 @@
     return self;
 }
 
-- (id)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages {
+- (id)initWithSectionImages:(NSArray*)sectionImages sectionSelectedImages:(NSArray*)sectionSelectedImages {
     self = [super initWithFrame:CGRectZero];
     
     if (self) {
@@ -97,14 +98,14 @@
     return self;
 }
 
-- (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages titlesForSections:(NSArray<NSString *> *)sectiontitles {
+- (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles {
 	self = [super initWithFrame:CGRectZero];
     
     if (self) {
         [self commonInit];
 		
 		if (sectionImages.count != sectiontitles.count) {
-			[NSException raise:NSRangeException format:@"***%s: Images bounds (%ld) Don't match Title bounds (%ld)", sel_getName(_cmd), (unsigned long)sectionImages.count, (unsigned long)sectiontitles.count];
+			[NSException raise:NSRangeException format:@"***%s: Images bounds (%ld) Dont match Title bounds (%ld)", sel_getName(_cmd), (unsigned long)sectionImages.count, (unsigned long)sectiontitles.count];
         }
 		
         self.sectionImages = sectionImages;
@@ -120,6 +121,7 @@
     [super awakeFromNib];
     
     self.segmentWidth = 0.0f;
+    [self commonInit];
 }
 
 - (void)commonInit {
@@ -132,8 +134,7 @@
     _backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
     _selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
-    _selectionIndicatorBoxColor = _selectionIndicatorColor;
-
+    
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.selectionIndicatorHeight = 5.0f;
@@ -160,6 +161,8 @@
     self.selectionIndicatorBoxOpacity = 0.2;
     
     self.contentMode = UIViewContentModeRedraw;
+    
+    self.segmentDisabledArray = [NSMutableArray new];
 }
 
 - (void)layoutSubviews {
@@ -174,18 +177,16 @@
     [self updateSegmentsRects];
 }
 
-- (void)setSectionTitles:(NSArray<NSString *> *)sectionTitles {
+- (void)setSectionTitles:(NSArray *)sectionTitles {
     _sectionTitles = sectionTitles;
     
     [self setNeedsLayout];
-    [self setNeedsDisplay];
 }
 
-- (void)setSectionImages:(NSArray<UIImage *> *)sectionImages {
+- (void)setSectionImages:(NSArray *)sectionImages {
     _sectionImages = sectionImages;
     
     [self setNeedsLayout];
-    [self setNeedsDisplay];
 }
 
 - (void)setSelectionIndicatorLocation:(HMSegmentedControlSelectionIndicatorLocation)selectionIndicatorLocation {
@@ -219,10 +220,6 @@
 #pragma mark - Drawing
 
 - (CGSize)measureTitleAtIndex:(NSUInteger)index {
-    if (index >= self.sectionTitles.count) {
-        return CGSizeZero;
-    }
-    
     id title = self.sectionTitles[index];
     CGSize size = CGSizeZero;
     BOOL selected = (index == self.selectedSegmentIndex) ? YES : NO;
@@ -259,8 +256,11 @@
             
             titleAttrs = [NSDictionary dictionaryWithDictionary:dict];
         }
-        
-        return [[NSAttributedString alloc] initWithString:(NSString *)title attributes:titleAttrs];
+        if ([self.segmentDisabledArray containsObject:@(index)]) {
+            return [[NSAttributedString alloc] initWithString:(NSString *)title attributes:[self resultingDisabledTitleTextAttributes]];
+        }else{
+            return [[NSAttributedString alloc] initWithString:(NSString *)title attributes:titleAttrs];
+        }
     } else {
         return self.titleFormatter(self, title, index, selected);
     }
@@ -274,8 +274,8 @@
     
     self.selectionIndicatorStripLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
     
-    self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorBoxColor.CGColor;
-    self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorBoxColor.CGColor;
+    self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
+    self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
     
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
@@ -290,8 +290,7 @@
             CGSize size = [self measureTitleAtIndex:idx];
             stringWidth = size.width;
             stringHeight = size.height;
-            CGRect rectDiv = CGRectZero;
-            CGRect fullRect = CGRectZero;
+            CGRect rectDiv, fullRect;
             
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             BOOL locationUp = (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp);
@@ -303,7 +302,7 @@
                 rect = CGRectMake((self.segmentWidth * idx) + (self.segmentWidth - stringWidth) / 2, y, stringWidth, stringHeight);
                 rectDiv = CGRectMake((self.segmentWidth * idx) - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
                 fullRect = CGRectMake(self.segmentWidth * idx, 0, self.segmentWidth, oldRect.size.height);
-            } else {
+            } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
                 NSInteger i = 0;
@@ -477,7 +476,7 @@
     // Background layer
     CALayer *backgroundLayer = [CALayer layer];
     backgroundLayer.frame = fullRect;
-    [self.layer insertSublayer:backgroundLayer atIndex:0];
+    [self.scrollView.layer insertSublayer:backgroundLayer atIndex:0];
     
     // Border layer
     if (self.borderType & HMSegmentedControlBorderTypeTop) {
@@ -652,7 +651,7 @@
             CGFloat stringWidth = [self measureTitleAtIndex:idx].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
             self.segmentWidth = MAX(stringWidth, self.segmentWidth);
         }];
-    } else if (self.type == HMSegmentedControlTypeTextImages && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
+    } else if (self.type == HMSegmentedControlTypeTextImages && HMSegmentedControlSegmentWidthStyleDynamic) {
         NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
         
         int i = 0;
@@ -695,7 +694,7 @@
 
 #pragma mark - Touch
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint touchLocation = [touch locationInView:self];
     
@@ -730,11 +729,28 @@
             sectionsCount = [self.sectionTitles count];
         }
         
-        if (segment != self.selectedSegmentIndex && segment < sectionsCount) {
+        if (segment != self.selectedSegmentIndex && segment < sectionsCount && [self isTouchEnabledSegment:segment]) {
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
         }
+    }
+}
+
+-(void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment {
+    if (enabled == false) {
+        [self.segmentDisabledArray addObject:@(segment)];
+    }
+    if (enabled && [self.segmentDisabledArray containsObject:@(segment)]) {
+        [self.segmentDisabledArray removeObject:@(segment)];
+    }
+}
+
+-(BOOL)isTouchEnabledSegment:(NSUInteger)segment {
+    if ([self.segmentDisabledArray containsObject:@(segment)]) {
+        return false;
+    }else {
+        return true;
     }
 }
 
@@ -751,7 +767,7 @@
 }
 
 - (void)scrollToSelectedSegmentIndex:(BOOL)animated {
-    CGRect rectForSelectedIndex = CGRectZero;
+    CGRect rectForSelectedIndex;
     CGFloat selectedSegmentOffset = 0;
     if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
         rectForSelectedIndex = CGRectMake(self.segmentWidth * self.selectedSegmentIndex,
@@ -760,7 +776,7 @@
                                           self.frame.size.height);
         
         selectedSegmentOffset = (CGRectGetWidth(self.frame) / 2) - (self.segmentWidth / 2);
-    } else {
+    } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
         NSInteger i = 0;
         CGFloat offsetter = 0;
         for (NSNumber *width in self.segmentWidthsArray) {
@@ -894,6 +910,16 @@
     
     if (self.selectedTitleTextAttributes) {
         [resultingAttrs addEntriesFromDictionary:self.selectedTitleTextAttributes];
+    }
+    
+    return [resultingAttrs copy];
+}
+
+- (NSDictionary *)resultingDisabledTitleTextAttributes {
+    NSMutableDictionary *resultingAttrs = [NSMutableDictionary dictionaryWithDictionary:[self resultingTitleTextAttributes]];
+    
+    if (self.disabledTitleTextAttributes) {
+        [resultingAttrs addEntriesFromDictionary:self.disabledTitleTextAttributes];
     }
     
     return [resultingAttrs copy];
