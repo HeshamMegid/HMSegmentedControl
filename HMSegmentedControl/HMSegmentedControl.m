@@ -738,7 +738,7 @@
 }
 
 -(void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment {
-    if (enabled == false) {
+    if (!enabled && ![self.segmentDisabledArray containsObject:@(segment)]) {
         [self.segmentDisabledArray addObject:@(segment)];
     }
     if (enabled && [self.segmentDisabledArray containsObject:@(segment)]) {
