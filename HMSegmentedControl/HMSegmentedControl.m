@@ -290,7 +290,8 @@
             CGSize size = [self measureTitleAtIndex:idx];
             stringWidth = size.width;
             stringHeight = size.height;
-            CGRect rectDiv, fullRect;
+            CGRect rectDiv = CGRectNull;
+            CGRect fullRect = CGRectNull;
             
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             BOOL locationUp = (self.selectionIndicatorLocation == HMSegmentedControlSelectionIndicatorLocationUp);
@@ -767,7 +768,7 @@
 }
 
 - (void)scrollToSelectedSegmentIndex:(BOOL)animated {
-    CGRect rectForSelectedIndex;
+    CGRect rectForSelectedIndex = CGRectNull;
     CGFloat selectedSegmentOffset = 0;
     if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
         rectForSelectedIndex = CGRectMake(self.segmentWidth * self.selectedSegmentIndex,
