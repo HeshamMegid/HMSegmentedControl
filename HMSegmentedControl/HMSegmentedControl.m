@@ -386,17 +386,40 @@
             CGFloat imageWidth = icon.size.width;
             CGFloat imageHeight = icon.size.height;
 			
-            CGFloat stringHeight = [self measureTitleAtIndex:idx].height;
-			CGFloat yOffset = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) - (stringHeight / 2));
+            CGSize stringSize = [self measureTitleAtIndex:idx];
+            CGFloat stringHeight = stringSize.height;
+            CGFloat stringWidth = stringSize.width;
             
-            CGFloat imageXOffset = self.segmentEdgeInset.left; // Start with edge inset
-            CGFloat textXOffset  = self.segmentEdgeInset.left;
-            CGFloat textWidth = 0;
+            CGFloat imageXOffset = self.segmentWidth * idx; // Start with edge inset
+            CGFloat textXOffset  = self.segmentWidth * idx;
+            CGFloat imageYOffset = ceilf((self.frame.size.height - imageHeight) / 2.0); // Start in center
+            CGFloat textYOffset  = ceilf((self.frame.size.height - stringHeight) / 2.0);
+            
             
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
-                imageXOffset = (self.segmentWidth * idx) + (self.segmentWidth / 2.0f) - (imageWidth / 2.0f);
-                textXOffset = self.segmentWidth * idx;
-                textWidth = self.segmentWidth;
+                BOOL isImageInLineWidthText = self.imagePosition == HMSegmentedControlImagePositionLeftOfText || self.imagePosition == HMSegmentedControlImagePositionRightOfText;
+                if (isImageInLineWidthText) {
+                    CGFloat whitespace = self.segmentWidth - stringSize.width - imageWidth - self.textImageSpacing;
+                    if (self.imagePosition == HMSegmentedControlImagePositionLeftOfText) {
+                        imageXOffset += whitespace / 2.0;
+                        textXOffset = imageXOffset + imageWidth + self.textImageSpacing;
+                    } else {
+                        textXOffset += whitespace / 2.0;
+                        imageXOffset = textXOffset + stringWidth + self.textImageSpacing;
+                    }
+                } else {
+                    imageXOffset = self.segmentWidth * idx + (self.segmentWidth - imageWidth) / 2.0f; // Start with edge inset
+                    textXOffset  = self.segmentWidth * idx + (self.segmentWidth - stringWidth) / 2.0f;
+                    
+                    CGFloat whitespace = CGRectGetHeight(self.frame) - imageHeight - stringHeight - self.textImageSpacing;
+                    if (self.imagePosition == HMSegmentedControlImagePositionAboveText) {
+                        imageYOffset = ceilf(whitespace / 2.0);
+                        textYOffset = imageYOffset + imageHeight + self.textImageSpacing;
+                    } else if (self.imagePosition == HMSegmentedControlImagePositionBelowText) {
+                        textYOffset = ceilf(whitespace / 2.0);
+                        imageYOffset = textYOffset + stringHeight + self.textImageSpacing;
+                    }
+                }
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
@@ -411,17 +434,32 @@
                     i++;
                 }
                 
-                imageXOffset = xOffset + ([self.segmentWidthsArray[idx] floatValue] / 2.0f) - (imageWidth / 2.0f); //(self.segmentWidth / 2.0f) - (imageWidth / 2.0f)
-                textXOffset = xOffset;
-                textWidth = [self.segmentWidthsArray[idx] floatValue];
+                BOOL isImageInLineWidthText = self.imagePosition == HMSegmentedControlImagePositionLeftOfText || self.imagePosition == HMSegmentedControlImagePositionRightOfText;
+                if (isImageInLineWidthText) {
+                    if (self.imagePosition == HMSegmentedControlImagePositionLeftOfText) {
+                        imageXOffset = xOffset;
+                        textXOffset = imageXOffset + imageWidth + self.textImageSpacing;
+                    } else {
+                        textXOffset = xOffset;
+                        imageXOffset = textXOffset + stringWidth + self.textImageSpacing;
+                    }
+                } else {
+                    imageXOffset = xOffset + ([self.segmentWidthsArray[i] floatValue] - imageWidth) / 2.0f; // Start with edge inset
+                    textXOffset  = xOffset + ([self.segmentWidthsArray[i] floatValue] - stringWidth) / 2.0f;
+                    
+                    CGFloat whitespace = CGRectGetHeight(self.frame) - imageHeight - stringHeight - self.textImageSpacing;
+                    if (self.imagePosition == HMSegmentedControlImagePositionAboveText) {
+                        imageYOffset = ceilf(whitespace / 2.0);
+                        textYOffset = imageYOffset + imageHeight + self.textImageSpacing;
+                    } else if (self.imagePosition == HMSegmentedControlImagePositionBelowText) {
+                        textYOffset = ceilf(whitespace / 2.0);
+                        imageYOffset = textYOffset + stringHeight + self.textImageSpacing;
+                    }
+                }
             }
             
-            CGFloat imageYOffset = roundf((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2.0f);
             CGRect imageRect = CGRectMake(imageXOffset, imageYOffset, imageWidth, imageHeight);
-            CGRect textRect = CGRectMake(textXOffset, yOffset, textWidth, stringHeight);
-            
-            // Fix rect position/size to avoid blurry labels
-            textRect = CGRectMake(ceilf(textRect.origin.x), ceilf(textRect.origin.y), ceilf(textRect.size.width), ceilf(textRect.size.height));
+            CGRect textRect = CGRectMake(ceilf(textXOffset), ceilf(textYOffset), ceilf(stringWidth), ceilf(stringHeight));
 
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = textRect;
@@ -654,6 +692,7 @@
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
         NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
+        __block CGFloat totalWidth = 0.0;
         
         int i = 0;
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
@@ -661,10 +700,27 @@
             UIImage *sectionImage = [self.sectionImages objectAtIndex:i];
             CGFloat imageWidth = sectionImage.size.width + self.segmentEdgeInset.left;
             
-            CGFloat combinedWidth = MAX(imageWidth, stringWidth);
+            CGFloat combinedWidth = 0.0;
+            if (self.imagePosition == HMSegmentedControlImagePositionLeftOfText || self.imagePosition == HMSegmentedControlImagePositionRightOfText) {
+                combinedWidth = imageWidth + stringWidth + self.textImageSpacing;
+            } else {
+                combinedWidth = MAX(imageWidth, stringWidth);
+            }
+            
+            totalWidth += combinedWidth;
             
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:combinedWidth]];
         }];
+        
+        if (self.shouldStretchSegmentsToScreenSize && totalWidth < self.bounds.size.width) {
+            CGFloat whitespace = self.bounds.size.width - totalWidth;
+            CGFloat whitespaceForSegment = whitespace / [mutableSegmentWidths count];
+            [mutableSegmentWidths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CGFloat extendedWidth = whitespaceForSegment + [obj floatValue];
+                [mutableSegmentWidths replaceObjectAtIndex:idx withObject:[NSNumber numberWithFloat:extendedWidth]];
+            }];
+        }
+        
         self.segmentWidthsArray = [mutableSegmentWidths copy];
     }
 

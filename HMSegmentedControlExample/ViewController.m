@@ -63,13 +63,16 @@
                                 [UIImage imageNamed:@"2-selected"],
                                 [UIImage imageNamed:@"3-selected"],
                                 [UIImage imageNamed:@"4-selected"]];
-    
-    HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:images sectionSelectedImages:selectedImages];
+    NSArray<NSString *> *titles = @[@"1", @"2", @"3", @"4"];
+
+    HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:images sectionSelectedImages:selectedImages titlesForSections:titles];
+    segmentedControl2.imagePosition = HMSegmentedControlImagePositionLeftOfText;
     segmentedControl2.frame = CGRectMake(0, 120, viewWidth, 50);
     segmentedControl2.selectionIndicatorHeight = 4.0f;
     segmentedControl2.backgroundColor = [UIColor clearColor];
     segmentedControl2.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl2.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
+    segmentedControl2.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic;
     [segmentedControl2 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl2];
 
