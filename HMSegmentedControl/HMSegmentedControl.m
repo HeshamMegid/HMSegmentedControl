@@ -230,7 +230,10 @@
         NSDictionary *titleAttrs = selected ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
         size = [(NSString *)title sizeWithAttributes:titleAttrs];
     } else if ([title isKindOfClass:[NSString class]] && self.titleFormatter) {
-        size = [self.titleFormatter(self, title, index, selected) size];
+        CGFloat width = [[UIScreen mainScreen] bounds].size.width; // whatever your desired width is
+        CGRect rect = [self.titleFormatter(self, title, index, selected) boundingRectWithSize:CGSizeMake(width, 10000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+        
+        size = CGSizeMake(rect.size.width, rect.size.height);
     } else if ([title isKindOfClass:[NSAttributedString class]]) {
         size = [(NSAttributedString *)title size];
     } else {
