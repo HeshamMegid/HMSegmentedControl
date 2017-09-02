@@ -21,7 +21,7 @@
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray<NSNumber *> *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
-
+@property (nonatomic, strong) NSArray<UIButton *> *accessibilityButtons;
 @end
 
 @implementation HMScrollView
@@ -78,6 +78,8 @@
     if (self) {
         [self commonInit];
         self.sectionTitles = sectiontitles;
+        self.accessibilityButtons = [[NSArray alloc] initWithArray:
+                            [self emptyButtonsArray:sectiontitles.count]];
         self.type = HMSegmentedControlTypeText;
     }
     
@@ -91,6 +93,8 @@
         [self commonInit];
         self.sectionImages = sectionImages;
         self.sectionSelectedImages = sectionSelectedImages;
+        self.accessibilityButtons = [[NSArray alloc] initWithArray:
+                    [self emptyButtonsArray:sectionSelectedImages.count]];
         self.type = HMSegmentedControlTypeImages;
     }
     
@@ -110,10 +114,17 @@
         self.sectionImages = sectionImages;
         self.sectionSelectedImages = sectionSelectedImages;
 		self.sectionTitles = sectiontitles;
+        self.accessibilityButtons = [[NSArray alloc] initWithArray:
+                        [self emptyButtonsArray:sectiontitles.count]];
         self.type = HMSegmentedControlTypeTextImages;
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIAccessibilityVoiceOverStatusChanged object:nil];
 }
 
 - (void)awakeFromNib {
@@ -160,6 +171,8 @@
     self.selectionIndicatorBoxOpacity = 0.2;
     
     self.contentMode = UIViewContentModeRedraw;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(voiceOverStatusChanged:) name:UIAccessibilityVoiceOverStatusChanged object:nil];
 }
 
 - (void)layoutSubviews {
@@ -176,14 +189,26 @@
 
 - (void)setSectionTitles:(NSArray<NSString *> *)sectionTitles {
     _sectionTitles = sectionTitles;
-    
+    if (_accessibilityButtons) {
+        for (UIButton *btn in _accessibilityButtons) {
+            [btn removeFromSuperview];
+        }
+    }
+    _accessibilityButtons = [[NSArray alloc] initWithArray:
+                                 [self emptyButtonsArray:_sectionTitles.count]];
     [self setNeedsLayout];
     [self setNeedsDisplay];
 }
 
 - (void)setSectionImages:(NSArray<UIImage *> *)sectionImages {
     _sectionImages = sectionImages;
-    
+    if (_accessibilityButtons) {
+        for (UIButton *btn in _accessibilityButtons) {
+            [btn removeFromSuperview];
+        }
+    }
+    _accessibilityButtons = [[NSArray alloc] initWithArray:
+                                     [self emptyButtonsArray:_sectionSelectedImages.count]];
     [self setNeedsLayout];
     [self setNeedsDisplay];
 }
@@ -277,8 +302,14 @@
     self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorBoxColor.CGColor;
     self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorBoxColor.CGColor;
     
-    // Remove all sublayers to avoid drawing images over existing ones
-    self.scrollView.layer.sublayers = nil;
+    // Remove custom sublayers except UIViews
+    NSMutableArray<CALayer *> *layersForViews = [[NSMutableArray alloc] init];
+    for (CALayer *layer in self.scrollView.layer.sublayers) {
+        if (layer.delegate != nil && [layer.delegate isKindOfClass:[UIView class]]) {
+            [layersForViews addObject:layer];
+        }
+    }
+    self.scrollView.layer.sublayers = layersForViews;
     
     CGRect oldRect = rect;
     
@@ -342,7 +373,8 @@
                 
                 [self.scrollView.layer addSublayer:verticalDividerLayer];
             }
-        
+            
+            [self applyAccessibilityButtonsWithRect:fullRect text:[self attributedTitleAtIndex:idx].string index:idx];
             [self addBackgroundAndBorderLayerWithRect:fullRect];
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
@@ -377,7 +409,7 @@
                 
                 [self.scrollView.layer addSublayer:verticalDividerLayer];
             }
-            
+            [self applyAccessibilityButtonsWithRect:rect text:@"ImageButtons" index:idx];
             [self addBackgroundAndBorderLayerWithRect:rect];
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages){
@@ -485,7 +517,7 @@
             [self.scrollView.layer addSublayer:imageLayer];
 			titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             [self.scrollView.layer addSublayer:titleLayer];
-			
+			[self applyAccessibilityButtonsWithRect:imageRect text:[self attributedTitleAtIndex:idx].string index:idx];
             [self addBackgroundAndBorderLayerWithRect:imageRect];
         }];
 	}
@@ -953,6 +985,58 @@
     }
     
     return [resultingAttrs copy];
+}
+
+#pragma mark - Accessibility Support
+
+- (NSArray<UIButton *> *) emptyButtonsArray:(NSUInteger) count {
+    NSMutableArray<UIButton *> *array = [[NSMutableArray alloc] initWithCapacity:count];
+    for (NSUInteger i = 0; i < count; i++) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectZero];
+        [array addObject:button];
+    }
+    return array;
+}
+
+- (void)voiceOverStatusChanged:(NSNotification *)n {
+    [self updateAccessibilityButtonsHidden];
+}
+
+- (void)applyAccessibilityButtonsWithRect:(CGRect)fullRect text:(NSString *)text index:(NSUInteger) index {
+    UIButton *button = self.accessibilityButtons[index];
+    BOOL selected = (index == self.selectedSegmentIndex) ? YES : NO;
+    button.frame = fullRect;
+    button.hidden = !UIAccessibilityIsVoiceOverRunning();
+    button.accessibilityLabel = text;
+    button.accessibilityTraits = UIAccessibilityTraitButton;
+    if (selected) {
+        button.accessibilityTraits |= UIAccessibilityTraitSelected;
+    }
+    [button addTarget:self
+               action:@selector(accessibilityButtonsClicked:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:button];
+}
+
+- (void) updateAccessibilityButtonsHidden {
+    [self.accessibilityButtons enumerateObjectsUsingBlock:^(UIButton* button, NSUInteger idx, BOOL *stop) {
+        button.hidden = !UIAccessibilityIsVoiceOverRunning();
+    }];
+}
+
+- (void)accessibilityButtonsClicked:(id)sender {
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *button = sender;
+        NSInteger i = 0;
+        for (UIButton *btn in _accessibilityButtons) {
+            if (btn == button) {
+                if (_selectedSegmentIndex != i) {
+                    [self setSelectedSegmentIndex:i animated:NO notify:YES];
+                }
+            }
+            i++;
+        }
+    }
 }
 
 @end
