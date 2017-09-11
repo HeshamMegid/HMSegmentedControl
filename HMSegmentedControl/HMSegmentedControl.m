@@ -433,6 +433,7 @@
                     xOffset = xOffset + [width floatValue];
                     i++;
                 }
+                xOffset+=self.segmentEdgeInset.left;
                 
                 BOOL isImageInLineWidthText = self.imagePosition == HMSegmentedControlImagePositionLeftOfText || self.imagePosition == HMSegmentedControlImagePositionRightOfText;
                 if (isImageInLineWidthText) {
