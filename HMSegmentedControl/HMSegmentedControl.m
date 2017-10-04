@@ -1013,7 +1013,7 @@
     UIButton *button = self.accessibilityButtons[index];
     BOOL selected = (index == self.selectedSegmentIndex) ? YES : NO;
     button.frame = fullRect;
-    button.hidden = !UIAccessibilityIsVoiceOverRunning();
+//    button.hidden = !UIAccessibilityIsVoiceOverRunning();
     button.accessibilityLabel = text;
     button.accessibilityTraits = UIAccessibilityTraitButton;
     if (selected) {
@@ -1027,7 +1027,7 @@
 
 - (void) updateAccessibilityButtonsHidden {
     [self.accessibilityButtons enumerateObjectsUsingBlock:^(UIButton* button, NSUInteger idx, BOOL *stop) {
-        button.hidden = !UIAccessibilityIsVoiceOverRunning();
+        //button.hidden = !UIAccessibilityIsVoiceOverRunning();
     }];
 }
 
@@ -1044,6 +1044,23 @@
             i++;
         }
     }
+}
+
+- (BOOL)isAccessibilityElement {
+    return NO;
+}
+
+/* The following methods are implementations of UIAccessibilityContainer protocol methods. */
+- (NSInteger)accessibilityElementCount {
+    return [[self accessibilityButtons] count];
+}
+
+- (id)accessibilityElementAtIndex:(NSInteger)index {
+    return [[self accessibilityButtons] objectAtIndex:index];
+}
+
+- (NSInteger)indexOfAccessibilityElement:(id)element {
+    return [[self accessibilityButtons] indexOfObject:element];
 }
 
 @end
