@@ -673,11 +673,23 @@
         }];
     } else if (self.type == HMSegmentedControlTypeText && self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
         NSMutableArray *mutableSegmentWidths = [NSMutableArray array];
-        
+        __block CGFloat totalWidth = 0.0;
+
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
             CGFloat stringWidth = [self measureTitleAtIndex:idx].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+            totalWidth += stringWidth;
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:stringWidth]];
         }];
+
+        if (self.shouldStretchSegmentsToScreenSize && totalWidth < self.bounds.size.width) {
+            CGFloat whitespace = self.bounds.size.width - totalWidth;
+            CGFloat whitespaceForSegment = whitespace / [mutableSegmentWidths count];
+            [mutableSegmentWidths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CGFloat extendedWidth = whitespaceForSegment + [obj floatValue];
+                [mutableSegmentWidths replaceObjectAtIndex:idx withObject:[NSNumber numberWithFloat:extendedWidth]];
+            }];
+        }
+
         self.segmentWidthsArray = [mutableSegmentWidths copy];
     } else if (self.type == HMSegmentedControlTypeImages) {
         for (UIImage *sectionImage in self.sectionImages) {
