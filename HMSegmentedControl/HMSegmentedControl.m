@@ -791,6 +791,9 @@
             if (self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
         }
+
+        if (self.indexSelectBlock)
+            self.indexSelectBlock(segment);
     }
 }
 
