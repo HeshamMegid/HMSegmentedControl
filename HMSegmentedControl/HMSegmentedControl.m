@@ -229,7 +229,7 @@
     if ([title isKindOfClass:[NSString class]] && !self.titleFormatter) {
         NSDictionary *titleAttrs = selected ? [self resultingSelectedTitleTextAttributes] : [self resultingTitleTextAttributes];
         size = [(NSString *)title sizeWithAttributes:titleAttrs];
-	UIFont *font = titleAttrs[@"NSFont"];
+        UIFont *font = titleAttrs[@"NSFont"];
         size = CGSizeMake(ceil(size.width), ceil(size.height-font.descender));
     } else if ([title isKindOfClass:[NSString class]] && self.titleFormatter) {
         size = [self.titleFormatter(self, title, index, selected) size];
