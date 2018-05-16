@@ -257,7 +257,7 @@
         if (titleColor) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:titleAttrs];
             
-            dict[NSForegroundColorAttributeName] = (id)titleColor.CGColor;
+            dict[NSForegroundColorAttributeName] = titleColor;
             
             titleAttrs = [NSDictionary dictionaryWithDictionary:dict];
         }
