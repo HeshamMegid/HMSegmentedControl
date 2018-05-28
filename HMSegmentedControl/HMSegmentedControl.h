@@ -74,6 +74,12 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  */
 @property (nonatomic, strong) NSDictionary *titleTextAttributes UI_APPEARANCE_SELECTOR;
 
+
+/**
+ Insets to apply to title label
+ */
+@property(nonatomic, readwrite) UIEdgeInsets titleInsets;
+
 /*
  Text attributes to apply to selected item title text.
  

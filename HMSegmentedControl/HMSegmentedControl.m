@@ -321,7 +321,17 @@
             }
             
             // Fix rect position/size to avoid blurry labels
-            rect = CGRectMake(ceilf(rect.origin.x), ceilf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height));
+            rect = CGRectMake(self.titleInsets.left + ceilf(rect.origin.x), self.titleInsets.top + ceilf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height));
+            const CGFloat hInset = self.titleInsets.left + self.titleInsets.right;
+            const CGFloat vInset = self.titleInsets.top + self.titleInsets.bottom;
+            const CGFloat rightDiff = fullRect.origin.x + fullRect.size.width - rect.origin.x + rect.size.width;
+            const CGFloat bottomDiff = fullRect.origin.y + fullRect.size.height - rect.origin.y + rect.size.height;
+            if (rightDiff < hInset) {
+                rect.size.width -= hInset - rightDiff;
+            }
+            if (bottomDiff < vInset) {
+                rect.size.height -= vInset - bottomDiff;
+            }
             
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
