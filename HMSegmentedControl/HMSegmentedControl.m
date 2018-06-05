@@ -633,6 +633,13 @@
                     selectedSegmentOffset = selectedSegmentOffset + [width floatValue];
                     i++;
                 }
+                if (self.selectionStyle == HMSegmentedControlSelectionStyleTextWidthStripe) {
+                    NSNumber *width = self.segmentWidthsArray[self.selectedSegmentIndex];
+                    return CGRectMake(selectedSegmentOffset + (width.floatValue - sectionWidth) / 2,
+                                      indicatorYOffset,
+                                      sectionWidth,
+                                      self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.bottom);
+                }
                 return CGRectMake(selectedSegmentOffset + self.selectionIndicatorEdgeInsets.left, indicatorYOffset, [[self.segmentWidthsArray objectAtIndex:self.selectedSegmentIndex] floatValue] - self.selectionIndicatorEdgeInsets.right, self.selectionIndicatorHeight + self.selectionIndicatorEdgeInsets.bottom);
             }
             
