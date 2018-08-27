@@ -20,6 +20,7 @@
 @property (nonatomic, strong) CALayer *selectionIndicatorArrowLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray<NSNumber *> *segmentWidthsArray;
+@property (nonatomic, readwrite) NSArray<UIAccessibilityElement *> *accessibleElements;
 @property (nonatomic, strong) HMScrollView *scrollView;
 
 @end
@@ -967,6 +968,52 @@
     }
     
     return [resultingAttrs copy];
+}
+
+#pragma mark - Accessibility
+
+- (NSArray *)accessibleElements
+{
+    if (_accessibleElements) {
+        return _accessibleElements;
+    }
+
+    NSMutableArray<UIAccessibilityElement *> *elements = [NSMutableArray array];
+    for (CALayer *layer in self.scrollView.layer.sublayers) {
+        if ([layer isKindOfClass:[CATextLayer class]]) {
+            CATextLayer *textLayer = (CATextLayer *)layer;
+
+            UIAccessibilityElement *element = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self];
+            element.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(textLayer.frame, self.scrollView);
+            element.accessibilityLabel = textLayer.string;
+            element.accessibilityTraits = UIAccessibilityTraitButton;
+            [elements addObject:element];
+        }
+    }
+
+    _accessibleElements = elements;
+
+    return elements;
+}
+
+- (BOOL)isAccessibilityElement
+{
+    return NO;
+}
+
+- (NSInteger)accessibilityElementCount
+{
+    return self.accessibleElements.count;
+}
+
+- (id)accessibilityElementAtIndex:(NSInteger)index
+{
+    return self.accessibleElements[index];
+}
+
+- (NSInteger)indexOfAccessibilityElement:(id)element
+{
+    return [self.accessibleElements indexOfObject:element];
 }
 
 @end
