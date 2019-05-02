@@ -177,6 +177,7 @@
 
 - (void)setSectionTitles:(NSArray<NSString *> *)sectionTitles {
     _sectionTitles = sectionTitles;
+    _accessibleElements = nil;
     
     [self setNeedsLayout];
     [self setNeedsDisplay];
@@ -184,6 +185,7 @@
 
 - (void)setSectionImages:(NSArray<UIImage *> *)sectionImages {
     _sectionImages = sectionImages;
+    _accessibleElements = nil;	
     
     [self setNeedsLayout];
     [self setNeedsDisplay];
