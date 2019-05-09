@@ -55,16 +55,16 @@
     
     // Segmented control with images
     NSArray<UIImage *> *images = @[[UIImage imageNamed:@"1"],
-                        [UIImage imageNamed:@"2"],
-                        [UIImage imageNamed:@"3"],
-                        [UIImage imageNamed:@"4"]];
+                                   [UIImage imageNamed:@"2"],
+                                   [UIImage imageNamed:@"3"],
+                                   [UIImage imageNamed:@"4"]];
     
     NSArray<UIImage *> *selectedImages = @[[UIImage imageNamed:@"1-selected"],
-                                [UIImage imageNamed:@"2-selected"],
-                                [UIImage imageNamed:@"3-selected"],
-                                [UIImage imageNamed:@"4-selected"]];
+                                           [UIImage imageNamed:@"2-selected"],
+                                           [UIImage imageNamed:@"3-selected"],
+                                           [UIImage imageNamed:@"4-selected"]];
     NSArray<NSString *> *titles = @[@"1", @"2", @"3", @"4"];
-
+    
     HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:images sectionSelectedImages:selectedImages titlesForSections:titles];
     segmentedControl2.imagePosition = HMSegmentedControlImagePositionLeftOfText;
     segmentedControl2.frame = CGRectMake(0, 120, viewWidth, 50);
@@ -75,13 +75,16 @@
     segmentedControl2.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic;
     [segmentedControl2 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl2];
-
     
-//     Segmented control with more customization and indexChangeBlock
+    
+    //     Segmented control with more customization and indexChangeBlock
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
     [segmentedControl3 setFrame:CGRectMake(0, 180, viewWidth, 50)];
     [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
         NSLog(@"Selected index %ld (via block)", (long)index);
+    }];
+    [segmentedControl3 setIndexNotChangeBlock:^(NSInteger index) {
+        NSLog(@"Touch index %ld (via block)", (long)index);
     }];
     segmentedControl3.selectionIndicatorHeight = 4.0f;
     segmentedControl3.backgroundColor = [UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1];
@@ -152,11 +155,11 @@
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
+    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
 }
 
 - (void)uisegmentedControlChangedValue:(UISegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %ld", (long)segmentedControl.selectedSegmentIndex);
+    NSLog(@"Selected index %ld", (long)segmentedControl.selectedSegmentIndex);
 }
 
 #pragma mark - UIScrollViewDelegate
