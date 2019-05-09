@@ -804,6 +804,11 @@
             // Check if we have to do anything with the touch event
             if (self.isTouchEnabled)
                 [self setSelectedSegmentIndex:segment animated:self.shouldAnimateUserSelection notify:YES];
+        }else {
+            //Handle the index not changed
+            if (self.indexChangeBlock) {
+                self.indexChangeBlock(segment);
+            }
         }
     }
 }
