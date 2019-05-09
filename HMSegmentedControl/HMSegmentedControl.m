@@ -807,7 +807,7 @@
         }else {
             //Handle the index not changed
             if (self.indexChangeBlock) {
-                self.indexChangeBlock(segment);
+                self.indexChangeBlock(segment, NO);
             }
         }
     }
@@ -944,7 +944,7 @@
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     
     if (self.indexChangeBlock)
-        self.indexChangeBlock(index);
+        self.indexChangeBlock(index, YES);
 }
 
 #pragma mark - Styling Support

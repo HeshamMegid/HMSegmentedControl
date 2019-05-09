@@ -10,7 +10,7 @@
 
 @class HMSegmentedControl;
 
-typedef void (^IndexChangeBlock)(NSInteger index);
+typedef void (^IndexChangeBlock)(NSUInteger index, BOOL isChange);
 typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
 
 typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionStyle) {
