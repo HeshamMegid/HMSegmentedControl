@@ -109,9 +109,9 @@
     self.segmentedControl4.tag = 3;
     
     __weak typeof(self) weakSelf = self;
-//    [self.segmentedControl4 setIndexChangeBlock:^(NSInteger index) {
-//        [weakSelf.scrollView scrollRectToVisible:CGRectMake(viewWidth * index, 0, viewWidth, 200) animated:YES];
-//    }];
+    [self.segmentedControl4 setIndexChangeBlock:^(NSUInteger index, BOOL isChange) {
+        [weakSelf.scrollView scrollRectToVisible:CGRectMake(viewWidth * index, 0, viewWidth, 200) animated:YES];
+    }];
     
     [self.view addSubview:self.segmentedControl4];
     
