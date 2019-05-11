@@ -82,6 +82,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
  */
 @property (nonatomic, strong) NSDictionary *titleTextAttributes UI_APPEARANCE_SELECTOR;
 
+/**
+ Insets to apply to title label
+ */
+@property(nonatomic, readwrite) UIEdgeInsets titleInsets;
+
 /*
  Text attributes to apply to selected item title text.
  
@@ -222,6 +227,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
  Default is 5.0
  */
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
+
+/**
+ Only effective when `HMSegmentedControlSelectionStyle` is `HMSegmentedControlSelectionStyleTextWidthStripe`
+ */
+@property (nonatomic, readwrite) CGFloat selectionIndicatorWidth;
 
 /**
  Edge insets for the selection indicator.
