@@ -634,6 +634,7 @@
     CALayer *backgroundLayer = [CALayer layer];
     backgroundLayer.frame = fullRect;
     [self.layer insertSublayer:backgroundLayer atIndex:0];
+    [self.titleBackgroundLayers addObject:backgroundLayer];
     
     // Border layer
     if (self.borderType & HMSegmentedControlBorderTypeTop) {
