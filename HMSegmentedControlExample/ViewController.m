@@ -152,11 +152,11 @@
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
+	NSLog(@"Selected index %tu (via UIControlEventValueChanged)", segmentedControl.selectedSegmentIndex);
 }
 
 - (void)uisegmentedControlChangedValue:(UISegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %ld", (long)segmentedControl.selectedSegmentIndex);
+	NSLog(@"Selected index %tu", segmentedControl.selectedSegmentIndex);
 }
 
 #pragma mark - UIScrollViewDelegate

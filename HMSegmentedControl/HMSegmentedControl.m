@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <math.h>
 
-NSUInteger HMSegmentedControlNoSegment = -1;
+NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
 
 @protocol HMAccessibilityDelegate <NSObject>
 @required
