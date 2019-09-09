@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <math.h>
 
+NSUInteger HMSegmentedControlNoSegment = -1;
+
 @protocol HMAccessibilityDelegate <NSObject>
 @required
 -(void)scrollToAccessibilityElement:(id)sender;
@@ -74,7 +76,7 @@
 
 @implementation HMSegmentedControl
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -82,7 +84,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
     if (self) {
@@ -92,34 +94,29 @@
     return self;
 }
 
-- (id)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles {
+- (instancetype)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles {
     self = [super initWithFrame:CGRectZero];
-    
     if (self) {
         [self commonInit];
         self.sectionTitles = sectiontitles;
         self.type = HMSegmentedControlTypeText;
     }
-    
     return self;
 }
 
-- (id)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages {
+- (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages {
     self = [super initWithFrame:CGRectZero];
-    
     if (self) {
         [self commonInit];
         self.sectionImages = sectionImages;
         self.sectionSelectedImages = sectionSelectedImages;
         self.type = HMSegmentedControlTypeImages;
     }
-    
     return self;
 }
 
 - (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages titlesForSections:(NSArray<NSString *> *)sectiontitles {
 	self = [super initWithFrame:CGRectZero];
-    
     if (self) {
         [self commonInit];
 		
@@ -132,7 +129,6 @@
 		self.sectionTitles = sectiontitles;
         self.type = HMSegmentedControlTypeTextImages;
     }
-    
     return self;
 }
 
@@ -332,7 +328,7 @@
             } else {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
-                NSInteger i = 0;
+                NSUInteger i = 0;
                 for (NSNumber *width in self.segmentWidthsArray) {
                     if (idx == i)
                         break;
@@ -381,7 +377,7 @@
                 [self.accessibilityElements addObject:element];
             } else {
                 CGFloat offset = 0.f;
-                for (int i = 0; i<idx; i++) {
+                for (NSUInteger i = 0; i<idx; i++) {
                     HMAccessibilityElement *accessibilityItem = [self.accessibilityElements objectAtIndex:i];
                     offset += accessibilityItem.accessibilityFrame.size.width;
                 }
@@ -441,7 +437,7 @@
                 [self.accessibilityElements addObject:element];
             } else {
                 CGFloat offset = 0.f;
-                for (int i = 0; i<idx; i++) {
+                for (NSUInteger i = 0; i<idx; i++) {
                     HMAccessibilityElement *accessibilityItem = [self.accessibilityElements objectAtIndex:i];
                     offset += accessibilityItem.accessibilityFrame.size.width;
                 }
@@ -499,7 +495,7 @@
             } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 // When we are drawing dynamic widths, we need to loop the widths array to calculate the xOffset
                 CGFloat xOffset = 0;
-                NSInteger i = 0;
+                NSUInteger i = 0;
                 
                 for (NSNumber *width in self.segmentWidthsArray) {
                     if (idx == i) {
@@ -574,7 +570,7 @@
                 [self.accessibilityElements addObject:element];
             } else {
                 CGFloat offset = 0.f;
-                for (int i = 0; i<idx; i++) {
+                for (NSUInteger i = 0; i<idx; i++) {
                     HMAccessibilityElement *accessibilityItem = [self.accessibilityElements objectAtIndex:i];
                     offset += accessibilityItem.accessibilityFrame.size.width;
                 }
@@ -725,7 +721,7 @@
             if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
                 CGFloat selectedSegmentOffset = 0.0f;
                 
-                NSInteger i = 0;
+                NSUInteger i = 0;
                 for (NSNumber *width in self.segmentWidthsArray) {
                     if (self.selectedSegmentIndex == i)
                         break;
@@ -744,7 +740,7 @@
     if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
         CGFloat selectedSegmentOffset = 0.0f;
         
-        NSInteger i = 0;
+        NSUInteger i = 0;
         for (NSNumber *width in self.segmentWidthsArray) {
             if (self.selectedSegmentIndex == i) {
                 break;
@@ -874,7 +870,7 @@
                       self.bounds.size.height + self.enlargeEdgeInset.top + self.enlargeEdgeInset.bottom);
     
     if (CGRectContainsPoint(enlargeRect, touchLocation)) {
-        NSInteger segment = 0;
+        NSUInteger segment = 0;
         if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {
             segment = (touchLocation.x + self.scrollView.contentOffset.x) / self.segmentWidth;
         } else if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleDynamic) {
@@ -934,7 +930,7 @@
         
         selectedSegmentOffset = (CGRectGetWidth(self.frame) / 2) - (self.segmentWidth / 2);
     } else {
-        NSInteger i = 0;
+        NSUInteger i = 0;
         CGFloat offsetter = 0;
         for (NSNumber *width in self.segmentWidthsArray) {
             if (index == i)
@@ -960,7 +956,7 @@
 
 #pragma mark - Index Change
 
-- (void)setSelectedSegmentIndex:(NSInteger)index {
+- (void)setSelectedSegmentIndex:(NSUInteger)index {
     [self setSelectedSegmentIndex:index animated:NO notify:NO];
 }
 
@@ -1078,7 +1074,7 @@
     for (HMAccessibilityElement *element in self.accessibilityElements) {
         NSUInteger idx = [self.accessibilityElements indexOfObject:element];
         CGFloat offset = 0.f;
-        for (int i = 0; i<idx; i++) {
+        for (NSUInteger i = 0; i<idx; i++) {
             HMAccessibilityElement *elem = [self.accessibilityElements objectAtIndex:i];
             offset += elem.accessibilityFrame.size.width;
         }
