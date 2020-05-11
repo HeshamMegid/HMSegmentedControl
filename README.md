@@ -1,22 +1,29 @@
 HMSegmentedControl
 ===
 
-[![CocoaPods](https://img.shields.io/cocoapods/dt/HMSegmentedControl.svg?maxAge=2592000)](https://cocoapods.org/pods/HMSegmentedControl)
 [![Pod Version](http://img.shields.io/cocoapods/v/HMSegmentedControl.svg?style=flat)](http://cocoadocs.org/docsets/HMSegmentedControl)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Pod Platform](http://img.shields.io/cocoapods/p/HMSegmentedControl.svg?style=flat)](http://cocoadocs.org/docsets/HMSegmentedControl)
 [![Pod License](http://img.shields.io/cocoapods/l/HMSegmentedControl.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-A highly customizable drop-in replacement for UISegmentedControl, used by more than 22,000 apps, including TikTok, PayPal, Imgure and Bleacher Report.
+A highly customizable drop-in replacement for UISegmentedControl, used by more than 22,000 apps, including TikTok, PayPal, Imgur and Bleacher Report.
+
+![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/6.png)
+
+![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/7.png)
+
+![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/8.png)
+
+
 
 # Features
 
-- Supports both text and images
-- Multiple sizing and selection styles
-- Horizontal scrolling for an infinite number of segments
-- Advanced title styling with text attributes for font, color, kerning, shadow, etc
-- Compatible with both Swift and Objective-C
-- Updated for Xcode 11, iOS 13 and Swift 5. Supports all the way back to iOS 7!
+- 📸 Supports both text and images
+- ↕️ Multiple sizing and selection styles
+- 📜 Horizontal scrolling for an infinite number of segments
+- ⚙️ Advanced title styling with text attributes for font, color, kerning, shadow, etc
+- 🖥 Compatible with both Swift and Objective-C
+- 📱 Updated for Xcode 11, iOS 13 and Swift 5. Supports all the way back to iOS 7!
 
 # Installation
 
@@ -43,6 +50,8 @@ view.addSubview(segmentedControl)
 ```
 
 Included is a demo project showing how to fully customize HMSegmentedControl.
+
+# Possible Styles
 
 ![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/1.png)
 
