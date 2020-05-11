@@ -41,7 +41,7 @@
     segmentedControl1.frame = CGRectMake(0, 60, viewWidth, 40);
     segmentedControl1.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
     segmentedControl1.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-    segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationBottom;
     segmentedControl1.verticalDividerEnabled = YES;
     segmentedControl1.verticalDividerColor = [UIColor blackColor];
     segmentedControl1.verticalDividerWidth = 1.0f;
@@ -70,7 +70,7 @@
     segmentedControl2.frame = CGRectMake(0, 120, viewWidth, 50);
     segmentedControl2.selectionIndicatorHeight = 4.0f;
     segmentedControl2.backgroundColor = [UIColor clearColor];
-    segmentedControl2.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentedControl2.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationBottom;
     segmentedControl2.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     segmentedControl2.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic;
     [segmentedControl2 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
@@ -91,7 +91,7 @@
     segmentedControl3.selectionIndicatorBoxOpacity = 1.0;
     segmentedControl3.selectionStyle = HMSegmentedControlSelectionStyleBox;
     segmentedControl3.selectedSegmentIndex = HMSegmentedControlNoSegment;
-    segmentedControl3.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentedControl3.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationBottom;
     segmentedControl3.shouldAnimateUserSelection = NO;
     segmentedControl3.tag = 2;
     [self.view addSubview:segmentedControl3];
@@ -105,7 +105,7 @@
     self.segmentedControl4.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1]};
     self.segmentedControl4.selectionIndicatorColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1];
     self.segmentedControl4.selectionStyle = HMSegmentedControlSelectionStyleBox;
-    self.segmentedControl4.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
+    self.segmentedControl4.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationTop;
     self.segmentedControl4.tag = 3;
     
     __weak typeof(self) weakSelf = self;
