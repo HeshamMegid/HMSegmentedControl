@@ -408,7 +408,7 @@
             CALayer *imageLayer = [CALayer layer];
             imageLayer.frame = rect;
             
-            if (self.selectedSegmentIndex == idx) {
+            if (self.selectedSegmentIndex == idx && self.selectedSegmentIndex < self.sectionSelectedImages.count) {
                 if (self.sectionSelectedImages) {
                     UIImage *highlightIcon = [self.sectionSelectedImages objectAtIndex:idx];
                     imageLayer.contents = (id)highlightIcon.CGImage;
