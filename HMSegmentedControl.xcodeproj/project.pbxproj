@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		543B015D2469B53100AF70BB /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543B015C2469B53100AF70BB /* ExampleViewController.swift */; };
 		9C1632E71DA57214001FB468 /* HMSegmentedControl-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C1632E41DA57214001FB468 /* HMSegmentedControl-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C1632EC1DA57220001FB468 /* HMSegmentedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C1632EA1DA57220001FB468 /* HMSegmentedControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C1632ED1DA57220001FB468 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1632EB1DA57220001FB468 /* HMSegmentedControl.m */; };
@@ -59,6 +60,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		543B015B2469B53100AF70BB /* HMSegmentedControlExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HMSegmentedControlExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		543B015C2469B53100AF70BB /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		9C1632D81DA57134001FB468 /* HMSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C1632E41DA57214001FB468 /* HMSegmentedControl-umbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HMSegmentedControl-umbrella.h"; sourceTree = "<group>"; };
 		9C1632E51DA57214001FB468 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -156,11 +159,13 @@
 				9C16330A1DA57320001FB468 /* AppDelegate.m */,
 				9C1633221DA57320001FB468 /* ViewController.h */,
 				9C1633231DA57320001FB468 /* ViewController.m */,
+				543B015C2469B53100AF70BB /* ExampleViewController.swift */,
 				9C1633101DA57320001FB468 /* Images */,
 				9C16330E1DA57320001FB468 /* HMSegmentedControlExample-Info.plist */,
 				9C16330F1DA57320001FB468 /* HMSegmentedControlExample-Prefix.pch */,
 				9C1633211DA57320001FB468 /* Launch Screen.xib */,
 				9C1632F41DA572BA001FB468 /* Supporting Files */,
+				543B015B2469B53100AF70BB /* HMSegmentedControlExample-Bridging-Header.h */,
 			);
 			path = HMSegmentedControlExample;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 					9C1632F11DA572BA001FB468 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = C75GEDTP26;
+						LastSwiftMigration = 1140;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -336,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C1633381DA57320001FB468 /* ViewController.m in Sources */,
+				543B015D2469B53100AF70BB /* ExampleViewController.swift in Sources */,
 				9C1633421DA574EB001FB468 /* main.m in Sources */,
 				9C1633241DA57320001FB468 /* AppDelegate.m in Sources */,
 			);
@@ -519,22 +526,29 @@
 		9C1633071DA572BA001FB468 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = C75GEDTP26;
 				INFOPLIST_FILE = "$(SRCROOT)/HMSegmentedControlExample/HMSegmentedControlExample-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.heshammegid.HMSegmentedControlExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HMSegmentedControlExample/HMSegmentedControlExample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		9C1633081DA572BA001FB468 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = C75GEDTP26;
 				INFOPLIST_FILE = "$(SRCROOT)/HMSegmentedControlExample/HMSegmentedControlExample-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.heshammegid.HMSegmentedControlExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HMSegmentedControlExample/HMSegmentedControlExample-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

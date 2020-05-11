@@ -23,13 +23,12 @@
     
     self.title = @"HMSegmentedControl Demo";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     CGFloat viewWidth = CGRectGetWidth(self.view.frame);
     
     // Minimum code required to use the segmented control with the default styling.
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Trending", @"News", @"Library"]];
-    segmentedControl.frame = CGRectMake(0, 20, viewWidth, 40);
+    segmentedControl.frame = CGRectMake(0, 60, viewWidth, 40);
     segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
@@ -38,7 +37,7 @@
     // Segmented control with scrolling
     HMSegmentedControl *segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
     segmentedControl1.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-    segmentedControl1.frame = CGRectMake(0, 60, viewWidth, 40);
+    segmentedControl1.frame = CGRectMake(0, 120, viewWidth, 40);
     segmentedControl1.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
     segmentedControl1.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationBottom;
@@ -46,7 +45,10 @@
     segmentedControl1.verticalDividerColor = [UIColor blackColor];
     segmentedControl1.verticalDividerWidth = 1.0f;
     [segmentedControl1 setTitleFormatter:^NSAttributedString *(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected) {
-        NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName : [UIColor blueColor]}];
+        NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{
+            NSForegroundColorAttributeName : [UIColor blackColor],
+            NSFontAttributeName : [UIFont systemFontOfSize:19]
+        }];
         return attString;
     }];
     [segmentedControl1 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
@@ -67,7 +69,7 @@
 
     HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:images sectionSelectedImages:selectedImages titlesForSections:titles];
     segmentedControl2.imagePosition = HMSegmentedControlImagePositionLeftOfText;
-    segmentedControl2.frame = CGRectMake(0, 120, viewWidth, 50);
+    segmentedControl2.frame = CGRectMake(0, 200, viewWidth, 50);
     segmentedControl2.selectionIndicatorHeight = 4.0f;
     segmentedControl2.backgroundColor = [UIColor clearColor];
     segmentedControl2.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationBottom;
@@ -79,7 +81,7 @@
     
 //     Segmented control with more customization and indexChangeBlock
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
-    [segmentedControl3 setFrame:CGRectMake(0, 180, viewWidth, 50)];
+    [segmentedControl3 setFrame:CGRectMake(0, 280, viewWidth, 50)];
     [segmentedControl3 setIndexChangeBlock:^(NSUInteger index) {
         NSLog(@"Selected index %tu (via block)", index);
     }];
@@ -97,7 +99,7 @@
     [self.view addSubview:segmentedControl3];
     
     // Tying up the segmented control to a scroll view
-    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 260, viewWidth, 50)];
+    self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 380, viewWidth, 50)];
     self.segmentedControl4.sectionTitles = @[@"Worldwide", @"Local", @"Headlines"];
     self.segmentedControl4.selectedSegmentIndex = 1;
     self.segmentedControl4.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
@@ -115,7 +117,7 @@
     
     [self.view addSubview:self.segmentedControl4];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 310, viewWidth, 210)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 430, viewWidth, 210)];
     self.scrollView.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;

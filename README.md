@@ -7,45 +7,52 @@ HMSegmentedControl
 [![Pod Platform](http://img.shields.io/cocoapods/p/HMSegmentedControl.svg?style=flat)](http://cocoadocs.org/docsets/HMSegmentedControl)
 [![Pod License](http://img.shields.io/cocoapods/l/HMSegmentedControl.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-A drop-in replacement for UISegmentedControl mimicking the style of the segmented control used in Google Currents and various other Google products.
+A highly customizable drop-in replacement for UISegmentedControl, used by more than 22,000 apps, including TikTok, PayPal, Imgure and Bleacher Report.
 
 # Features
+
 - Supports both text and images
-- Support horizontal scrolling
-- Supports advanced title styling with text attributes for font, color, kerning, shadow, etc.
-- Supports selection indicator both on top and bottom
-- Supports blocks
-- Works with ARC and iOS >= 7
+- Multiple sizing and selection styles
+- Horizontal scrolling for an infinite number of segments
+- Advanced title styling with text attributes for font, color, kerning, shadow, etc
+- Compatible with both Swift and Objective-C
+- Updated for Xcode 11, iOS 13 and Swift 5. Supports all the way back to iOS 7!
 
 # Installation
-
-### CocoaPods
-The easiest way of installing HMSegmentedControl is via [CocoaPods](http://cocoapods.org/). 
 
 ```
 pod 'HMSegmentedControl'
 ```
 
-### Old-fashioned way
-
-- Add `HMSegmentedControl.h` and `HMSegmentedControl.m` to your project.
-- Add `QuartzCore.framework` to your linked frameworks.
-- `#import "HMSegmentedControl.h"` where you want to add the control.
+Installation via Carthage is also supported..
 
 # Usage
 
 The code below will create a segmented control with the default looks:
 
-```  objective-c
-HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three"]];
-segmentedControl.frame = CGRectMake(10, 10, 300, 60);
-[segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-[self.view addSubview:segmentedControl];
+```swift
+let segmentedControl = HMSegmentedControl(sectionTitles: [
+    "Trending",
+    "News",
+    "Library"
+])
+
+segmentedControl.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+segmentedControl.addTarget(self, action: #selector(segmentedControlChangedValue(segmentedControl:)), for: .valueChanged)
+view.addSubview(segmentedControl)
 ```
 
-Included is a demo project showing how to fully customise the control.
+Included is a demo project showing how to fully customize HMSegmentedControl.
 
-![HMSegmentedControl](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshot.png)
+![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/1.png)
+
+![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/2.png)
+
+![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/3.png)
+
+![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/4.png)
+
+![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/5.png)
 
 # Apps using HMSegmentedControl
 
