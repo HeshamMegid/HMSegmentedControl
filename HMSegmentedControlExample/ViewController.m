@@ -80,8 +80,8 @@
 //     Segmented control with more customization and indexChangeBlock
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
     [segmentedControl3 setFrame:CGRectMake(0, 180, viewWidth, 50)];
-    [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
-        NSLog(@"Selected index %ld (via block)", (long)index);
+    [segmentedControl3 setIndexChangeBlock:^(NSUInteger index) {
+        NSLog(@"Selected index %tu (via block)", index);
     }];
     segmentedControl3.selectionIndicatorHeight = 4.0f;
     segmentedControl3.backgroundColor = [UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1];
@@ -109,7 +109,7 @@
     self.segmentedControl4.tag = 3;
     
     __weak typeof(self) weakSelf = self;
-    [self.segmentedControl4 setIndexChangeBlock:^(NSInteger index) {
+    [self.segmentedControl4 setIndexChangeBlock:^(NSUInteger index) {
         [weakSelf.scrollView scrollRectToVisible:CGRectMake(viewWidth * index, 0, viewWidth, 200) animated:YES];
     }];
     
@@ -152,11 +152,11 @@
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
+	NSLog(@"Selected index %tu (via UIControlEventValueChanged)", segmentedControl.selectedSegmentIndex);
 }
 
 - (void)uisegmentedControlChangedValue:(UISegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %ld", (long)segmentedControl.selectedSegmentIndex);
+	NSLog(@"Selected index %tu", segmentedControl.selectedSegmentIndex);
 }
 
 #pragma mark - UIScrollViewDelegate
