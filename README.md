@@ -8,12 +8,13 @@ HMSegmentedControl
 
 A highly customizable drop-in replacement for UISegmentedControl, used by more than 22,000 apps, including TikTok, PayPal, Imgur and Bleacher Report.
 
-![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/6.png)
-
-![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/7.png)
-
-![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/8.png)
-
+<div align="center">
+<img src="https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/6.PNG" width="70%">
+<br /><br />
+<img src="https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/8.jpeg" width="70%">
+<br /><br />
+<img src="https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/7.PNG" width="70%">
+</div>
 
 
 # Features
@@ -53,15 +54,17 @@ Included is a demo project showing how to fully customize HMSegmentedControl.
 
 # Possible Styles
 
-![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/1.png)
-
-![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/2.png)
-
-![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/3.png)
-
-![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/4.png)
-
-![](https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/5.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/1.png" width="70%">
+<br /><br />
+<img src="https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/2.png" width="70%">
+<br /><br />
+<img src="https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/3.png" width="70%">
+<br /><br />
+<img src="https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/4.png" width="70%">
+<br /><br />
+<img src="https://raw.githubusercontent.com/HeshamMegid/HMSegmentedControl/master/Screenshots/5.png" width="70%">
+</div>
 
 # Apps using HMSegmentedControl
 
