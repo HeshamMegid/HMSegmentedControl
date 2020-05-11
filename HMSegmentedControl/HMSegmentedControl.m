@@ -31,6 +31,7 @@
 @property (nonatomic, readwrite) NSArray<NSNumber *> *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *accessibilityElements;
+@property (nonatomic, strong) NSMutableArray *titleBackgroundLayers;
 
 @end
 
@@ -237,6 +238,14 @@
     [self setNeedsDisplay];
 }
 
+- (NSMutableArray *)titleBackgroundLayers {
+    if (_titleBackgroundLayers) {
+        return _titleBackgroundLayers;
+    }
+    _titleBackgroundLayers = @[].mutableCopy;
+    return _titleBackgroundLayers;
+}
+
 #pragma mark - Drawing
 
 - (CGSize)measureTitleAtIndex:(NSUInteger)index {
@@ -309,6 +318,7 @@
         self.accessibilityElements = [NSMutableArray arrayWithCapacity:0];
     
     if (self.type == HMSegmentedControlTypeText) {
+        [self removeTitleBackgroundLayers];
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
 
             CGFloat stringWidth = 0;
@@ -397,6 +407,7 @@
             [self addBackgroundAndBorderLayerWithRect:fullRect];
         }];
     } else if (self.type == HMSegmentedControlTypeImages) {
+        [self removeTitleBackgroundLayers];
         [self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
             UIImage *icon = iconImage;
             CGFloat imageWidth = icon.size.width;
@@ -457,6 +468,7 @@
             [self addBackgroundAndBorderLayerWithRect:rect];
         }];
     } else if (self.type == HMSegmentedControlTypeTextImages){
+        [self removeTitleBackgroundLayers];
 		[self.sectionImages enumerateObjectsUsingBlock:^(id iconImage, NSUInteger idx, BOOL *stop) {
             UIImage *icon = iconImage;
             CGFloat imageWidth = icon.size.width;
@@ -612,11 +624,17 @@
     }
 }
 
+- (void)removeTitleBackgroundLayers {
+    [self.titleBackgroundLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+    [self.titleBackgroundLayers removeAllObjects];
+}
+
 - (void)addBackgroundAndBorderLayerWithRect:(CGRect)fullRect {
     // Background layer
     CALayer *backgroundLayer = [CALayer layer];
     backgroundLayer.frame = fullRect;
     [self.layer insertSublayer:backgroundLayer atIndex:0];
+    [self.titleBackgroundLayers addObject:backgroundLayer];
     
     // Border layer
     if (self.borderType & HMSegmentedControlBorderTypeTop) {
