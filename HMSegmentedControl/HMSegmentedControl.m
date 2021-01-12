@@ -177,6 +177,9 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
     self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
     self.selectionIndicatorBoxOpacity = 0.2;
     
+    self.usingSegmentEdgeInsetLeftToLayout = NO;
+    self.textAlignmentMode = kCAAlignmentCenter;
+    
     self.contentMode = UIViewContentModeRedraw;
 }
 
@@ -240,6 +243,16 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
     }
     _titleBackgroundLayers = @[].mutableCopy;
     return _titleBackgroundLayers;
+}
+
+- (void)setUsingSegmentEdgeInsetLeftToLayout:(BOOL)usingSegmentEdgeInsetLeftToLayout {
+    _usingSegmentEdgeInsetLeftToLayout = usingSegmentEdgeInsetLeftToLayout;
+    [self setNeedsDisplay];
+}
+
+- (void)setTextAlignmentMode:(CATextLayerAlignmentMode)textAlignmentMode {
+    _textAlignmentMode = textAlignmentMode;
+    [self setNeedsDisplay];
 }
 
 #pragma mark - Drawing
@@ -348,6 +361,10 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
                 
                 CGFloat widthForIndex = [[self.segmentWidthsArray objectAtIndex:idx] floatValue];
                 rect = CGRectMake(xOffset, y, widthForIndex, stringHeight);
+                if (self.usingSegmentEdgeInsetLeftToLayout == YES) {
+                    rect.origin.x += self.segmentEdgeInset.left;
+                    rect.size.width -= self.segmentEdgeInset.left;
+                }
                 fullRect = CGRectMake(xOffset, 0, widthForIndex, oldRect.size.height);
                 rectDiv = CGRectMake(xOffset - (self.verticalDividerWidth / 2), self.selectionIndicatorHeight * 2, self.verticalDividerWidth, self.frame.size.height - (self.selectionIndicatorHeight * 4));
             }
@@ -358,6 +375,9 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
             titleLayer.alignmentMode = kCAAlignmentCenter;
+            if (self.textAlignmentMode != nil) {
+                titleLayer.alignmentMode = self.textAlignmentMode;
+            }
             if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
                 titleLayer.truncationMode = kCATruncationEnd;
             }

@@ -255,6 +255,15 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
 
+/* Describes how individual lines of text are aligned within the layer
+ * bounds. The possible options are `natural', `left', `right',
+ * `center' and `justified'. Defaults to `natural'. */
+
+@property(nonatomic, copy) CATextLayerAlignmentMode textAlignmentMode;
+
+/* Using segmentEdgeInset left to layout text layer */
+@property(nonatomic, assign) BOOL usingSegmentEdgeInsetLeftToLayout;
+
 - (instancetype)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles;
 - (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages;
 - (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages titlesForSections:(NSArray<NSString *> *)sectiontitles;
