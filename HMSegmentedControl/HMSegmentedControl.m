@@ -279,7 +279,12 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
         
         // the color should be cast to CGColor in order to avoid invalid context on iOS7
         UIColor *titleColor = titleAttrs[NSForegroundColorAttributeName];
-        
+
+		// Core Animation objects (in this case, CATextLayer) won't reflect a change in the current trait collection. So we need to resolve explicitly.
+        if (@available(iOS 13.0, *)) {
+            titleColor = [titleColor resolvedColorWithTraitCollection: UITraitCollection.currentTraitCollection];
+        }
+
         if (titleColor) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:titleAttrs];
             
