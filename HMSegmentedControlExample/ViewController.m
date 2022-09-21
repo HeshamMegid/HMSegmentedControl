@@ -29,10 +29,30 @@
     // Minimum code required to use the segmented control with the default styling.
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Trending", @"News", @"Library"]];
     segmentedControl.frame = CGRectMake(0, 60, viewWidth, 40);
-    segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+//    segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    segmentedControl.type = HMSegmentedControlTypeText;
+    segmentedControl.segmentEdgeInset = UIEdgeInsetsMake(0, 16, 0, 16);
+    segmentedControl.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic;
+    segmentedControl.borderType = HMSegmentedControlBorderTypeNone;
+    segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationNone;
+    segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;;
+    segmentedControl.selectionIndicatorBoxColor = [UIColor colorWithRed:0.882 green:0 blue:1 alpha:1];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    segmentedControl.titleBackgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.3];
+    segmentedControl.titleBackgroundRadius = 0.5;
+    segmentedControl.segmentMarginInset = UIEdgeInsetsMake(0, 0, 0, 8);
+    segmentedControl.segmentHeight = 40;
+    [segmentedControl setTitleFormatter:^NSAttributedString * _Nonnull(HMSegmentedControl * _Nonnull segmentedControl, NSString * _Nonnull title, NSUInteger index, BOOL selected) {
+        return [[NSAttributedString alloc] initWithString:title attributes:@{
+            NSFontAttributeName: [UIFont systemFontOfSize:14],
+            NSForegroundColorAttributeName: [UIColor purpleColor],
+            NSBaselineOffsetAttributeName:@(-10)
+        }];
+    }];
     [self.view addSubview:segmentedControl];
     
+    CALayer *layer = [segmentedControl valueForKey:@"selectionIndicatorBoxLayer"];
+    layer.cornerRadius = 20;
     
     // Segmented control with scrolling
     HMSegmentedControl *segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
@@ -154,11 +174,11 @@
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %tu (via UIControlEventValueChanged)", segmentedControl.selectedSegmentIndex);
+    NSLog(@"Selected index %tu (via UIControlEventValueChanged)", segmentedControl.selectedSegmentIndex);
 }
 
 - (void)uisegmentedControlChangedValue:(UISegmentedControl *)segmentedControl {
-	NSLog(@"Selected index %tu", segmentedControl.selectedSegmentIndex);
+    NSLog(@"Selected index %tu", segmentedControl.selectedSegmentIndex);
 }
 
 #pragma mark - UIScrollViewDelegate
