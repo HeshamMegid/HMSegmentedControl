@@ -142,7 +142,10 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
 - (void)commonInit {
     self.scrollView = [[HMScrollView alloc] init];
     self.scrollView.delegate = self;
+#ifdef TARGET_OS_TV
+#else
     self.scrollView.scrollsToTop = NO;
+#endif
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
