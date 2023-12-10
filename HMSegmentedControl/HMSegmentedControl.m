@@ -142,9 +142,13 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
 - (void)commonInit {
     self.scrollView = [[HMScrollView alloc] init];
     self.scrollView.delegate = self;
+#ifdef TARGET_OS_TV
+#else
     self.scrollView.scrollsToTop = NO;
+#endif
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [self addSubview:self.scrollView];
     
     _backgroundColor = [UIColor whiteColor];
@@ -154,6 +158,7 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
 
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
+    self.scrollViewInsets = UIEdgeInsetsZero;
     self.selectionIndicatorHeight = 5.0f;
     self.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
     self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
@@ -167,8 +172,10 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
     _verticalDividerColor = [UIColor blackColor];
     self.borderColor = [UIColor blackColor];
     self.borderWidth = 1.0f;
+    self.titleLayerAlignmentMode = kCAAlignmentCenter;
     
     self.shouldAnimateUserSelection = YES;
+    self.shouldScrollToUserSelectionAnimated = YES;
     
     self.selectionIndicatorArrowLayer = [CALayer layer];
     self.selectionIndicatorStripLayer = [CALayer layer];
@@ -357,7 +364,7 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
             
             CATextLayer *titleLayer = [CATextLayer layer];
             titleLayer.frame = rect;
-            titleLayer.alignmentMode = kCAAlignmentCenter;
+            titleLayer.alignmentMode = self.titleLayerAlignmentMode;
             if ([UIDevice currentDevice].systemVersion.floatValue < 10.0 ) {
                 titleLayer.truncationMode = kCATruncationEnd;
             }
@@ -778,7 +785,7 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
 }
 
 - (void)updateSegmentsRects {
-    self.scrollView.contentInset = UIEdgeInsetsZero;
+    self.scrollView.contentInset = self.scrollViewInsets;
     self.scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
     
     if ([self sectionCount] > 0) {
@@ -937,8 +944,8 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
     }
 }
 
-- (void)scrollToSelectedSegmentIndex:(BOOL)animated {
-    [self scrollTo:self.selectedSegmentIndex animated:animated];
+- (void)scrollToSelectedSegmentIndex {
+    [self scrollTo:self.selectedSegmentIndex animated:self.shouldScrollToUserSelectionAnimated];
 }
 
 - (void)scrollTo:(NSUInteger)index animated:(BOOL)animated {
@@ -995,8 +1002,8 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
         [self.selectionIndicatorStripLayer removeFromSuperlayer];
         [self.selectionIndicatorBoxLayer removeFromSuperlayer];
     } else {
-        [self scrollToSelectedSegmentIndex:animated];
-        
+        [self scrollToSelectedSegmentIndex];
+
         if (animated) {
             // If the selected segment layer is not added to the super layer, that means no
             // index is currently selected, so add the layer then move it to the new

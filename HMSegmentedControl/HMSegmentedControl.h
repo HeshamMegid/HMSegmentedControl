@@ -85,6 +85,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
  */
 @property (nonatomic, strong) NSDictionary *titleTextAttributes UI_APPEARANCE_SELECTOR;
 
+/**
+ Alignment mode for the title layer.
+ Defaults to Center.
+ */
+@property (nonatomic, strong) CATextLayerAlignmentMode titleLayerAlignmentMode;
 /*
  Text attributes to apply to selected item title text.
  
@@ -227,6 +232,12 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
 @property (nonatomic, readwrite) CGFloat selectionIndicatorHeight;
 
 /**
+ Insets for scrollView
+ Default is .zero
+ */
+@property (nonatomic, readwrite) UIEdgeInsets scrollViewInsets;
+
+/**
  Edge insets for the selection indicator.
  NOTE: This does not affect the bounding box of HMSegmentedControlSelectionStyleBox
  
@@ -254,6 +265,12 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
  Default is YES. Set to NO to disable animation during user selection.
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
+
+/**
+ Default is YES. Set to NO to disable scrolling to the selected segment on user selection.
+ Use shouldAnimateUserSelection to disable the animation on indicator.
+ */
+@property (nonatomic) BOOL shouldScrollToUserSelectionAnimated;
 
 - (instancetype)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles;
 - (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages;
