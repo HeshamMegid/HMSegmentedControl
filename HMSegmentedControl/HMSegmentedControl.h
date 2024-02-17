@@ -251,6 +251,24 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
 @property (nonatomic, readwrite) UIEdgeInsets enlargeEdgeInset;
 
 /**
+ Inset left and right edges of between segments.
+ 
+ Default is UIEdgeInsetsMake(0, 0, 0, 0)
+ */
+@property (nonatomic, readwrite) UIEdgeInsets segmentMarginInset;
+/**
+ Color for the title background
+ */
+@property (nonatomic, strong) UIColor *titleBackgroundColor;
+/**
+ Radius for the title background：0~1.0
+ */
+@property (nonatomic) CGFloat titleBackgroundRadius;
+/**
+ Height for the segment item
+ */
+@property (nonatomic) CGFloat segmentHeight;
+/**
  Default is YES. Set to NO to disable animation during user selection.
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
