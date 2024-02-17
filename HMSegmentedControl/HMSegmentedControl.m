@@ -901,12 +901,18 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
             // To know which segment the user touched, we need to loop over the widths and substract it from the x position.
             CGFloat widthLeft = (touchLocation.x + self.scrollView.contentOffset.x);
             for (NSNumber *width in self.segmentWidthsArray) {
-                widthLeft = widthLeft - [width floatValue];
+                CGFloat fullWidth = (self.segmentMarginInset.left + self.segmentMarginInset.right + [width floatValue]);
+                if(widthLeft < self.segmentMarginInset.left ||
+                   (widthLeft > self.segmentMarginInset.left + [width floatValue] && widthLeft < fullWidth)) {
+                    segment = self.selectedSegmentIndex;
+                    break;
+                }
+                
+                widthLeft = widthLeft - fullWidth ;
                 
                 // When we don't have any width left to substract, we have the segment index.
                 if (widthLeft <= 0)
                     break;
-                
                 segment++;
             }
         }
